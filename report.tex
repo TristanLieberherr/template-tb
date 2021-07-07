@@ -6,7 +6,7 @@
 
 \usepackage[nooldvoltagedirection,european,americaninductors]{circuitikz}
 
-\signature{mbernasconi.svg}
+\signature{signature.svg}
 
 \makenomenclature
 \makenoidxglossaries
@@ -34,19 +34,19 @@
 
 %% Résumé / Version abbrégée
 \begin{abstract}
-    \input{abstract}
+  \input{abstract}
 \end{abstract}
 
 %% Sommaire et tables
 \clearemptydoublepage
 {
-    \tableofcontents
-    \let\cleardoublepage\clearpage
-    \listoffigures
-    \let\cleardoublepage\clearpage
-    \listoftables
-    \let\cleardoublepage\clearpage
-    \listoflistings
+  \tableofcontents
+  \let\cleardoublepage\clearpage
+  \listoffigures
+  \let\cleardoublepage\clearpage
+  \listoftables
+  \let\cleardoublepage\clearpage
+  \listoflistings
 }
 
 \printnomenclature
@@ -55,6 +55,196 @@
 
 %% Contenu
 \mainmatter
+\chapter{Etude préliminaire}
+
+\section{Identification de la problématique}
+En l'état actuel, il n'y a pas de système automatisé pour déposer des demandes de travaux au FabLab. Il faut s'adresser à un technicien et discuter avec pour pouvoir lui soumettre son projet, et attendre qu'il ait fini avant d'aller récupérer le résultat. Pendant le temps où le technicien est à l'œuvre, le client n'a aucune idée de l'état d'avancement de sa demande. En cas de souci, le technicien doit recontacter le client, lui demander des clarifications ou des fichiers, avant de pouvoir continuer. 
+
+D'après la description de la procédure actuelle, il est possible de mettre en évidence les défauts :
+
+\begin{enumerate}
+  \item Aucun suivi des travaux pour le client
+  \item Echanges éparpillés : email, vocal
+  \item Risque de désorganisation
+  \item Manque de clarté quant à la procédure
+\end{enumerate}
+
+\section{Cas d'utilisation}
+Pour répondre aux problèmes mis en évidence, j'ai imaginé la nouvelle procédure de demandes de travaux. Dans cette procédure, il y a deux acteurs :
+
+\begin{itemize}
+  \item Le client : personne qui dépose la demande
+  \item Le technicien : personne qui s'occupe de réaliser le travail
+\end{itemize}
+
+Cas de figure :
+
+Le client veut réaliser une pièce fraisée pour son projet multidisciplinaire. Il se connecte sur l'interface web via le login Switch AAI, comme il en a l'habitude avec les autres services proposés par l'école. Arrivé sur la page, il peut consulter la liste des travaux réalisables, avant de remplir le formulaire. Il indique le type de travail parmi ceux disponibles, y dépose éventuellement les fichiers nécessaires et envoie la demande. Il peut voir que sa demande figure désormais dans sa liste de demandes.
+
+Du côté du technicien, il a accès à la liste de tous les travaux déposés. Quand il voit la nouvelle demande, il se l'attribue et peut désormais voir toutes les informations du travail : type, fichiers, commentaire et messages. Lorsqu'il se met au travail, il fait changer l'état de la demande, pour que le client puisse consulter l'avancement. 
+Malheureusement, il manque un fichier crucial pour la réalisation et il se retrouve bloqué. Il change l'état de la demande, et envoie un message instantané au client, lui demandant d'ajouter le fichier manquant.
+
+Quand le client est notifié par mail de ce changement d'état, il se connecte et voit qu'il a reçu un nouveau message lui demandant d'ajouter le fichier. C'est donc ce qu'il fait : il ajoute le fichier et remercie le technicien de l'avoir prévenu.
+
+Le technicien, notifié par l'ajout du fichier, télécharge ce dernier et peut se remettre au travail. Lorsque le travail est terminé, il l'indique pour que le client puisse venir chercher la pièce.
+
+Le client, une fois la pièce récupérée et le technicien remercié, évalue la qualité du travail avant de disposer de la demande désormais accomplie.
+
+\figi{BPMN.xml}{14cm}{Diagramme BPMN du cas d'utilisation}
+
+Bien sûr, les échanges seront disponibles en toutes circonstances, dès lors que le travail a été assigné à un technicien. Les acteurs pourront en tout temps s'échanges des messages instantanés et des fichiers.
+\newpage
+
+\section{Analyse des besoins et fonctions}
+
+\begin{table}[h]
+  \begin{center}
+    \caption{Besoins des clients \label{specification}}
+    \begin{tabularx}{\textwidth}{cXc}
+      No.  & Besoin                                                                                                         \\ \toprule
+      N1.1 & Être capable de déposer des demandes de travaux                                                                \\ \midrule
+      N1.2 & Être capable de consulter les demandes déposées et leur état d'avancement, fichiers joints et messages envoyés \\ \midrule
+      N1.3 & Besoin d'être averti en étant hors-ligne d'évènements liés aux demandes                                        \\ \midrule
+      N1.4 & Nécessité de pouvoir communiquer efficacement avec le technicien, d'échanger des messages et des fichiers      \\ \midrule
+      N1.5 & Pouvoir accéder et interagir avec l'interface depuis un PC ou un Smartphone                                    \\ \midrule
+      N1.6 & Besoin de récupérer et d'évaluer le travail accompli                                                           \\ \midrule
+    \end{tabularx}
+  \end{center}
+\end{table}
+
+\begin{table}[h]
+  \begin{center}
+    \caption{Besoins des techniciens \label{specification}}
+    \begin{tabularx}{\textwidth}{cXc}
+      No.  & Besoin                                                                                                          \\ \toprule
+      N2.1 & Avoir la possibilité de consulter les demandes non assignées et de se les assigner                              \\ \midrule
+      N2.2 & Être capable de consulter les demandes assignées et leur état d'avancement, fichiers joints et messages envoyés \\ \midrule
+      N2.3 & Être capable de mettre à jour l'état d'avancement des commandes assignées                                       \\ \midrule
+      N2.4 & Besoin d'être averti en étant hors-ligne d'évènements liés aux demandes                                         \\ \midrule
+      N2.5 & Nécessité de pouvoir communiquer efficacement avec le client, d'échanger des messages et des fichiers           \\ \midrule
+      N2.6 & Pouvoir accéder et interagir avec l'interface depuis un PC ou un Smartphone                                     \\ \midrule
+    \end{tabularx}
+  \end{center}
+\end{table}
+
+\begin{table}[h]
+  \begin{center}
+    \caption{Fonctions du système \label{specification}}
+    \begin{tabularx}{\textwidth}{cXcc}
+      No. & Besoin                                                                                                                                                                                     & Besoin No. \\ \toprule
+      F1  & Créer une nouvelle demande de travaux via un formulaire adaptatif en fonction du type de travail, avec possibilité de joindre des fichiers et un commentaire à l’intention des techniciens & N1.1       \\ \midrule
+      F2  & Visualiser une liste des travaux déposés ou assignés, contenant pour chaque demande toutes les informations associées                                                                      & N1.2, N2.2 \\ \midrule
+      F3  & Visualiser une liste de tous les travaux non assignés, contenant pour chaque demande les informations du formulaire                                                                        & N2.1       \\ \midrule
+      F4  & Possibilité de s’assigner des demandes non assignées                                                                                                                                       & N2.1       \\ \midrule
+      F5  & Echanger des messages instantanés depuis un salon de discussion lié à une demande                                                                                                          & N1.4, N2.5 \\ \midrule
+      F6  & Ajouter des fichiers à une demande                                                                                                                                                         & N1.4, N2.5 \\ \midrule
+      F7  & Possibilité de personnaliser les notifications par mail en fonction des évènements liés à une demande                                                                                      & N1.3, N2.4 \\ \midrule
+      F8  & Modifier l’état des demandes                                                                                                                                                               & N2.3       \\ \midrule
+      F9  & Adaptation automatique de l’interface graphique au type et à la taille de l’écran de l’appareil utilisé                                                                                    & N1.5, N2.6 \\ \midrule
+      F10 & Suppression d’une demande terminée                                                                                                                                                         & N1.6       \\ \midrule
+      F11 & Evaluation du travail accompli                                                                                                                                                             & N1.6       \\ \midrule
+    \end{tabularx}
+  \end{center}
+\end{table}
+
+\section{Choix technologiques}
+\section{Spécifications}
+\section{Matériel nécessaire}
+
+\chapter{Vue d'ensemble}
+
+Avant de parler en détail des aspects techniques, ce chapitre a pour but de dresser une vue d'ensemble des composants du système, afin de se familiariser avec son fonctionnement.
+
+\section{Pages web}
+
+La structure d'un site est assez simple : c'est un ensemble de pages consultables à la demande. Chaque page possède du code HTML, responsable de la mise en forme du contenu, et du code Javascript, qui permet d'exécuter des actions, par example quand on clique sur un bouton.
+Quand vous naviguez sur un site, vous avez accès à une arborescence de pages, chacunes identifiées par une addresse, une route : il s'agit de l'URL, le texte visible en haut du navigateur.
+
+Dans le cadre de ce chapitre, nous avons affaire à deux principales entités distinctes :
+\begin{itemize}
+  \item Le serveur : la machine qui s'occupe de servir les pages et les données aux clients
+  \item Le client : la machine qui avec son navigateur essaie d'accéder au site
+\end{itemize}
+\bigskip
+L'utilisateur est la personne physique qui veut accéder au site. Son appareil (PC, Smartphone) est le client.
+
+Pour accéder à une page, le navigateur doit envoyer une requête HTTP au serveur. Le serveur lui répond en lui retournant la page à afficher.
+C'est pareil pour toutes les pages : le navigateur doit à chaque fois envoyer une requête et attendre la réponse avant de l'afficher.
+
+\figi{figure1.xml}{12cm}{Le client accède aux pages du site}
+
+Cette méthode, bien que parfaitement fonctionnelle, possède toutefois des inconvénients :
+\begin{itemize}
+  \item Il faut envoyer et attendre la réponse de la requête pour chaque page, ce qui prend du temps
+  \item Il n'a a pas de mise à jour automatique du contenu : il faut actualiser la page, donc renvoyer une requête
+  \item Le trafic réseau peut être élevé en raison des nombreuses requêtes
+\end{itemize}
+\bigskip
+Heureusement, au fil des années, le monde du web s'est fortement développé et il existe une nouvelle façon de faire.
+Cette méthode consiste non plus à envoyer les pages à la demande, mais à envoyer toutes les pages à la fois, et à laisser le navigateur s'occuper de leur accès.
+
+C'est à dire qu'au lieu de demander une nouvelle page à chaque fois, le navigateur, qui la possède déjà, va l'afficher directement sans envoyer de requête au serveur.
+Ce fonctionnement implique qu'il n'y a que très peu de temps d'attente pour l'affichage de la nouvelle page, ce qui améliore considérablement le confort de l'utilisateur.
+
+\figi{figure2.xml}{12cm}{Le navigateur reçoit la SPA et n'a plus besoin d'envoyer de requêtes}
+
+Désormais, un site n'est plus juste un assortiment de pages inertes et figées, c'est devenu une sorte d'entité "vivante", à la façon d'une application.
+On appelle ce type de site une "SPA" pour \emph{Single Page Application}.
+Cela dit, il peut encore y avoir des requêtes, sauf que cette fois, il ne s'agit plus de demander une page entière, mais seulement d'accéder à des ressources.
+
+Le volume de données est considérablement réduit puisque tout le code HTML est déjà présent : il s'agit de rapatrier uniquement les données à afficher.
+
+De plus, avec l'apparition de ces sites "intelligents", une nouvelle technologie très intéressante est apparue : celle des websockets.
+Grâce aux websockets, les serveurs ont désormais la possibilité de spontanément contacter les clients pour leur envoyer des données.
+
+En effet, sans cette technologie, les serveurs ne peuvent que reçevoir des requêtes et non pas les envoyer.
+
+\section{Base de données et backend}
+
+Le terme de "backend" désigne la partie du site qui s'occupe de la gestion des données, de l'authentification des utilisateurs et de l'envoi de la SPA.
+Quand un client s'addresse au backend, ce dernier va effectuer des actions, par exemple pour stocker ou retourner des ressources, envoyer des mails ou encore envoyer des notifications push aux clients.
+
+Le backend est très souvent couplé à une base de données qu'il utilise pour stocker les données du système, par example les données concernant les utilisateurs.
+La base de données est un système de stockage organisé de ressources, qui permet d'insérer, d'éditer, de retirer et de supprimer les ressources qu'elle contient.
+Dans le cas d'une base de données relationnelle, le stockage se fait à la manière d'un tableur : chaque ligne représente une entrée, et chaque entrée possède des attributs rangés en colonnes.
+
+Les clients communiquent avec le backend via une API, une interface qui associe à chaque route, chaque addresse, à un type de réponse.
+L'API décrit le format des données échangées, entre le code PHP côté backend et Javascript côté frontend.
+
+\figi{figure3.xml}{14cm}{Echanges de données entre le client et le backend}
+
+\section{Interface utilisateur et frontend}
+
+Le terme de "frontend" désigne la SPA, l'application qui s'occupe d'afficher les données et d'interagir avec l'utilisateur et le backend.
+C'est au travers de cette SPA que l'utilisateur va accéder aux fonctionnalités.
+
+L'avantage est que les données seront affichées en temps réel, ce qui enlève la nécessité de rafraichir la page pour s'assurer que le contenu présenté soit à jour.
+
+C'est d'ici que se font les requêtes HTTP pour l'accès aux ressources.
+
+\chapter{Architecture de la base de données}
+\section{Modèles}
+
+\chapter{Conception du frontend}
+\section{Présentation de Vue}
+\section{Présentation de l'interface}
+\section{Arborescence des pages}
+\section{Utilisation de Vuex}
+
+\chapter{Conception du backend}
+\section{Présentation de Laravel}
+\section{Routes API}
+\section{Notifications par mail}
+\section{Authentification par Switch AAI}
+
+\chapter{Déploiement}
+\section{Serveur Apache}
+\section{Serveur Websocket}
+\section{Processus supervisés}
+
+
+
+
 \chapter{Introduction}
 L'introduction est une section requise dans un rapport technique. Introduisez votre travail, l'idée de départ et les objectifs attendus. Un lecteur qui découvrirait votre projet au travers de cette introduction devrait ainsi être capable d'en comprendre le cadre, l'idée générale et les aboutissants du projet.
 
@@ -71,10 +261,10 @@ Parfois il peut être utile d'utiliser un gestionnaire de bibliographie. La comm
 L'une des principales forces de \LaTeX est la saisie d'équations. L'équation \ref{eq:1}, citée à titre d'exemple, représente la transformation de phase d'une lentille biconvexe. Pour rédiger une équation \LaTeX vous pouvez utiliser des outils en ligne tels que \href{https://www.latex4technics.com/}{latex4technics}.
 
 \begin{equation} \label{eq:1}
-    \begin{split}
-        L(x,y) &= \exp\left( - i\frac{{2\pi }}{\lambda }\left( {n\Delta \varphi (x,y) + \Delta {\varphi _0} - \Delta \varphi (x,y)} \right)\right)\\
-        &= {\exp\left({i\frac{{2\pi }}{\lambda }\Delta {\varphi _0}}\right)}{\exp\left({ - i\frac{{2\pi }}{{\lambda f}}({x^2} + {y^2})}\right)}
-    \end{split}
+  \begin{split}
+    L(x,y) &= \exp\left( - i\frac{{2\pi }}{\lambda }\left( {n\Delta \varphi (x,y) + \Delta {\varphi _0} - \Delta \varphi (x,y)} \right)\right)\\
+    &= {\exp\left({i\frac{{2\pi }}{\lambda }\Delta {\varphi _0}}\right)}{\exp\left({ - i\frac{{2\pi }}{{\lambda f}}({x^2} + {y^2})}\right)}
+  \end{split}
 \end{equation}
 
 \section{Exemples de diagrammes}
@@ -99,9 +289,10 @@ Pour présenter des résultats d'expérience, vous pouvez soit dessiner des grap
 \fig{plot.svg}{Exemple de graphique plan}
 
 \begin{listing}[h]
-    \inputminted{python}{assets/figures/bode.py}
-    \caption{Génération d'un diagramme de Bode \label{python}}
+  \inputminted[breaklines]{php}{assets/figures/php.php}
+  \caption{Génération d'un diagramme de Bode \label{python}}
 \end{listing}
+
 
 \figi{bode.py}{12cm}{Diagramme de Bode généré à la volée}
 
@@ -111,32 +302,32 @@ Pour présenter des résultats d'expérience, vous pouvez soit dessiner des grap
 Vous pouvez également utiliser TikZ pour créer vos propres schémas électriques et électroniques comme l'exemple \ref{circuit}.
 
 \begin{figure}[h]
-    \begin{center}
-        \begin{circuitikz}
-            \draw
-            (0,0) to [short, *-] (6,0)
-            to [V, l_=$\mathrm{j}{\omega}_m \underline{\phi}^s_R$] (6,2)
-            to [R, l_=$R_R$] (6,4)
-            to [short, i_=$\underline{i}^s_R$] (5,4)
-            (0,0) to [open, v^>=$\underline{u}^s_s$] (0,4)
-            to [short, *- ,i=$\underline{i}^s_s$] (1,4)
-            to [R, l=$R_s$] (3,4)
-            to [L, l=$L_{\sigma}$] (5,4)
-            to [short, i_=$\underline{i}^s_M$] (5,3)
-            to [L, l_=$L_M$] (5,0);
-        \end{circuitikz}
-        \caption{Circuit électrique \label{circuit}}
-    \end{center}
+  \begin{center}
+    \begin{circuitikz}
+      \draw
+      (0,0) to [short, *-] (6,0)
+      to [V, l_=$\mathrm{j}{\omega}_m \underline{\phi}^s_R$] (6,2)
+      to [R, l_=$R_R$] (6,4)
+      to [short, i_=$\underline{i}^s_R$] (5,4)
+      (0,0) to [open, v^>=$\underline{u}^s_s$] (0,4)
+      to [short, *- ,i=$\underline{i}^s_s$] (1,4)
+      to [R, l=$R_s$] (3,4)
+      to [L, l=$L_{\sigma}$] (5,4)
+      to [short, i_=$\underline{i}^s_M$] (5,3)
+      to [L, l_=$L_M$] (5,0);
+    \end{circuitikz}
+    \caption{Circuit électrique \label{circuit}}
+  \end{center}
 \end{figure}
 
 \subsection{Dessins techniques}
 L'intégration de dessins mécaniques est préférée en vue filaire. SolidWorks conserve la représentation vectorielle à l'exportation. À partir du PDF généré, l'image peut être isolée et sauvegardée en format SVG.
 
 \begin{figure}[!ht]
-    \begin{center}
-        \includegraphics[width=10cm]{\assetsdir/assembly.svg.\graphicsExt}
-    \end{center}
-    \caption[Assemblage mécanique]{\label{assembly}Réducteur cycloïdale de puissance comportant 6. l'axe de sortie, 14. le roulement de sortie, 1. le corps du réducteur en aluminium, 3 et 5. les disques cycloïdaux et 2. les goupilles de prise... D'autres informations liées à la figure elle-même peuvent aussi figurer dans la légende}
+  \begin{center}
+    \includegraphics[width=10cm]{\assetsdir/assembly.svg.\graphicsExt}
+  \end{center}
+  \caption[Assemblage mécanique]{\label{assembly}Réducteur cycloïdale de puissance comportant 6. l'axe de sortie, 14. le roulement de sortie, 1. le corps du réducteur en aluminium, 3 et 5. les disques cycloïdaux et 2. les goupilles de prise... D'autres informations liées à la figure elle-même peuvent aussi figurer dans la légende}
 \end{figure}
 
 Notez ici que la légende est particulièrement longue. Celle que vous retrouverez dans la table figures est plus courte. La commande \mintinline{latex}{\caption[courte]{longue}} permet de saisir une légende courte, pour la table des figures et longue pour le corps du document.
@@ -149,34 +340,34 @@ La figure \ref{assembly} est un dessin technique épuré qui permet de décrire 
 Concernant les tableaux, restez simple et minimaliste, n'ajoutez des séparateurs que là ou c'est nécessaire pour améliorer la lisibilité. Une liste de quelques cantons suisses est donnée à titre d'exemple dans la table \ref{cantons}.
 
 \begin{table}[h]
-    \begin{center}
-        \caption{Liste des cantons \label{cantons}}
-        \begin{tabular}{c|l|r}
-            Abréviation & Nom du canton & Depuis                  \\ \hline
-            ZH          & Zürich        & \ordinalnum{1} mai 1351 \\
-            BE          & Berne         & 6 mars 1353             \\
-            FR          & Fribourg      & 22 décembre 1481        \\
-            VD          & Vaud          & 19 février 1815         \\
-            VS          & Valais        & 4 août 1815             \\
-            NE          & Neuchâtel     & 19 mai 1815             \\
-            GE          & Genève        & 19 mai 1815
-        \end{tabular}
-    \end{center}
+  \begin{center}
+    \caption{Liste des cantons \label{cantons}}
+    \begin{tabular}{c|l|r}
+      Abréviation & Nom du canton & Depuis                  \\ \hline
+      ZH          & Zürich        & \ordinalnum{1} mai 1351 \\
+      BE          & Berne         & 6 mars 1353             \\
+      FR          & Fribourg      & 22 décembre 1481        \\
+      VD          & Vaud          & 19 février 1815         \\
+      VS          & Valais        & 4 août 1815             \\
+      NE          & Neuchâtel     & 19 mai 1815             \\
+      GE          & Genève        & 19 mai 1815
+    \end{tabular}
+  \end{center}
 \end{table}
 
 Si vous devez donner une spécification technique, n'oubliez pas de mentionner les valeurs minimales, maximales et nominales sans omettre l'unité de mesure. Notez que les séparateurs verticaux sont souvent critiqués pour réduire la lisibilité mais parfois ils sont utiles. Utilisez-les avec parcimonie.
 
 \begin{table}[h]
-    \begin{center}
-        \caption{Exigences techniques \label{specification}}
-        \begin{tabularx}{\textwidth}{cXcccc}
-            No. & Exigence                                                                   & Min. & Nom. & Max. & Unité                           \\ \toprule
-            E1  & Tension d'alimentation                                                     & 12   & 24   & 48   & \si{\volt}                      \\ \midrule
-            E2  & Fréquence                                                                  & 50   &      & 60   & \si{\hertz}                     \\ \midrule
-            E3  & Concentration                                                              &      & 300  & 1200 & \si{\nano\gram\per\milli\litre} \\ \midrule
-            E4  & \multicolumn{5}{l}{Doit pouvoir être stoppé à l'aide d'un arrêt d'urgence}
-        \end{tabularx}
-    \end{center}
+  \begin{center}
+    \caption{Exigences techniques \label{specification}}
+    \begin{tabularx}{\textwidth}{cXcccc}
+      No. & Exigence                                                                   & Min. & Nom. & Max. & Unité                           \\ \toprule
+      E1  & Tension d'alimentation                                                     & 12   & 24   & 48   & \si{\volt}                      \\ \midrule
+      E2  & Fréquence                                                                  & 50   &      & 60   & \si{\hertz}                     \\ \midrule
+      E3  & Concentration                                                              &      & 300  & 1200 & \si{\nano\gram\per\milli\litre} \\ \midrule
+      E4  & \multicolumn{5}{l}{Doit pouvoir être stoppé à l'aide d'un arrêt d'urgence}
+    \end{tabularx}
+  \end{center}
 \end{table}
 
 L'exemple de la table \ref{specification}, assigne pour chaque exigence un numéro unique. Cette table est \textbf{normative}, chaque élément doit pouvoir être référencé par un identifiant unique (cf. T\ref{specification}-E3). Dans le cas ou cet identifiant est utilisé en dehors de ce document, la version du document devra être renseignée.
@@ -214,10 +405,10 @@ Il est de coutume de signer la conclusion...
 \vfil
 \hspace{8cm}\makeatletter\@author\makeatother\par
 \hspace{8cm}\begin{minipage}{5cm}
-%%if
-    % Place pour signature numérique
-    \printsignature
-%%fi
+  %%if
+  % Place pour signature numérique
+  \printsignature
+  %%fi
 \end{minipage}
 \clearpage
 
@@ -233,12 +424,12 @@ Les annexes n'ont pas un contenu \underline{normatif} mais \underline{descriptif
 Les annexes contiennent généralement :
 
 \begin{itemize}
-    \item les dessins mécaniques (mises en plan);
-    \item les schémas électriques détaillés;
-    \item des photographies du projet;
-    \item des scripts et des extraits de code source;
-    \item des documents techniques \pex \emph{datasheet};
-    \item des développements mathématiques.
+  \item les dessins mécaniques (mises en plan);
+  \item les schémas électriques détaillés;
+  \item des photographies du projet;
+  \item des scripts et des extraits de code source;
+  \item des documents techniques \pex \emph{datasheet};
+  \item des développements mathématiques.
 \end{itemize}
 \section{Sous section}
 \lipsum[1]
