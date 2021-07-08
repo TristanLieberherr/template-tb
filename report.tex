@@ -347,6 +347,10 @@ L'élaboration des modèles est une partie essentielle du développement car il 
 Ces modèles ont évolué avec le temps, car il a fallu les adapter au fur et à mesure que des fonctionnalités ont été ajoutées.
 
 \chapter{Conception du frontend}
+%% https://themeforest.net/item/piaf-vuejs-admin-dashboard/23160320
+Afin de partir depuis une bonne base, Mr. Chevallier a eu la gentillesse de partager avec moi un site préfait, acheté par l'institut IAI.
+J'ai pu forker le repo sur GitHub, et à partir de là, j'ai pu commencer à réaliser le frontend.
+Je n'ai donc pas eu à créer un projet Vue à partir de zéro, et les pages déjà présentes m'ont servi d'exemple lors de mon apprentissage du framework.
 
 \section{Présentation de Vue}
 Vue est un framework permettant de développer une SPA et qui utilise principalement du JavaScript et du HTML.
@@ -364,8 +368,6 @@ Ces composants peuvent être utilisés dans d'autres composants, et peuvent êtr
 Dans Vue, une page est définie par une route (URL) qui est associée à un fichier qui contient un composant.
 Lorsque la page est appelée, le routeur Vue s'occupe d'afficher le bon composant.
 
-\inputminted[breaklines]{html}{assets/code/component_example.vue}
-
 Pour communiquer entre les composants, il y a deux façons de faire :
 \begin{itemize}
   \item Le parent transmet des données à l'enfant par propriétés
@@ -375,7 +377,8 @@ Pour communiquer entre les composants, il y a deux façons de faire :
 Pour ce faire, il existe des directives spéciales.
 La plus utilisée est la directive "v-on", abrégée avec le symbole ":", qui permet de passer une variable à une propriété.
 Pour utiliser les évènements, on peut utiliser le symbole "@" devant le nom de l'évènement pour lui associer une fonction.
-Example : \begin{minted}{html}
+Prenons un example :
+\begin{minted}{html}
   <composant :name="userName" surname="Tristan" @click="componentClicked">
     ...
   </composant>
@@ -383,19 +386,47 @@ Example : \begin{minted}{html}
 Dans cet exemple, la variable "userName" est passée à la propriété "name", tandis que la chaine de caractères "Tristan" est passée à "surname".
 Lorsque la composant émet l'évènement "click", c'est la méthode "componentClicked" qui va être appelée.
 
+Dans le script d'un composant, on a accès à plusiers fonctionnalités :
+\begin{itemize}
+  \item components : permet d'importer d'autres composants
+  \item data : contient les variables du composant
+  \item methods : déclaration des méthodes
+  \item computed : ce sont des sortes de méthodes sans paramètres qui retournent des variables modifiées
+  \item watch : callbacks appellés quand une variable change
+\end{itemize}
+\bigskip
+Il existe encore des méthodes qui sont appellées automatiquement durant le cycle de vie du composant, comme par exemple mounted(), destroyed(), ...
 
+\inputminted[breaklines]{html}{assets/code/component_example.vue}
 
-
-
-\section{Présentation de l'interface}
-Le site PIAF...
+\section{Premier croquis de l'interface}
 
 Avant de commencer à coder, j'ai réalisé quelques croquis pour définir grossièrement à quoi allait ressembler l'interface du site.
 Au final, l'apparence a beaucoup été infulencée par les composants issus de bibliothèques externes (Vuetify) et par la forme du site de base.
 Néanmoins, mes croquis ont servi de base pour le placement de ces composants.
 
+Pour naviguer sur le site, j'ai décidé d'utiliser un overlay, c'est à dire deux barres fixes sur le haut et sur la gauche qui contiennent les liens vers les pages.
+La barre de gauche peut être masquée pour bénéficier de pages qui prennent toute la largeur.
+
+Ce style est assez standard puisqu'on le rencontre sur de nombreux sites (Youtube, Vuetify, Laravel docs, ...).
+On y retrouve certains éléments habituels, comme la cloche de notifications ou le nom de l'utilisateur qui permet de dérouler un menu.
+\figi{ui_overlay.xml}{14cm}{Croquis de l'overlay}
+
+Une page dédiée aux paramètres permet à l'utilisateur de modifier ses paramètres de notifications.
+Il a aussi accès à quelques informations de base concernant son compte.
+\figi{ui_settings.xml}{14cm}{Croquis de la page des paramétrage}
+
+Pour pouvoir déposer une demande, j'ai voulu mettre une liste des travaux disponibles avec une image et une description de chaque machine.
+Si tous les acteurs peuvent voir cette liste, seuls les clients peuvent déposer une demande.
+Pour ce faire, j'ai imaginé un formulaire dans lequel il faut indiquer le type de travail, la date de rendu et les fichiers nécessaires.
+J'ai aussi mis un champ de texte pour que le client puisse ajouter une description optionnelle vis à vis des techniciens.
+\figi{ui_submit_job.xml}{14cm}{Croquis de la liste des travaux disponibles et du formulaire}
 
 
+\figi{ui_jobinfo.xml}{14cm}{Croquis des détails d'une demande}
+
+
+\section{Interface finale}
 \section{Arborescence des pages}
 \section{Utilisation de Vuex}
 

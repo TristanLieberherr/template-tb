@@ -10,10 +10,8 @@
     </composant>
   </div>
 </template>
-
 <script>
 import Component from "/dir/composant.vue"
-
 export default {
   components: {
     "composant": Component,
