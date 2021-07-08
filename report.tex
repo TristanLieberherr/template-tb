@@ -53,6 +53,8 @@
 \clearemptydoublepage
 \pagenumbering{arabic}
 
+\usemintedstyle{xcode}
+
 %% Contenu
 \mainmatter
 \chapter{Etude préliminaire}
@@ -148,6 +150,123 @@ Bien sûr, les échanges seront disponibles en toutes circonstances, dès lors q
 \end{table}
 
 \section{Choix technologiques}
+
+Il existe de nombreux outils pour réaliser un service web, c'est pourquoi le choix d'un framework s'avère essentiel avant de se lancer dans le code.
+Après avoir exploré le net et comparé les différents outils, j'ai pu prendre une décision.
+
+\begin{table}[h]
+  \begin{center}
+    \caption{Comparaison des bases de données \label{specification}}
+    \begin{tabularx}{\textwidth}{|m{1cm} |m{2cm} |m{4cm} |m{4cm}|}
+      No. & Technologie     & Avantages                  & Inconvénients \\ \toprule
+      1   & MySQL           & \begin{itemize}
+        \item[+] DB relationnelle
+        \item[+] Très populaire
+      \end{itemize}  & 
+      \begin{itemize}
+        \item[-] Convient mal pour stocker énormément de données
+      \end{itemize}                                          \\ \midrule
+      2   & MongoDB         & \begin{itemize}
+        \item[+] Performant
+      \end{itemize}  & 
+      \begin{itemize}
+        \item[-] Non relationnelle
+      \end{itemize}                                         \\ \midrule
+      3   & PostgreSQL      & \begin{itemize}
+        \item[+] Riche en fonctionnalités
+        \item[+] DB relationnelle/objet
+      \end{itemize} & 
+      \begin{itemize}
+        \item[-] Plus complexe que MySQL
+      \end{itemize}                                         \\ \midrule
+      4   & Oracle Database & \begin{itemize}
+        \item[+] DB relationnelle
+      \end{itemize} & 
+      \begin{itemize}
+        \item[-] Payant
+      \end{itemize}                                         \\ \midrule
+      5   & vide            & vide                       & vide          \\ \midrule
+    \end{tabularx}
+  \end{center}
+\end{table}
+
+\begin{table}[h]
+  \begin{center}
+    \caption{Comparaison des frameworks frontend \label{specification}}
+    \begin{tabularx}{\textwidth}{|m{1cm} |m{2cm} |m{4cm} |m{4cm}|}
+      No. & Technologie & Avantages                  & Inconvénients \\ \toprule
+      1   & Angular     & \begin{itemize}
+        \item[+] Très complet
+      \end{itemize} & 
+      \begin{itemize}
+        \item[-] Complexe
+      \end{itemize}                                     \\ \midrule
+      2   & React       & \begin{itemize}
+        \item[+] Simple
+      \end{itemize} & 
+      \begin{itemize}
+        \item[-] JavaScript XML (JSX)
+      \end{itemize}                                     \\ \midrule
+      3   & Vue         & \begin{itemize}
+        \item[+] Simple
+        \item[+] Le site PIAF est en Vue
+      \end{itemize} & 
+      \begin{itemize}
+        \item[-] Trop flexible
+      \end{itemize}                                     \\ \midrule
+    \end{tabularx}
+  \end{center}
+\end{table}
+
+\begin{table}[h]
+  \begin{center}
+    \caption{Comparaison des frameworks backend \label{specification}}
+    \begin{tabularx}{\textwidth}{|m{1cm} |m{2cm} |m{4cm} |m{4cm}|}
+      No. & Technologie & Avantages                  & Inconvénients \\ \toprule
+      1   & Laravel     & \begin{itemize}
+        \item[+] Simple
+        \item[+] Professeur expérimenté
+      \end{itemize} & 
+      \begin{itemize}
+        \item[-] Convient moins bien aux gros projets
+      \end{itemize}                                     \\ \midrule
+      2   & Django      & \begin{itemize}
+        \item[+] Développement rapide
+      \end{itemize} & 
+      \begin{itemize}
+        \item[-] Python
+      \end{itemize}                                     \\ \midrule
+      3   & Express     & \begin{itemize}
+        \item[+] JavaScript
+      \end{itemize} & 
+      \begin{itemize}
+        \item[-] Nature asynchrone compliquée
+      \end{itemize}                                     \\ \midrule
+      4   & Rails       & \begin{itemize}
+        \item[+] Simple
+      \end{itemize} & 
+      \begin{itemize}
+        \item[-] Ruby
+      \end{itemize}                                     \\ \midrule
+    \end{tabularx}
+  \end{center}
+\end{table}
+
+\figi{stackoverflow_trends_frontend.svg}{14cm}{StackOverflow, questions par mois, frontend}
+%% https://insights.stackoverflow.com/trends?tags=reactjs%2Cvue.js%2Cangular%2Cangularjs
+
+
+\figi{stackoverflow_trends_backend.svg}{14cm}{StackOverflow, questions par mois, backend}
+%% https://insights.stackoverflow.com/trends?tags=laravel%2Cdjango%2Cexpress%2Cruby-on-rails
+
+\figi{stackoverflow_trends_DB.svg}{14cm}{StackOverflow, questions par mois, database}
+%% https://insights.stackoverflow.com/trends?tags=mysql%2Cmongodb%2Cpostgresql%2Coracle
+
+%% https://trends.google.fr/trends/explore?date=today%205-y&q=%2Fg%2F11c0vmgx5d,%2Fg%2F11c6w0ddw9,%2Fm%2F012l1vxv
+%% https://trends.google.fr/trends/explore?date=today%205-y&q=Laravel,%2Fm%2F06y_qx,%2Fm%2F0_v2szx,%2Fm%2F0505cl
+%% https://trends.google.fr/trends/explore?date=today%205-y&q=%2Fm%2F04y3k,%2Fm%2F05ynw,%2Fm%2F05z_r2n,%2Fm%2F01vw9z
+
+
 \section{Spécifications}
 \section{Matériel nécessaire}
 
@@ -157,7 +276,7 @@ Avant de parler en détail des aspects techniques, ce chapitre a pour but de dre
 
 \section{Pages web}
 
-La structure d'un site est assez simple : c'est un ensemble de pages consultables à la demande. Chaque page possède du code HTML, responsable de la mise en forme du contenu, et du code Javascript, qui permet d'exécuter des actions, par example quand on clique sur un bouton.
+La structure d'un site est assez simple : c'est un ensemble de pages consultables à la demande. Chaque page possède du code HTML, responsable de la mise en forme du contenu, et du code JavaScript, qui permet d'exécuter des actions, par example quand on clique sur un bouton.
 Quand vous naviguez sur un site, vous avez accès à une arborescence de pages, chacunes identifiées par une addresse, une route : il s'agit de l'URL, le texte visible en haut du navigateur.
 
 Dans le cadre de ce chapitre, nous avons affaire à deux principales entités distinctes :
@@ -171,7 +290,7 @@ L'utilisateur est la personne physique qui veut accéder au site. Son appareil (
 Pour accéder à une page, le navigateur doit envoyer une requête HTTP au serveur. Le serveur lui répond en lui retournant la page à afficher.
 C'est pareil pour toutes les pages : le navigateur doit à chaque fois envoyer une requête et attendre la réponse avant de l'afficher.
 
-\figi{figure1.xml}{12cm}{Le client accède aux pages du site}
+\figi{figure1.xml}{12cm}{Site traditionnel}
 
 Cette méthode, bien que parfaitement fonctionnelle, possède toutefois des inconvénients :
 \begin{itemize}
@@ -186,7 +305,7 @@ Cette méthode consiste non plus à envoyer les pages à la demande, mais à env
 C'est à dire qu'au lieu de demander une nouvelle page à chaque fois, le navigateur, qui la possède déjà, va l'afficher directement sans envoyer de requête au serveur.
 Ce fonctionnement implique qu'il n'y a que très peu de temps d'attente pour l'affichage de la nouvelle page, ce qui améliore considérablement le confort de l'utilisateur.
 
-\figi{figure2.xml}{12cm}{Le navigateur reçoit la SPA et n'a plus besoin d'envoyer de requêtes}
+\figi{figure2.xml}{12cm}{Site SPA}
 
 Désormais, un site n'est plus juste un assortiment de pages inertes et figées, c'est devenu une sorte d'entité "vivante", à la façon d'une application.
 On appelle ce type de site une "SPA" pour \emph{Single Page Application}.
@@ -209,7 +328,7 @@ La base de données est un système de stockage organisé de ressources, qui per
 Dans le cas d'une base de données relationnelle, le stockage se fait à la manière d'un tableur : chaque ligne représente une entrée, et chaque entrée possède des attributs rangés en colonnes.
 
 Les clients communiquent avec le backend via une API, une interface qui associe à chaque route, chaque addresse, à un type de réponse.
-L'API décrit le format des données échangées, entre le code PHP côté backend et Javascript côté frontend.
+L'API décrit le format des données échangées, entre le code PHP côté backend et JavaScript côté frontend.
 
 \figi{figure3.xml}{14cm}{Echanges de données entre le client et le backend}
 
@@ -224,10 +343,59 @@ C'est d'ici que se font les requêtes HTTP pour l'accès aux ressources.
 
 \chapter{Architecture de la base de données}
 \section{Modèles}
+L'élaboration des modèles est une partie essentielle du développement car il s'agit de déterminer quelles informations il faut stocker pour pouvoir faire fonctionner le système.
+Ces modèles ont évolué avec le temps, car il a fallu les adapter au fur et à mesure que des fonctionnalités ont été ajoutées.
 
 \chapter{Conception du frontend}
+
 \section{Présentation de Vue}
+Vue est un framework permettant de développer une SPA et qui utilise principalement du JavaScript et du HTML.
+L'organisation de l'interface se fait en composants, qui sont des éléments graphiques programmables.
+Je trouve d'ailleurs qu'il y a une ressemblance entre ces composants et ceux utilisés en C\# WPF.
+
+Un composant Vue est structuré de la manière suivante :
+\begin{enumerate}
+  \item template : c'est la partie en HTML qui décrit l'affichage du composant
+  \item script : c'est ici que tout le code JavaScript est situé
+  \item style : contient les classes CSS utilisées dans le template
+\end{enumerate}
+\bigskip
+Ces composants peuvent être utilisés dans d'autres composants, et peuvent être associés à une page.
+Dans Vue, une page est définie par une route (URL) qui est associée à un fichier qui contient un composant.
+Lorsque la page est appelée, le routeur Vue s'occupe d'afficher le bon composant.
+
+\inputminted[breaklines]{html}{assets/code/component_example.vue}
+
+Pour communiquer entre les composants, il y a deux façons de faire :
+\begin{itemize}
+  \item Le parent transmet des données à l'enfant par propriétés
+  \item L'enfant transmet des données au parent par évènement
+\end{itemize}
+\bigskip
+Pour ce faire, il existe des directives spéciales.
+La plus utilisée est la directive "v-on", abrégée avec le symbole ":", qui permet de passer une variable à une propriété.
+Pour utiliser les évènements, on peut utiliser le symbole "@" devant le nom de l'évènement pour lui associer une fonction.
+Example : \begin{minted}{html}
+  <composant :name="userName" surname="Tristan" @click="componentClicked">
+    ...
+  </composant>
+\end{minted}
+Dans cet exemple, la variable "userName" est passée à la propriété "name", tandis que la chaine de caractères "Tristan" est passée à "surname".
+Lorsque la composant émet l'évènement "click", c'est la méthode "componentClicked" qui va être appelée.
+
+
+
+
+
 \section{Présentation de l'interface}
+Le site PIAF...
+
+Avant de commencer à coder, j'ai réalisé quelques croquis pour définir grossièrement à quoi allait ressembler l'interface du site.
+Au final, l'apparence a beaucoup été infulencée par les composants issus de bibliothèques externes (Vuetify) et par la forme du site de base.
+Néanmoins, mes croquis ont servi de base pour le placement de ces composants.
+
+
+
 \section{Arborescence des pages}
 \section{Utilisation de Vuex}
 
