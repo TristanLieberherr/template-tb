@@ -3,4 +3,6 @@
     "latex-workshop.latex.outDir": "./build",
     "files.eol": "\n",
     "latex-workshop.view.pdf.viewer": "browser",
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 200,
 }

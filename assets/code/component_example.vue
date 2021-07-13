@@ -1,11 +1,6 @@
 <template>
   <div>
-    <composant
-      surname="Tristan"
-      :name="userName"
-      :fullName="fullName"
-      @click="componentClicked"
-    >
+    <composant surname="Tristan" :name="userName" :fullName="fullName">
       ...
     </composant>
   </div>
@@ -22,19 +17,13 @@ export default {
     }
   },
   methods: {
-    componentClicked() {
-      console.log("I was clicked !")
-    },
+    componentClicked() { console.log("I was clicked !") },
   },
   computed: {
-    fullName() {
-      return "Tristan " + this.userName
-    },
+    fullName() { return "Tristan " + this.userName },
   },
   watch: {
-    userName() {
-      console.log("userName changed : ", this.userName)
-    },
+    userName() { console.log("userName changed : ", this.userName) },
   },
 }
 </script>
