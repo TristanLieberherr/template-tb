@@ -495,7 +495,7 @@ Le diagramme ci-dessous représente les différents statuts et stades que la dem
   \item[Stade 4.] Le travail est terminé. Ce statut est atteignable manuellement. Le client est en mesure de venir chercher le travail accompli, et peut désormais supprimer la demande, après avoir évalué la qualité du travail.
 \end{enumerate}
 \bigskip
-Certains de ces statuts sont attribués automatiquement, c'est le cas de "NEW" et "ASSIGNED".
+Certains de ces statuts sont attribués automatiquement, c'est le cas de "NEW" et de "ASSIGNED".
 Tous les autres sont modifiables par le technicien.
 
 Ces noms de statuts sont en anglais, bien que le reste de l'interface soit en français.
@@ -564,7 +564,7 @@ Ces boutons sont avantageux puisqu'ils indiquent directement leur état : ON ou 
 Par souci de confort, il est possible de d'activer ou de désactiver toutes les options d'un coup.
 
 \begin{figure}[h!]
-  \makebox[\textwidth]{\includegraphics[width=20cm]{ui_settings_page.PNG}}
+  \makebox[\textwidth]{\includegraphics[width=14cm]{ui_settings_page.PNG}}
   \caption{Page des paramètres du technicien}
 \end{figure}
 
@@ -576,7 +576,7 @@ La seconde page contient un tableau de toutes les demandes déposées ou attribu
 Ce tableau peut être trié selon plusieurs critères, et quand on clique sur une des entrées, la fenêtre de détails s'ouvre.
 
 \begin{figure}[h!]
-  \makebox[\textwidth]{\includegraphics[width=20cm]{ui_myjobs_client.PNG}}
+  \makebox[\textwidth]{\includegraphics[width=14cm]{ui_myjobs_client.PNG}}
   \caption{Page des demandes du client}
 \end{figure}
 
@@ -588,7 +588,7 @@ Pour les fichiers, un numéro de version est indiqué.
 Cette indication est utile si un même fichier est modifié puis ajouté de nouveau.
 
 \begin{figure}[h!]
-  \makebox[\textwidth]{\includegraphics[width=20cm]{ui_jobinfo_tech1.PNG}}
+  \makebox[\textwidth]{\includegraphics[width=14cm]{ui_jobinfo_tech1.PNG}}
   \caption{Détails d'une demande, côté technicien}
 \end{figure}
 
@@ -612,21 +612,60 @@ Pour voir le commentaire, s'il y en a un, il faut cliquer sur l'icône dans la c
   \caption{Page des travaux non-assignés, vue du commentaire}
 \end{figure}
 
-\section{Gestion des données}
+\section{Gestion des données et pattern MVC}
 %% https://vuex.vuejs.org/#what-is-a-state-management-pattern
+%% https://code-cartoons.com/a-cartoon-guide-to-flux-6157355ab207
 La gestion des données est un aspect très important du frontend.
+Pour ce faire, il existe un design pattern très populaire qui s'appelle le MVC, pour "Model View Controller".
+Dans son fonctionnement, on retrouve trois parties :
+\begin{enumerate}
+  \item Contrôleur : c'est la partie qui gère les interactions entre l'utilisateur et les données.
+  \item Modèle : c'est les données qui vont être affichées.
+  \item Vue : c'est l'interface visuelle qui présente les données.
+\end{enumerate}
+\bigskip
+
+Ce pattern est assez simple en terme de fonctionnement, mais il est redoutablement efficace.
+
+\figi{MVC.xml}{14cm}{Pattern MVC}
+
 Comme le site est de type SPA, les données nécessaires à l'affichage sont demandées au serveur par le client.
 Il doit donc y avoir un endroit où les stocker : c'est là qu'intervient Vuex.
+Le partage de données entre composants est un possibilité, mais Vuex offre bien trop d'avantages.
 
 Vuex est un pattern et une librairie qui fait office de gestionnaire d'état pour les applications Vue.
 Plus précisément, c'est un lieu de stockage qui peut contenir des données, et qui offre des accesseurs et des mutateurs pour interagir avec.
 Ce lieu s'appelle le "store", le magasin en français.
 
-L'avantage de ce système est qu'il n'y a qu'une seule instance des objets stockés dedans, une seule source de vérité.
-L'utilisation de mutateurs assure que les données soient  modifiées de façon contrôlée et prédictible.
-Les actions, qui sont en fait des fonctions, servent principalement à envoyer des requêtes au serveur pour y récupérer des données.
-L'avantage de ces actions est que le code n'a besoin d'être écrit qu'une seule fois, et qu'elles sont accessibles dans les composants.
+Le premier avantage de ce système est qu'il n'y a qu'une seule instance des objets stockés dedans, une seule source de vérité accessible depuis tous les composants.
+Dans Vue, les composants s'échangent des données soit par props soit par évènements.
+Imaginons le cas de figure où le composant G doit accéder à une ressource qui est stockée dans le composant D.
+Cette configuration peut poser de gros problèmes, car les données transitent partout et il y a des dépendances entre composants.
 
+\newpage
+\figi{vuex1.xml}{14cm}{Échange de données entre composants}
+
+Le problème principal est que plusieurs variables risquent de posséder plusieurs états différents (des valeurs différentes) alors qu'elles devraient partager le même.
+La compagnie Facebook à justement eu ce souci il y a quelques années.
+Un bug s'est manifesté sous forme de notifications "fantômes", qui indiquaient de nouveaux messages alors que ce n'était en réalité pas le cas.
+Les développeurs ont alors décidé de se débarasser du problème en créant Flux, un nouveau design pattern de gestion d'état, qui a inspiré Vuex par la suite.
+
+\figi{vuex2.xml}{14cm}{Échange de données avec le store}
+
+Avec Vuex, il n'y a pas de problème d'états différents, puisqu'il n'existe qu'un seul exemplaire de la ressource, qui est directement accessible.
+Si un composant veut modifier l'état, il doit passer par un mutateur et tout changement sera propagé aux composants qui en dépendent.
+
+\newpage
+L'utilisation de mutateurs assure que les données soient modifiées de façon synchrone, contrôlée et prédictible.
+Les actions servent principalement à envoyer des requêtes au serveur pour y récupérer des données.
+Sur le schéma ci-dessous, on voit le cycle qui se produit lorsqu'un composant a besoin de récupérer des données depuis le serveur.
+Il appelle une action (une fonction qui retourne une promesse) qui va s'occuper de la requête et de la mutation de la ressource.
+
+\figi{vuex.xml}{14cm}{Récupération des données du serveur}
+
+Le second avantage est que toute la partie du code qui s'occupe des requêtes HTTP est située dans les actions, ce qui fait que le code est à portée de main dans un seul fichier.
+L'utilisation de Vuex a donc été très utile, surtout pour l'organisation du code et des données, et de l'application efficace du pattern MVC.
+De plus, il y a la garantie qu'il n'y aura jamais de problèmes avec l'état des variables entre composants.
 
 \chapter{Conception du backend}
 \section{Présentation de Laravel}
