@@ -163,19 +163,19 @@ Ces fonctions sont celles de base, ce qui signifie qu'il pourrait y en avoir plu
 \begin{table}[h]
   \begin{center}
     \caption{Fonctions du système}
-    \begin{tabularx}{\textwidth}{cXcc}
-      No. & Fonction                                                                                                                                                                                   & Besoin No. \\ \toprule
-      F1  & Créer une nouvelle demande de travaux via un formulaire adaptatif en fonction du type de travail, avec possibilité de joindre des fichiers et un commentaire à l'intention des techniciens & N1.1       \\ \midrule
-      F2  & Visualiser une liste des travaux déposés ou assignés, contenant pour chaque demande toutes les informations associées                                                                      & N1.2, N2.2 \\ \midrule
-      F3  & Visualiser une liste de tous les travaux non assignés, contenant pour chaque demande les informations du formulaire                                                                        & N2.1       \\ \midrule
-      F4  & Possibilité de s'assigner des demandes non assignées                                                                                                                                       & N2.1       \\ \midrule
-      F5  & Echanger des messages instantanés depuis un salon de discussion lié à une demande                                                                                                          & N1.4, N2.5 \\ \midrule
-      F6  & Ajouter des fichiers à une demande                                                                                                                                                         & N1.4, N2.5 \\ \midrule
-      F7  & Possibilité de personnaliser les notifications par mail en fonction des évènements liés à une demande                                                                                      & N1.3, N2.4 \\ \midrule
-      F8  & Modifier l'état des demandes                                                                                                                                                               & N2.3       \\ \midrule
-      F9  & Adaptation automatique de l'interface graphique au type et à la taille de l'écran de l'appareil utilisé                                                                                    & N1.5, N2.6 \\ \midrule
-      F10 & Suppression d'une demande terminée                                                                                                                                                         & N1.6       \\ \midrule
-      F11 & Evaluation du travail accompli                                                                                                                                                             & N1.6       \\ \midrule
+    \begin{tabularx}{\textwidth}[t]{p{0.5cm}Xp{1cm}}
+      No. & Fonction                                                                                                                                                                                   & Besoin No.         \\ \toprule
+      F1  & Créer une nouvelle demande de travaux via un formulaire adaptatif en fonction du type de travail, avec possibilité de joindre des fichiers et un commentaire à l'intention des techniciens & N1.1               \\ \midrule
+      F2  & Visualiser une liste des travaux déposés ou assignés, contenant pour chaque demande toutes les informations associées                                                                      & N1.2 \newline N2.2 \\ \midrule
+      F3  & Visualiser une liste de tous les travaux non assignés, contenant pour chaque demande les informations du formulaire                                                                        & N2.1               \\ \midrule
+      F4  & Possibilité de s'assigner des demandes non assignées                                                                                                                                       & N2.1               \\ \midrule
+      F5  & Echanger des messages instantanés depuis un salon de discussion lié à une demande                                                                                                          & N1.4 \newline N2.5 \\ \midrule
+      F6  & Ajouter des fichiers à une demande                                                                                                                                                         & N1.4 \newline N2.5 \\ \midrule
+      F7  & Possibilité de personnaliser les notifications par mail en fonction des évènements liés à une demande                                                                                      & N1.3 \newline N2.4 \\ \midrule
+      F8  & Modifier l'état des demandes                                                                                                                                                               & N2.3               \\ \midrule
+      F9  & Adaptation automatique de l'interface graphique au type et à la taille de l'écran de l'appareil utilisé                                                                                    & N1.5 \newline N2.6 \\ \midrule
+      F10 & Suppression d'une demande terminée                                                                                                                                                         & N1.6               \\ \midrule
+      F11 & Evaluation du travail accompli                                                                                                                                                             & N1.6               \\ \midrule
     \end{tabularx}
   \end{center}
 \end{table}
@@ -196,35 +196,23 @@ En vérifiant sur StackOverflow, j'ai trouvé des graphiques qui appuient mon pr
 \begin{table}[h]
   \begin{center}
     \caption{Comparaison des bases de données \label{specification}}
-    \begin{tabularx}{\textwidth}{|m{1cm} |m{2cm} |m{4cm} |m{4cm}|}
-      No. & Technologie     & Avantages                  & Inconvénients \\ \toprule
-      1   & MySQL           & \begin{itemize}
-        \item[+] DB relationnelle
-        \item[+] Très populaire
-      \end{itemize}  & 
-      \begin{itemize}
-        \item[-] Convient mal pour stocker énormément de données
-      \end{itemize}                                          \\ \midrule
-      2   & MongoDB         & \begin{itemize}
-        \item[+] Performant
-      \end{itemize} & 
-      \begin{itemize}
-        \item[-] Non relationnelle
-      \end{itemize}                                         \\ \midrule
-      3   & PostgreSQL      & \begin{itemize}
-        \item[+] Riche en fonctionnalités
-        \item[+] DB relationnelle/objet
-      \end{itemize} & 
-      \begin{itemize}
-        \item[-] Plus complexe que MySQL
-      \end{itemize}                                         \\ \midrule
-      4   & Oracle Database & \begin{itemize}
-        \item[+] DB relationnelle
-      \end{itemize} & 
-      \begin{itemize}
-        \item[-] Payant
-      \end{itemize}                                         \\ \midrule
-      5   & vide            & vide                       & vide          \\ \midrule
+    \begin{tabularx}{\textwidth}[t]{m{1cm}Xp{4cm}p{4cm}}
+      No.                               & Technologie     & Avantages & Inconvénients \\ \toprule
+      1                                 & MySQL           & 
+      \textbf{+} DB relationnelle \newline
+      \textbf{+} Très populaire
+                                        & 
+      \textbf{--} Convient mal pour stocker énormément de données                     \\ \midrule
+      2                                 & MongoDB         & 
+      \textbf{+} Performant             & 
+      \textbf{--} Non relationnelle                                                   \\ \midrule
+      3                                 & PostgreSQL      & 
+      \textbf{+} Riche en fonctionnalités \newline
+      \textbf{+} DB relationnelle/objet & 
+      \textbf{--} Plus complexe que MySQL                                             \\ \midrule
+      4                                 & Oracle Database & 
+      \textbf{+} DB relationnelle       & 
+      \textbf{--} Payant                                                              \\ \midrule
     \end{tabularx}
   \end{center}
 \end{table}
@@ -232,27 +220,24 @@ En vérifiant sur StackOverflow, j'ai trouvé des graphiques qui appuient mon pr
 \begin{table}[h]
   \begin{center}
     \caption{Comparaison des frameworks frontend \label{specification}}
-    \begin{tabularx}{\textwidth}{|m{1cm} |m{2cm} |m{4cm} |m{4cm}|}
-      No. & Technologie & Avantages                  & Inconvénients \\ \toprule
-      1   & Angular     & \begin{itemize}
-        \item[+] Très complet
-      \end{itemize} & 
-      \begin{itemize}
-        \item[-] Complexe
-      \end{itemize}                                     \\ \midrule
-      2   & React       & \begin{itemize}
-        \item[+] Simple
-      \end{itemize} & 
-      \begin{itemize}
-        \item[-] JavaScript XML (JSX)
-      \end{itemize}                                     \\ \midrule
-      3   & Vue         & \begin{itemize}
-        \item[+] Simple
-        \item[+] Le site PIAF est en Vue
-      \end{itemize} & 
-      \begin{itemize}
-        \item[-] Trop flexible
-      \end{itemize}                                     \\ \midrule
+    \begin{tabularx}{\textwidth}[t]{m{1cm}Xp{4cm}p{4cm}}
+      No. & Technologie & Avantages & Inconvénients \\ \toprule
+      1   & Angular     & 
+      \textbf{+} Très complet
+          & 
+      \textbf{--} Complexe
+      \\ \midrule
+      2   & React       & 
+      \textbf{+} Simple
+          & 
+      \textbf{--} JavaScript XML (JSX)
+      \\ \midrule
+      3   & Vue         & 
+      \textbf{+} Simple \newline
+      \textbf{+} Le site PIAF est en Vue
+          & 
+      \textbf{--} Trop flexible
+      \\ \midrule
     \end{tabularx}
   \end{center}
 \end{table}
@@ -260,33 +245,29 @@ En vérifiant sur StackOverflow, j'ai trouvé des graphiques qui appuient mon pr
 \begin{table}[h]
   \begin{center}
     \caption{Comparaison des frameworks backend \label{specification}}
-    \begin{tabularx}{\textwidth}{|m{1cm} |m{2cm} |m{4cm} |m{4cm}|}
-      No. & Technologie & Avantages                  & Inconvénients \\ \toprule
-      1   & Laravel     & \begin{itemize}
-        \item[+] Simple
-        \item[+] Professeur expérimenté
-      \end{itemize} & 
-      \begin{itemize}
-        \item[-] Convient moins bien aux gros projets
-      \end{itemize}                                     \\ \midrule
-      2   & Django      & \begin{itemize}
-        \item[+] Développement rapide
-      \end{itemize} & 
-      \begin{itemize}
-        \item[-] Python
-      \end{itemize}                                     \\ \midrule
-      3   & Express     & \begin{itemize}
-        \item[+] JavaScript
-      \end{itemize} & 
-      \begin{itemize}
-        \item[-] Nature asynchrone compliquée
-      \end{itemize}                                     \\ \midrule
-      4   & Rails       & \begin{itemize}
-        \item[+] Simple
-      \end{itemize} & 
-      \begin{itemize}
-        \item[-] Ruby
-      \end{itemize}                                     \\ \midrule
+    \begin{tabularx}{\textwidth}[t]{m{1cm}Xp{4cm}p{4cm}}
+      No. & Technologie & Avantages & Inconvénients \\ \toprule
+      1   & Laravel     & 
+      \textbf{+} Simple \newline
+      \textbf{+} Professeur expérimenté
+          & 
+      \textbf{--} Convient moins bien aux gros projets
+      \\ \midrule
+      2   & Django      & 
+      \textbf{+} Développement rapide
+          & 
+      \textbf{--} Python
+      \\ \midrule
+      3   & Express     & 
+      \textbf{+} JavaScript
+          & 
+      \textbf{--} Nature asynchrone compliquée
+      \\ \midrule
+      4   & Rails       & 
+      \textbf{+} Simple
+          & 
+      \textbf{--} Ruby
+      \\ \midrule
     \end{tabularx}
   \end{center}
 \end{table}
@@ -514,7 +495,7 @@ La barre de gauche peut être masquée pour bénéficier de pages qui prennent t
 
 \figi{ui_overlay.xml}{10cm}{Croquis de l'overlay}
 
-Ce style est assez standard puisqu'on le rencontre sur de nombreux sites (Youtube, Vuetify, Laravel docs, ...).
+Ce style est assez standard puisqu'on le rencontre sur de nombreux sites (Cyberlearn, Vuetify, Laravel docs, ...).
 C'est d'ailleurs celui qui était utilisé dans le site de base.
 On y retrouve certains éléments habituels, comme la cloche de notifications ou le nom de l'utilisateur qui permet de dérouler un menu.
 
@@ -672,6 +653,14 @@ De plus, il y a la garantie qu'il n'y aura jamais de problèmes avec l'état des
 \section{Routes API}
 \section{Notifications par mail}
 \section{Authentification par Switch AAI}
+%% https://www.switch.ch/aai/demo/medium/
+Une des fonctionnalités importante du projet est la connection au service à travers le login Switch AAI.
+Le gros avantage est que les nouveaux utilisateurs n'ont pas besoin de se créer un nouveau compte.
+
+Le déroulement et fonctionnement de l'authentification se déroule en plusieurs étapes.
+Lorsque l'utilisateur veut accéder à une ressource, comme un site par exemple, il essaie d'y accéder depuis son navigateur.
+
+
 
 \chapter{Déploiement}
 \section{Serveur Apache}
