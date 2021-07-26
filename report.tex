@@ -19,7 +19,7 @@
 \input{glossary}
 \input{meta}
 
-\surroundwithmdframed{minted}
+%\surroundwithmdframed{minted}
 \graphicspath{{assets/figures/}}
 
 %% Début du document
@@ -66,7 +66,7 @@ D'après la description de la procédure actuelle, il est possible de mettre en 
 
 \begin{enumerate}
   \item Aucun suivi des travaux pour le client
-  \item Echanges éparpillés : email, vocal
+  \item Échanges éparpillés : email, vocal
   \item Risque de désorganisation
   \item Manque de clarté quant à la procédure
 \end{enumerate}
@@ -75,8 +75,8 @@ D'après la description de la procédure actuelle, il est possible de mettre en 
 Pour répondre aux problèmes mis en évidence, j'ai imaginé la nouvelle procédure de demandes de travaux. Dans cette procédure, il y a deux acteurs :
 
 \begin{itemize}
-  \item le client : personne qui dépose la demande
-  \item le technicien : personne qui s'occupe de réaliser le travail
+  \item Le client : personne qui dépose la demande
+  \item Le technicien : personne qui s'occupe de réaliser le travail
 \end{itemize}
 
 Cas de figure :
@@ -135,7 +135,7 @@ Je les ai regroupés en deux tableaux, pour les clients et les techniciens.
       N1.2 & Être capable de consulter les demandes déposées et leur état d'avancement, fichiers joints et messages envoyés \\ \midrule
       N1.3 & Besoin d'être averti en étant hors-ligne d'évènements liés aux demandes                                        \\ \midrule
       N1.4 & Nécessité de pouvoir communiquer efficacement avec le technicien, d'échanger des messages et des fichiers      \\ \midrule
-      N1.5 & Pouvoir accéder et interagir avec l'interface depuis un PC ou un Smartphone                                    \\ \midrule
+      N1.5 & Pouvoir accéder et interagir avec l'interface depuis un PC ou un smartphone                                    \\ \midrule
       N1.6 & Besoin de récupérer et d'évaluer le travail accompli                                                           \\ \midrule
     \end{tabularx}
   \end{center}
@@ -146,19 +146,19 @@ Je les ai regroupés en deux tableaux, pour les clients et les techniciens.
     \caption{Besoins des techniciens}
     \begin{tabularx}{\textwidth}{cXc}
       No.  & Besoin                                                                                                          \\ \toprule
-      N2.1 & Avoir la possibilité de consulter les demandes non assignées et de se les assigner                              \\ \midrule
+      N2.1 & Avoir la possibilité de consulter les demandes non-assignées et de se les assigner                              \\ \midrule
       N2.2 & Être capable de consulter les demandes assignées et leur état d'avancement, fichiers joints et messages envoyés \\ \midrule
       N2.3 & Être capable de mettre à jour l'état d'avancement des commandes assignées                                       \\ \midrule
       N2.4 & Besoin d'être averti en étant hors-ligne d'évènements liés aux demandes                                         \\ \midrule
       N2.5 & Nécessité de pouvoir communiquer efficacement avec le client, d'échanger des messages et des fichiers           \\ \midrule
-      N2.6 & Pouvoir accéder et interagir avec l'interface depuis un PC ou un Smartphone                                     \\ \midrule
+      N2.6 & Pouvoir accéder et interagir avec l'interface depuis un PC ou un smartphone                                     \\ \midrule
     \end{tabularx}
   \end{center}
 \end{table}
 
 \newpage
 Afin de répondre à ces besoins identifiés, j'ai pu établir le tableau des fonctions, qui liste les fonctionnalités auxquelles les utilisateurs auront accès.
-Ces fonctions sont celles de base, ce qui signifie qu'il pourrait y en avoir plus dans le système final.
+Le but va être de fournir toutes ces fonctionnalités depuis l'interface web.
 
 \begin{table}[h]
   \begin{center}
@@ -167,15 +167,15 @@ Ces fonctions sont celles de base, ce qui signifie qu'il pourrait y en avoir plu
       No. & Fonction                                                                                                                                                                                   & Besoin No.         \\ \toprule
       F1  & Créer une nouvelle demande de travaux via un formulaire adaptatif en fonction du type de travail, avec possibilité de joindre des fichiers et un commentaire à l'intention des techniciens & N1.1               \\ \midrule
       F2  & Visualiser une liste des travaux déposés ou assignés, contenant pour chaque demande toutes les informations associées                                                                      & N1.2 \newline N2.2 \\ \midrule
-      F3  & Visualiser une liste de tous les travaux non assignés, contenant pour chaque demande les informations du formulaire                                                                        & N2.1               \\ \midrule
-      F4  & Possibilité de s'assigner des demandes non assignées                                                                                                                                       & N2.1               \\ \midrule
-      F5  & Echanger des messages instantanés depuis un salon de discussion lié à une demande                                                                                                          & N1.4 \newline N2.5 \\ \midrule
+      F3  & Visualiser une liste de tous les travaux non-assignés, contenant pour chaque demande les informations du formulaire                                                                        & N2.1               \\ \midrule
+      F4  & Possibilité de s'assigner des demandes non-assignées                                                                                                                                       & N2.1               \\ \midrule
+      F5  & Échanger des messages instantanés depuis un salon de discussion lié à une demande                                                                                                          & N1.4 \newline N2.5 \\ \midrule
       F6  & Ajouter des fichiers à une demande                                                                                                                                                         & N1.4 \newline N2.5 \\ \midrule
       F7  & Possibilité de personnaliser les notifications par mail en fonction des évènements liés à une demande                                                                                      & N1.3 \newline N2.4 \\ \midrule
       F8  & Modifier l'état des demandes                                                                                                                                                               & N2.3               \\ \midrule
       F9  & Adaptation automatique de l'interface graphique au type et à la taille de l'écran de l'appareil utilisé                                                                                    & N1.5 \newline N2.6 \\ \midrule
       F10 & Suppression d'une demande terminée                                                                                                                                                         & N1.6               \\ \midrule
-      F11 & Evaluation du travail accompli                                                                                                                                                             & N1.6               \\ \midrule
+      F11 & Évaluation du travail accompli                                                                                                                                                             & N1.6               \\ \midrule
     \end{tabularx}
   \end{center}
 \end{table}
@@ -185,17 +185,16 @@ Ces fonctions sont celles de base, ce qui signifie qu'il pourrait y en avoir plu
 Le monde du développement web est un univers totalement nouveau pour moi.
 Au cours de ma formation, j'ai acquis des compétences très basiques en HTML, PHP et JavaScript.
 Je n'ai par conséquent jamais utilisé de framework auparavant.
-
 Après avoir exploré le net et consulté mon mentor, j'ai découvert qu'il existait une multitude de frameworks.
 J'ai ensuite sommairement rempli un tableau qui regroupe certains des frameworks populaires afin d'établir un comparatif, pour mettre en évidence les avantages et les inconvénients de chacun.
-Étant donné la prédisposition pour le framework backend Laravel, comme expliqué plus loin, j'ai limité le nombre de frameworks backend dans le tableau.
 
-Pourquoi avoir choisi les plus populaires ? En général, si un outil est populaire, il sera facile de trouver des réponses et des solutions sur internet.
+Étant donné la prédisposition pour le framework backend Laravel, comme expliqué plus loin, j'ai limité le nombre de frameworks backend dans le tableau.
+J'ai choisi parmi les choix les plus populaires,var en général, si un outil est populaire, il sera facile de trouver des réponses et des solutions sur internet.
 En vérifiant sur StackOverflow, j'ai trouvé des graphiques qui appuient mon propos.
 
 \begin{table}[h]
   \begin{center}
-    \caption{Comparaison des bases de données \label{specification}}
+    \caption{Comparaison des bases de données}
     \begin{tabularx}{\textwidth}[t]{m{1cm}Xp{4cm}p{4cm}}
       No.                               & Technologie     & Avantages & Inconvénients \\ \toprule
       1                                 & MySQL           & 
@@ -217,34 +216,18 @@ En vérifiant sur StackOverflow, j'ai trouvé des graphiques qui appuient mon pr
   \end{center}
 \end{table}
 
-\begin{table}[h]
-  \begin{center}
-    \caption{Comparaison des frameworks frontend \label{specification}}
-    \begin{tabularx}{\textwidth}[t]{m{1cm}Xp{4cm}p{4cm}}
-      No. & Technologie & Avantages & Inconvénients \\ \toprule
-      1   & Angular     & 
-      \textbf{+} Très complet
-          & 
-      \textbf{--} Complexe
-      \\ \midrule
-      2   & React       & 
-      \textbf{+} Simple
-          & 
-      \textbf{--} JavaScript XML (JSX)
-      \\ \midrule
-      3   & Vue         & 
-      \textbf{+} Simple \newline
-      \textbf{+} Le site PIAF est en Vue
-          & 
-      \textbf{--} Trop flexible
-      \\ \midrule
-    \end{tabularx}
-  \end{center}
-\end{table}
+\figi{stackoverflow_trends_DB.svg}{13cm}{StackOverflow, questions par mois, database}
+%% https://insights.stackoverflow.com/trends?tags=mysql%2Cmongodb%2Cpostgresql%2Coracle
+\newpage
+
+Au final, j'ai choisi MySQL comme base de données.
+
+Pourquoi MySQL ? Car c'est ce qui semble être LA base de données par défaut. Elle est gratuite, populaire, je m'en suis déjà servi et à défaut d'avoir besoin de spécifications particulières en terme de performances, convient très bien à n'importe quel projet.
+Il fallait aussi que ce soit une base relationnelle, c'est à dire avec des tables de modèles définis.
 
 \begin{table}[h]
   \begin{center}
-    \caption{Comparaison des frameworks backend \label{specification}}
+    \caption{Comparaison des frameworks backend}
     \begin{tabularx}{\textwidth}[t]{m{1cm}Xp{4cm}p{4cm}}
       No. & Technologie & Avantages & Inconvénients \\ \toprule
       1   & Laravel     & 
@@ -261,7 +244,7 @@ En vérifiant sur StackOverflow, j'ai trouvé des graphiques qui appuient mon pr
       3   & Express     & 
       \textbf{+} JavaScript
           & 
-      \textbf{--} Nature asynchrone compliquée
+      \textbf{--} Nature asynchrone
       \\ \midrule
       4   & Rails       & 
       \textbf{+} Simple
@@ -272,61 +255,76 @@ En vérifiant sur StackOverflow, j'ai trouvé des graphiques qui appuient mon pr
   \end{center}
 \end{table}
 
-J'ai évidemment dû me fier à l'avis des auteurs, car ne connaisant rien, il m'a parfois été difficile de vraiment comprendre les différences entre les outils.
-Néanmoins, j'ai pu me faire une idée quant à ce qui existe dans le milieu.
-
-%% https://www.trustradius.com/products/laravel-php-framework/reviews?qs=pros-and-cons
-
-\figi{stackoverflow_trends_frontend.svg}{14cm}{StackOverflow, questions par mois, frontend}
-%% https://insights.stackoverflow.com/trends?tags=reactjs%2Cvue.js%2Cangular%2Cangularjs
-
-
-\figi{stackoverflow_trends_backend.svg}{14cm}{StackOverflow, questions par mois, backend}
+\figi{stackoverflow_trends_backend.svg}{13cm}{StackOverflow, questions par mois, backend}
 %% https://insights.stackoverflow.com/trends?tags=laravel%2Cdjango%2Cexpress%2Cruby-on-rails
 
-\figi{stackoverflow_trends_DB.svg}{14cm}{StackOverflow, questions par mois, database}
-%% https://insights.stackoverflow.com/trends?tags=mysql%2Cmongodb%2Cpostgresql%2Coracle
+Au final, j'ai choisi Laravel comme framework backend.
 
-%% https://trends.google.fr/trends/explore?date=today%205-y&q=%2Fg%2F11c0vmgx5d,%2Fg%2F11c6w0ddw9,%2Fm%2F012l1vxv
-%% https://trends.google.fr/trends/explore?date=today%205-y&q=Laravel,%2Fm%2F06y_qx,%2Fm%2F0_v2szx,%2Fm%2F0505cl
-%% https://trends.google.fr/trends/explore?date=today%205-y&q=%2Fm%2F04y3k,%2Fm%2F05ynw,%2Fm%2F05z_r2n,%2Fm%2F01vw9z
+Pourquoi Laravel ? Car c'est un framework très simple pour les débutants comme moi, et que le professeur Chevallier sait s'en servir.
+En cas de problèmes, il saura m'aider et m'orienter, ce qui selon moi justifie pleinement son utilisation.
+\newpage
 
-Au final, ce sont les frameworks Vue et Laravel que j'ai choisi, ainsi que la base de données MySQL.
+\begin{table}[h]
+  \begin{center}
+    \caption{Comparaison des frameworks frontend}
+    \begin{tabularx}{\textwidth}[t]{m{1cm}Xp{4cm}p{4cm}}
+      No. & Technologie & Avantages & Inconvénients \\ \toprule
+      1   & Angular     & 
+      \textbf{+} Très complet
+          & 
+      \textbf{--} Complexe
+      \\ \midrule
+      2   & React       & 
+      \textbf{+} Simple
+          & 
+      \textbf{--} JavaScript XML
+      \\ \midrule
+      3   & Vue         & 
+      \textbf{+} Simple \newline
+      \textbf{+} PIAF utilise Vue
+          & 
+      \textbf{--} Trop flexible
+      \\ \midrule
+    \end{tabularx}
+  \end{center}
+\end{table}
 
-Pourquoi Vue ? Car la raison principale est que l'institut IAI possède un site template qui utilise Vue, auquel j'ai pu avoir accès.
+\figi{stackoverflow_trends_frontend.svg}{13cm}{StackOverflow, questions par mois, frontend}
+%% https://insights.stackoverflow.com/trends?tags=reactjs%2Cvue.js%2Cangular%2Cangularjs
+
+Au final, j'ai choisi Vue comme framework frontend.
+
+Pourquoi Vue ? Car la raison principale est que l'institut IAI possède un site template qui utilise Vue, qui s'appelle PIAF, auquel j'ai pu avoir accès.
 Toute la structure du site était déjà faite, ce qui procure un gain de temps énorme.
 C'est aussi pour ça que je n'ai inclu que React et Angular dans mon comparatif : avec Vue, ils forment ensemble les principaux frameworks frontend.
 Vue est aussi un framework très simple pour les débutants, et qui gagne en popularité.
 Il est apparement très bien documenté et il existe des bibliothèques gratuites de composants.
 
-Pourquoi Laravel ? Car c'est un framework très simple pour les débutants comme moi, et que le professeur Chevallier sait s'en servir.
-En cas de problèmes, il saura m'aider et m'orienter, ce qui selon moi justifie pleinement son utilisation.
-
-Pourquoi MySQL ? Car c'est ce qui semble être LA base de données par défaut. Elle est gratuite, populaire, et à défaut d'avoir besoin de spécifications particulières en terme de performances, convient très bien à n'importe quel projet.
-Il fallait aussi que ce soit une base relationnelle, c'est à dire avec des tables de modèles définis.
+J'ai évidemment dû me fier à l'avis des auteurs, car ne connaisant rien, il m'a parfois été difficile de vraiment comprendre les différences entre les outils.
+Néanmoins, j'ai pu me faire une idée quant à ce qui existe dans le milieu.
+%% https://www.trustradius.com/products/laravel-php-framework/reviews?qs=pros-and-cons
 
 
-\section{Spécifications}
-\section{Matériel nécessaire}
+%% https://trends.google.fr/trends/explore?date=today%205-y&q=%2Fg%2F11c0vmgx5d,%2Fg%2F11c6w0ddw9,%2Fm%2F012l1vxv
+%% https://trends.google.fr/trends/explore?date=today%205-y&q=Laravel,%2Fm%2F06y_qx,%2Fm%2F0_v2szx,%2Fm%2F0505cl
+%% https://trends.google.fr/trends/explore?date=today%205-y&q=%2Fm%2F04y3k,%2Fm%2F05ynw,%2Fm%2F05z_r2n,%2Fm%2F01vw9z
+
 \chapter{Vue d'ensemble}
-
 Avant de parler en détail des aspects techniques, ce chapitre a pour but de dresser une vue d'ensemble des composants du système, afin de se familiariser avec son fonctionnement.
 
-\section{Pages web}
-
-La structure d'un site est assez simple : c'est un ensemble de pages consultables à la demande. Chaque page possède du code HTML, responsable de la mise en forme du contenu, et du code JavaScript, qui permet d'exécuter des actions, par example quand on clique sur un bouton.
+\section{Fonctionnement des pages web}
+La structure d'un site est assez simple : c'est un ensemble de pages consultables à la demande. Chaque page possède du code HTML et CSS, responsable de la mise en forme du contenu, et du code JavaScript, qui permet d'exécuter des actions, par example quand on clique sur un bouton.
 Quand vous naviguez sur un site, vous avez accès à une arborescence de pages, chacunes identifiées par une addresse, une route : il s'agit de l'URL, le texte visible en haut du navigateur.
 
 Dans le cadre de ce chapitre, nous avons affaire à deux principales entités distinctes :
 \begin{itemize}
-  \item Le serveur : la machine qui s'occupe de servir les pages et les données aux clients
-  \item Le client : la machine qui avec son navigateur essaie d'accéder au site
+  \item Le serveur : l'entité qui répond aux requêtes qui lui sont envoyées
+  \item Le client : l'entité qui envoie des requêtes au serveur
 \end{itemize}
 \bigskip
-L'utilisateur est la personne physique qui veut accéder au site. Son appareil (PC, Smartphone) est le client.
 
-Pour accéder à une page, le navigateur doit envoyer une requête HTTP au serveur. Le serveur lui répond en lui retournant la page à afficher.
-C'est pareil pour toutes les pages : le navigateur doit à chaque fois envoyer une requête et attendre la réponse avant de l'afficher.
+Pour accéder à une page, le client doit envoyer une requête HTTP au serveur, à l'adresse décrite par l'URL. Le serveur lui répond en lui retournant la page à afficher.
+C'est pareil pour toutes les pages : le client doit à chaque fois envoyer une requête et attendre la réponse avant de l'afficher.
 
 \figi{figure1.xml}{12cm}{Site traditionnel}
 
@@ -338,9 +336,10 @@ Cette méthode, bien que parfaitement fonctionnelle, possède toutefois des inco
 \end{itemize}
 \bigskip
 Heureusement, au fil des années, le monde du web s'est fortement développé et il existe une nouvelle façon de faire.
-Cette méthode consiste non plus à envoyer les pages à la demande, mais à envoyer toutes les pages à la fois, et à laisser le navigateur s'occuper de leur accès.
+Cette méthode consiste non plus à envoyer les pages à la demande, mais à envoyer toutes les pages à la fois, et à laisser le client s'occuper de leur accès.
 
-C'est à dire qu'au lieu de demander une nouvelle page à chaque fois, le navigateur, qui la possède déjà, va l'afficher directement sans envoyer de requête au serveur.
+\newpage
+C'est à dire qu'au lieu de demander une nouvelle page à chaque fois, le client, qui la possède déjà, va l'afficher directement sans envoyer de requête au serveur.
 Ce fonctionnement implique qu'il n'y a que très peu de temps d'attente pour l'affichage de la nouvelle page, ce qui améliore considérablement le confort de l'utilisateur.
 
 \figi{figure2.xml}{12cm}{Site SPA}
@@ -348,251 +347,507 @@ Ce fonctionnement implique qu'il n'y a que très peu de temps d'attente pour l'a
 Désormais, un site n'est plus juste un assortiment de pages inertes et figées, c'est devenu une sorte d'entité "vivante", à la façon d'une application.
 On appelle ce type de site une "SPA" pour \emph{Single Page Application}.
 Cela dit, il peut encore y avoir des requêtes, sauf que cette fois, il ne s'agit plus de demander une page entière, mais seulement d'accéder à des ressources.
+Le volume de données est donc considérablement réduit puisque tout le code HTML est déjà présent : il s'agit de rapatrier uniquement les données à afficher.
 
-Le volume de données est considérablement réduit puisque tout le code HTML est déjà présent : il s'agit de rapatrier uniquement les données à afficher.
-
+\newpage
 De plus, avec l'apparition de ces sites "intelligents", une nouvelle technologie très intéressante est apparue : celle des websockets.
 Grâce aux websockets, les serveurs ont désormais la possibilité de spontanément contacter les clients pour leur envoyer des données.
 
-En effet, sans cette technologie, les serveurs ne peuvent que reçevoir des requêtes et non pas les envoyer.
+Sans cette technologie, les serveurs ne pouvaient que reçevoir des requêtes et non pas les envoyer.
+Désormais, des échanges spontanés bidirectionnels peuvent se faire.
 
 \section{Base de données et backend}
-
 Le terme de "backend" désigne la partie du site qui s'occupe de la gestion des données, de l'authentification des utilisateurs et de l'envoi de la SPA.
-Quand un client s'addresse au backend, ce dernier va effectuer des actions, par exemple pour stocker ou retourner des ressources, envoyer des mails ou encore envoyer des notifications push aux clients.
+Quand un client s'addresse au serveur, ce dernier va effectuer des actions, par exemple pour stocker ou retourner des ressources, envoyer des mails ou encore envoyer des notifications push aux clients. Toutes ces actions sont écrites dans le backend. On peut considérer que le serveur et le backend sont la même chose, d'un point de vue pratique.
 
 Le backend est très souvent couplé à une base de données qu'il utilise pour stocker les données du système, par example les données concernant les utilisateurs.
 La base de données est un système de stockage organisé de ressources, qui permet d'insérer, d'éditer, de retirer et de supprimer les ressources qu'elle contient.
-Dans le cas d'une base de données relationnelle, le stockage se fait à la manière d'un tableur : chaque ligne représente une entrée, et chaque entrée possède des attributs rangés en colonnes.
+Dans le cas d'une base de données relationnelle, le stockage se fait à la manière d'un tableur : chaque ligne représente une entrée, et chaque entrée possède des attributs rangés en colonnes, tout comme dans un tableur Excel.
 
 Les clients communiquent avec le backend via une API, une interface qui associe à chaque route, chaque addresse, à un type de réponse.
-L'API décrit le format des données échangées, entre le code PHP côté backend et JavaScript côté frontend.
+L'API décrit le format des données échangées, entre le code PHP côté backend et le code JavaScript côté frontend.
 
-\figi{figure3.xml}{14cm}{Echanges de données entre le client et le backend}
+\figi{figure3.xml}{14cm}{Échanges de données entre le client et le backend}
+\newpage
 
 \section{Interface utilisateur et frontend}
-
-Le terme de "frontend" désigne la SPA, l'application qui s'occupe d'afficher les données et d'interagir avec l'utilisateur et le backend.
-C'est au travers de cette SPA que l'utilisateur va accéder aux fonctionnalités.
-
-L'avantage est que les données seront affichées en temps réel, ce qui enlève la nécessité de rafraichir la page pour s'assurer que le contenu présenté soit à jour.
-
-C'est d'ici que se font les requêtes HTTP pour l'accès aux ressources.
-
-\section{Aperçu d'une page Vue}
-Vue est un framework permettant de développer une SPA et qui utilise principalement du JavaScript et du HTML.
-L'organisation de l'interface se fait en composants, qui sont des éléments graphiques programmables.
-Je trouve d'ailleurs qu'il y a une ressemblance entre ces composants et ceux utilisés en C\# WPF.
-
-Un composant Vue est structuré de la manière suivante :
-\begin{enumerate}
-  \item template : c'est la partie en HTML qui décrit l'affichage du composant
-  \item script : c'est ici que tout le code JavaScript est situé
-  \item style : contient les classes CSS utilisées dans le template
-\end{enumerate}
-\bigskip
-Ces composants peuvent être utilisés dans d'autres composants, et peuvent être associés à une page.
-Dans Vue, une page est définie par une route (URL) qui est associée à un fichier qui contient un composant.
-Lorsque la page est appelée, le routeur Vue s'occupe d'afficher le bon composant.
-
-Pour communiquer entre les composants, il y a deux façons de faire :
+Le terme de "frontend" désigne la partie avec laquelle l'utilisateur va interagir, à savoir l'ensemble des pages du site ou la SPA. Dans le cadre de ce projet, le frontend désigne la SPA.
+Le frontend comporte le code HTML et CSS, qui s'occupe purement de la présentation graphique :
 \begin{itemize}
-  \item Le parent transmet des données à l'enfant par propriétés
-  \item L'enfant transmet des données au parent par évènement
+  \item Alignement des composants
+  \item Présentation et mise en forme des données
+  \item Éléments interactifs, comme les boutons ou les sélecteurs
 \end{itemize}
 \bigskip
-\newpage
 
-Pour ce faire, il existe des directives spéciales.
-La plus utilisée est la directive "v-on", abrégée avec le symbole ":", qui permet de passer une variable à une propriété.
-Pour utiliser les évènements, on peut utiliser le symbole "@" devant le nom de l'évènement pour lui associer une fonction.
-Prenons un example :
-\begin{minted}{html}
-  <composant :name="userName" surname="Tristan" @click="componentClicked">
-    ...
-  </composant>
-\end{minted}
-Dans cet exemple, la variable "userName" est passée à la propriété "name", tandis que la chaine de caractères "Tristan" est passée à "surname".
-Lorsque la composant émet l'évènement "click", c'est la méthode "componentClicked" qui va être appelée.
+Le code HTML va de pair avec le code CSS, donc pour la suite de ce rapport, le terme seul "HTML" sera utilisé pour les désigner les deux comme un ensemble.
+Le CSS est un language qui sert à donner du style aux feuilles HTML. Par exemple, la couleur de fond, la taille et police des caractères, l'épaisseur des bordures, etc.
 
-Dans le script d'un composant, on a accès à plusiers fonctionnalités :
+Le frontend est aussi composé du code JavaScript, qui sert à ce que du code soit exécuté quand il y en a besoin :
 \begin{itemize}
-  \item components : permet d'importer d'autres composants
-  \item data : contient les variables du composant
-  \item methods : déclaration des méthodes
-  \item computed : ce sont des sortes de méthodes sans paramètres qui retournent des variables modifiées
-  \item watch : callbacks appellés quand une variable change
+  \item Réaction aux évènements, comme quand un bouton est appuyé
+  \item Envoi des requêtes HTTP
+  \item Réception des notifications par Websocket
+  \item Modification dynamique de l'affichage HTML
 \end{itemize}
 \bigskip
-Il existe encore des méthodes qui sont appellées automatiquement durant le cycle de vie du composant, comme par exemple mounted(), destroyed(), ...
-\newpage
-\inputminted[breaklines]{html}{assets/code/component_example.vue}
+
+Il faut bien garder à l'esprit qu'une SPA se comporte comme une application, donc le code représente une grande partie du frontend.
+On peut considérer que le client (client dans le sens client-serveur) est représenté par le frontend. Le frontend est donc en quelque sorte le prolongement du backend, puisque c'est cette entité qui va donner vie au système. C'est à travers elle que les utilisateurs vont pouvoir interagir avec l'ensemble du système.
 
 \chapter{Architecture de la base de données}
-\section{Modèles}
-L'élaboration des modèles est une partie essentielle du développement car il s'agit de déterminer quelles informations il faut stocker pour pouvoir faire fonctionner le système.
-Ces modèles ont évolué avec le temps, car il a fallu les adapter au fur et à mesure que des fonctionnalités ont été ajoutées.
+L'élaboration des modèles est une partie essentielle du développement car il s'agit de déterminer quelles informations il faut stocker dans la base de données pour pouvoir faire fonctionner le système. Une première réflexion à été nécessaire pour poser les fondations des tables. Pendant toute la phase de développement, des modifications et des ajouts ont eu lieu pour pouvoir pleinement implémenter les fonctionnalités du système.
 \figi{db_schema.svg}{14cm}{Schéma de la base de données}
+\newpage
+
+Sur le schéma de la base de données, on peut voir les liens que les tables ont entre elles. Un code avec les symboles permet de donner des informations supplémentaires sur les colonnes :
+\begin{itemize}
+  \item Clé jaune : clé primaire de la ligne
+  \item Losange bleu : la colonne ne peut pas valoir null
+  \item Losange vide : la colonne peut valoir null
+  \item Losange rouge : la colonne possède une clé étrangère
+\end{itemize}
+\bigskip
+
+Certaines colonnes sont communes à plusieurs des tables. C'est le cas de 'created\_at', qui indique l'heure de création de la ligne, et 'updated\_at', qui indique l'heure à laquelle la ligne à été modifiée pour la dernière fois. La description des colonnes est issue du fichier de migration de chaque table.
+
+\section{Table 'users'}
+Cette table contient les informations des utilisateurs. Elle est essentielle puisque sans elle, il serait impossible de faire le lien entre les demandes et leur propriétaire et/ou technicien.
+Bien qu'une colonne pour le mot de passe soit présente, elle n'est pas utilisée pour authentifier les utilisateurs qui se connectent depuis leur compte Switch AAI. Elle est toutefois utilisée pour se connecter à des comptes seedés qui servent à effectuer des essais. Dans tous les cas, aucun mot de passe des comptes AAI ne sont stockés dedans.
+
+\begin{minted}[breaklines]{javascript}
+  $table->id(); //clé primaire, colonne "id"
+  $table->string('name'); //prénom
+  $table->string('surname'); //nom de famille
+  $table->string('email')->unique(); //adresse email
+  $table->boolean('is_technician')->default(false); //définit si l'utilisateur est un technicien. Si non, c'est un client
+  $table->string('password')->nullable(); //champ utilisé pour les comptes seedés, pour pouvoir se connecter sans passer par AAI
+  $table->boolean('notify_email_status')->default(true); //indique si l'utilisateur veut être notifié par mail lorsque le statut d'une de ses demande change
+  $table->boolean('notify_email_messages')->default(true); //indique si l'utilisateur veut être notifié par mail lorsque qu'il reçoit de nouveaux messages sur un de ses demandes
+  $table->boolean('notify_email_files')->default(true); //indique si l'utilisateur veut être notifié par mail lorsque des fichiers sont ajoutés à une de ses demandes
+  $table->timestamp('notify_email_updated_at')->useCurrent(); //heure à laquelle l'un des trois champs "notify_email_..." à été modifié
+  $table->rememberToken(); //champ par défaut pour la classe "user" de Laravel, non utilisé
+  $table->timestamps(); //colonnes "created_at" et "updated_at"
+\end{minted}
+
+\section{Table 'jobs'}
+La table "jobs" correspond aux demandes. À chaque nouvelle demande est associée une ligne dans cette table. Une demande possède trois attributs essentiels sous forme de liste : des fichiers, des évènements et des messages. Il a donc fallu imaginer et ajouter les tables "files", "timeline\_events" et "messages", et les relier à la table "jobs" au travers de clés étrangères.
+
+\begin{minted}[breaklines]{javascript}
+  $table->id(); //clé primaire, colonne "id"
+  $table->unsignedBigInteger('client_id'); //clé étrangère sur la table "users" pour pouvoir savoir à quel client appartient la demande
+  $table->unsignedBigInteger('technician_id')->nullable(); //clé étrangère nullable sur la table "users" pour savoir à quel technicien est assignée la demande. Elle est nullable car au début, une demande n'a pas de technicien assigné.
+  $table->string('job_type'); //nom du type de travail
+  $table->text('description')->nullable(); //peut contenir un commentaire concernant la demande
+  $table->enum('status', ['new', 'assigned', 'ongoing', 'on-hold','completed'])->default('new'); //nom du statut en cours
+  $table->string('deadline'); //date de délai
+  $table->boolean('notify_client')->default(true); //indique au client qu'il y a eu du changement sur sa demande
+  $table->boolean('notify_technician')->default(true); //au technicien qu'il y a eu du changement sur sa demande
+  $table->string('client_name'); //prénom du client
+  $table->string('client_surname'); //nom du client
+  $table->string('technician_name')->nullable(); //prénom du technicien
+  $table->string('technician_surname')->nullable(); //nom du technicien
+  $table->integer('rating')->nullable(); //contient la note de 1 à 6 de la demande terminée
+  $table->timestamps(); //colonnes "created_at" et "updated_at"
+  $table->softDeletes(); //colonne "deleted_at".
+
+  $table->foreign('client_id')->references('id')->on('users');
+  $table->foreign('technician_id')->references('id')->on('users');
+\end{minted}
+
+Quand un "job" est accompli, il est "soft-deleted", ce qui signifie qu'il existe encore dans la base de données mais qu'il n'apparait plus dans les résultats des requêtes.
+Quand cet évènement a lieu, les lignes des tables "files", "timeline\_events" et "messages" associées sont elles complètement supprimées de la base de données.
+
+\section{Table 'messages'}
+Cette table contient les messages envoyés par les utilisateurs. Un message est lié à une demande et à deux utilisateurs.
+
+\begin{minted}[breaklines]{javascript}
+  $table->id(); //clé primaire, colonne "id"
+  $table->unsignedBigInteger('sender_id'); //clé étrangère sur la table "users" qui désigne l'émetteur du message
+  $table->unsignedBigInteger('recipient_id'); //clé étrangère sur la table "users" qui désigne le récepteur du message
+  $table->unsignedBigInteger('job_id'); //clé étrangère sur la table "jobs" qui indique à quelle demande est associé le message
+  $table->text('text'); //texte du message
+  $table->boolean('notify')->default(true); //indique au récepteur que c'est un nouveau message
+  $table->timestamps(); //colonnes "created_at" et "updated_at"
+
+  $table->foreign('sender_id')->references('id')->on('users');
+  $table->foreign('recipient_id')->references('id')->on('users');
+  $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade'); //cascade : si le "job" est supprimé de la base de données, le message le sera aussi
+\end{minted}
+
+\section{Table 'files'}
+La table "files" contient uniquement les informations des fichiers, et non pas les fichiers eux-mêmes. Ces derniers sont stockés dans un dossier géré par Laravel.
+
+\begin{minted}[breaklines]{javascript}
+  $table->id(); //clé primaire, colonne "id"
+  $table->unsignedBigInteger('job_id'); //clé étrangère sur la table "jobs" qui indique à quelle demande est associé le fichier
+  $table->string('hashed_name'); //nom haché du fichier (sha256)
+  $table->string('name'); //nom du fichier
+  $table->timestamps(); //colonnes "created_at" et "updated_at"
+
+  $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade'); //cascade : si le "job" est supprimé de la base de données, le fichier le sera aussi
+\end{minted}
+
+Il faut noter que quand une ligne de cette table est sur le point d'être supprimée, un évènement a lieu, durant lequel le fichier physique est supprimé du dossier de stockage.
+Cet évènement est émis par le code backend et non pas par la base de données, donc attention à nettoyer les fichiers physiques manuellement si des lignes de cette table sont supprimées directement depuis la base de données.
+
+\section{Table 'timeline\_events'}
+Cette table contient les évènements des demandes. Il n'y a que deux types d'évènements possibles : "status" et "file", qui sont créés respectivement quand un nouveau statut est attribué et qu'un fichier à été ajouté ou écrasé.
+
+\begin{minted}[breaklines]{javascript}
+  $table->id(); //clé primaire, colonne "id"
+  $table->unsignedBigInteger('job_id'); //clé étrangère sur la table "jobs" qui indique à quelle demande est associé l'évènement
+  $table->enum('type', ['status', 'file']); //type d'évènement : nouveau statut ou fichier ajouté/écrasé
+  $table->string('data')->nullable(); //contient le nom du statut si le type est "status", ou le nom du fichier si le type est "file"
+  $table->boolean('notify_client')->default(true); //indique au client que le timeline_event est nouveau
+  $table->boolean('notify_technician')->default(true); //indique au technicien que le timeline_event est nouveau
+  $table->timestamps(); //colonnes "created_at" et "updated_at"
+
+  $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade'); //cascade : si le "job" est supprimé de la base de données, le timeline_event le sera aussi
+\end{minted}
+
+\section{Tables 'jobsQueue' et 'failed\_jobs'}
+Ces deux tables sont automatiquement créées quand on implémente une file. Une file contient des tâches à réaliser de manière asynchrone ou délayées. Dans le cas de ce projet, il faut envoyer des emails avec un délai de 10 minutes. Les tâches sont effectuées en arrière plan, donc les performances de l'API ne sont pas impactées.
+Les tâches sont stockées dans la table que j'ai nommé "jobsQueue". Quand elles sont terminées, elles sont automatiquement supprimées de la table. En cas d'échec, une ligne est crée dans la table "failed\_jobs", contenant des informations quant à la source de l'erreur.
 
 \chapter{Conception du frontend}
 %% https://themeforest.net/item/piaf-vuejs-admin-dashboard/23160320
-Afin de partir depuis une bonne base, Mr. Chevallier a pu partager avec moi un site préfait, acheté par l'institut IAI.
-J'ai pu forker le repo sur GitHub, et à partir de là, j'ai pu commencer à réaliser le frontend.
-Je n'ai donc pas eu à créer un projet Vue à partir de zéro, et les pages déjà présentes m'ont servi d'exemple lors de mon apprentissage du framework.
+Afin de partir depuis une bonne base, Mr. Chevallier a partagé avec moi un site préfait, nommé PIAF, acheté par l'institut IAI.
+J'ai pu forker le repo sur GitHub, et à partir de là, j'ai pu commencer à réaliser le frontend. Je n'ai donc pas eu à créer un projet Vue à partir de zéro, et les pages déjà présentes m'ont servi d'exemple lors de mon apprentissage du framework. J'ai principalement utilisé la bibliothèque de composants Vuetify pour réaliser l'interface du site.
 
 \section{Cycle de vie d'une demande}
 Dés lors de sa création, une demande va passer par plusieurs étapes tout au long de son cycle de vie : ces étapes sont caractérisées par son statut.
 Le statut est l'indication de l'état d'avancement de la demande, et c'est donc cette propriété que le technicien peut faire évoluer.
 
-Pour qu'un technicien puisse faire avancer l'état de la demande, il doit d'abord se l'assigner.
-Une demande non assignée ne peut pas encore être modifiée : elle ne peut être que consultée par les techniciens.
-Une fois assignée, la demande n'est plus visible des autres techniciens et n'est accessible que par le client demandeur et par le technicien responsable.
+Au tout début du cycle, le client doit remplir le formulaire de nouvelle demande et le soumettre. Il doit indiquer le type de travail, la date de rendu et doit joindre les fichiers requis.
+Il n'y a que les comptes clients qui ont la capacité de déposer des demandes. Une limite est fixée à 10 demandes en parallèle, pour éviter d'éventuels abus.
+La nouvelle demande non-assignée est transmise aux techniciens, qui peuvent la voir et qui ont la capacité de se l'assigner.
 
-Une demande possède trois éléments importants : des messages, des fichiers et une timeline.
-La timeline peut contenir les évènements suivants :
+Pour qu'un technicien puisse faire avancer l'état de la demande, il doit d'abord se l'assigner, car une demande non-assignée ne peut pas encore être modifiée.
+Quand un technicien s'est assigné la demande, elle n'est plus visible des autres techniciens. Le statut passe à "Assigné" et le technicien à accès à tous les détails de la demande.
+L'assignation débloque aussi la possibilité d'envoyer des messages instantanés et d'ajouter des fichiers de la part des deux acteurs : avant ça, ces fonctionnalités sont bloquées.
+Les évènements de la timeline sont générés automatiquement lors de l'ajout ou de l'écrasement d'un fichier et lors du changement de statut.
+
+Une demande possède donc à ce stade trois attributs importants : des messages, des fichiers et une timeline.
+La timeline peut indiquer deux types d'évènements :
 \begin{itemize}
-  \item Changement de statut.
-  \item Ajout d'un fichier.
+  \item Changement de statut
+  \item Ajout ou écrasement d'un fichier
 \end{itemize}
-\bigskip
 
-L'assignation débloque la possibilité d'envoyer de messages instantanés et d'ajouter des fichiers.
-Avant ça, ces fonctionnalités sont bloquées : une demande peut toutefois déjà contenir les fichiers ajoutés depuis le formulaire.
-Les évènements de la timeline sont générés automatiquement, donc cette fonction n'est jamais accessible par les utilisateurs.
-
-Au tout début, le client doit remplir le formulaire de nouvelle demande et la soumettre.
-Il n'y a que les clients qui peuvent faire une nouvelle demande : les techniciens ne peuvent que les assigner.
-La nouvelle demande commence au premier stade, avec le status "NEW".
 \newpage
+Quand le technicien est prêt à se mettre au travail, il peut mettre le statut "En cours". Si un problème survient pendant ce temps et qu'il doit interrompre le travail, il peut mettre le statut "En pause".
 
-Le diagramme ci-dessous représente les différents statuts et stades que la demande va atteindre, dans l'ordre chronologique.
+Quand il a terminé, le stade final est le statut "Terminé". Quand ce statut est atteint, le technicien ne peut plus le changer. Le travail du technicien est à ce point accompli et il n'a plus rien à faire. C'est au tour du client de noter la qualité du service et de valider la supression de la demande terminée. Quand c'est fait, la demande disparait et n'est plus du tout accessible. Elle n'est cependant pas supprimée de la base de donnée car sinon la note serait perdue, mais elle est inaccessible des acteurs.
+
+Le diagramme ci-dessous représente les différents statuts et stades que la demande va atteindre durant son cycle, dans l'ordre chronologique.
 
 \figi{lifecycle.xml}{12cm}{Cycle de vie d'une demande}
 
 \begin{enumerate}
-  \item[Stade 1.] La demande est toute nouvelle. Elle n'a pas encore été assignée à un technicien, part conséquent il n'est pas encore possible d'échanger des messages ou d'ajouter des fichiers. Ce statut initial est automatique.
-  \item[Stade 2.] La demande à été assignée à un technicien, donc il y a désormais une prise en charge du travail. Il peut maintenant y avoir des échanges de messages et des fichiers peuvent êtres ajoutés. Ce statut est automatiquement mis à jour quand la demande est assignée.
-  \item[Stade 3.] La demande est soit en cours de production, soit en arrêt. Ces deux statuts peuvent êtres interchangés manuellement par le technicien. Le mode "ON HOLD" indique au client que le travail à dû être mis en attente à cause d'un problème. C'est aux deux acteurs de discuter entre eux pour le régler.
-  \item[Stade 4.] Le travail est terminé. Ce statut est atteignable manuellement. Le client est en mesure de venir chercher le travail accompli, et peut désormais supprimer la demande, après avoir évalué la qualité du travail.
+  \item La demande est toute nouvelle. Elle n'a pas encore été assignée à un technicien, part conséquent il n'est pas encore possible d'échanger des messages ou d'ajouter des fichiers. Ce statut initial est automatique.
+  \item La demande à été assignée à un technicien, donc il y a désormais une prise en charge du travail. Il peut maintenant y avoir des échanges de messages et des fichiers peuvent êtres ajoutés. Ce statut est automatiquement mis à jour quand la demande est assignée.
+  \item La demande est soit en cours de production, soit en arrêt. Ces deux statuts peuvent êtres interchangés manuellement par le technicien. Le mode "En pause" indique au client que le travail à dû être mis en attente à cause d'un problème. C'est aux deux acteurs de discuter entre eux pour le régler.
+  \item Le travail est terminé. Ce statut est atteignable manuellement. Le client est en mesure de venir chercher le travail accompli, et peut désormais se débarasser la demande, après avoir évalué la qualité du travail.
 \end{enumerate}
 \bigskip
-Certains de ces statuts sont attribués automatiquement, c'est le cas de "NEW" et de "ASSIGNED".
-Tous les autres sont modifiables par le technicien.
-
-Ces noms de statuts sont en anglais, bien que le reste de l'interface soit en français.
-Cette particularité est voulue, car comme il s'agit d'un nom de code, j'ai trouvé élégant d'utiliser de l'anglais.
 
 \newpage
-\section{Premier croquis de l'interface}
-Avant de commencer à coder, j'ai réalisé quelques croquis pour définir grossièrement à quoi allait ressembler l'interface du site.
+\section{Croquis initiaux de l'interface}
+Avant de commencer à coder, j'ai réalisé quelques croquis initiaux pour définir grossièrement à quoi allait ressembler l'interface du site.
 Au final, l'apparence a beaucoup été infulencée par les composants issus de bibliothèques externes (Vuetify) et par la forme du site de base.
-Néanmoins, mes croquis ont servi de base pour le placement de ces composants.
-Il faut noter que ces croquis ne traitent que de la version PC de l'interface : les différentes pages devront accomoder un petit écran tactile et par conséquent l'interface risque de changer en fonction.
-De plus, de nouvelles pages sont apparues au fil du temps, et il n'existe pas de croquis de base pour ces dernières : c'est donc normal qu'il n'y ait pas autant de croquis que de pages ou de fenêtres.
+Néanmoins, mes croquis ont servi de base pour le placement de certains composants. Il faut noter que ces croquis ne traitent que de la version PC de l'interface.
 
-Pour naviguer sur le site, j'ai décidé d'utiliser un overlay, c'est à dire deux barres fixes sur le haut et sur la gauche qui contiennent les liens vers les pages.
+Pour naviguer sur le site, j'ai décidé d'utiliser un overlay composé de deux barres fixes sur le haut et sur la gauche qui contiennent les liens vers les pages.
 La barre de gauche peut être masquée pour bénéficier de pages qui prennent toute la largeur.
 
-\figi{ui_overlay.xml}{10cm}{Croquis de l'overlay}
+\figi{ui_overlay.xml}{14cm}{Croquis de l'overlay}
 
-Ce style est assez standard puisqu'on le rencontre sur de nombreux sites (Cyberlearn, Vuetify, Laravel docs, ...).
+Ce style est assez standard puisqu'on le rencontre sur de nombreux sites (Cyberlearn, Vuetify, Youtube, ...).
 C'est d'ailleurs celui qui était utilisé dans le site de base.
 On y retrouve certains éléments habituels, comme la cloche de notifications ou le nom de l'utilisateur qui permet de dérouler un menu.
 
-\newpage
-Pour pouvoir modifier les paramètres de notifications par mail, j'ai imaginé une page exprès pour.
+Pour pouvoir modifier les paramètres de notifications par mail, j'ai imaginé une page pour le réglage des paramètres.
 Sur cette page sont aussi affichées quelques informations de base concernant le compte de l'utilisateur, comme le nom, l'adresse mail et le nombre de demandes actives.
 
-\figi{ui_settings.xml}{10cm}{Croquis de la page des paramètres}
-
 Pour pouvoir déposer une demande, j'ai voulu mettre une liste des travaux disponibles avec une image et une description de chaque machine.
-Si tous les acteurs peuvent voir cette liste, seuls les clients peuvent déposer une demande.
-Pour ce faire, j'ai imaginé un formulaire dans lequel il faut indiquer le type de travail, la date de rendu et les fichiers nécessaires.
-J'ai aussi voulu mettre un champ de texte pour que le client puisse ajouter un commentaire optionnel à l'intention des techniciens.
-
-\figi{ui_submit_job.xml}{14cm}{Croquis de la liste des travaux disponibles et du formulaire}
+Le formulaire dans lequel il faut indiquer le type de travail, la date de rendu et les fichiers nécessaires à été imaginé et dessiné.
 
 \newpage
-Pour consulter leurs demandes, les utilisateurs doivent pouvoir y avoir accès rapidement et idéalement avoir la possibilité de les trier.
-Pour réaliser cette tâche, j'ai pensé à utiliser un tableau, avec une fonction de tri.
-Ce tableau existe : il s'agit du composant "v-data-table" de la bibliothèque Vuetify.
-Je n'ai donc pas eu besoin de faire de croquis pour ça.
+\figi{ui_settings.xml}{14cm}{Croquis de la page des paramètres}
+\figi{ui_submit_job.xml}{14cm}{Croquis de la liste des travaux disponibles et du formulaire}
 
 J'ai aussi décidé de créer une fenêtre qui donne une vue d'ensemble sur la demande sélectionnée.
-Cette fenêtre est le "hub" central d'une demande, puisqu'elle contient toutes les informations de la demande : statut, fichiers, timeline, messagerie, ...
-Toutes ces informations au même endroit, tel était la motivation pour la réalisation de ce composant.
+Cette fenêtre est le point central d'une demande, puisqu'elle contient toutes les informations de la demande : statut, fichiers, timeline, messagerie, etc.
+Elle doit aussi permettre au technicien de faire évoluer le statut de la demande, et permettre aux deux acteurs d'y ajouter des messages et des fichiers.
+La motivation derrière cette vue est que je trouvais essentiel de regrouper toutes les informations et fonctionnalités d'une demande en un seul endroit. C'est non seulement un gain de temps mais aussi un gain de confort de tout avoir à portée de clic.
 
-\figi{ui_jobinfo.xml}{10cm}{Croquis des détails d'une demande}
+\newpage
+\figi{ui_jobinfo.xml}{14cm}{Croquis des détails d'une demande}
 
-La fenêtre offre des fonctionnalités différentes pour les clients et les techniciens.
-Par exemple, un technicien peut changer l'état de la demande, tandis que le client à la possibilité de supprimer la demande un fois qu'elle est terminée.
+Cette fenêtre est à la base issue d'un croquis abandonné, qui illustrait la liste des demandes. Le chat aurait été sur une page à part et les informations auraient été affichées directement dans la liste des demandes. J'ai jugé cette idée mauvaise, car le fait d'avoir un chat à part n'est pas pratique et confortable. C'est pourquoi j'ai abandonné ce croquis pour faire place à la fenêtre des détails.
+
+\figi{ui_joblist1.xml}{14cm}{Croquis abandonné de la liste des demandes}
 
 \newpage
 \section{Interface finale}
 Le résultat final à été basé sur les croquis, bien que les composants de la bibliothèque Vuetify aient fortement influencé le design.
-Il y a donc eu beaucoup de nouveautés par rapport aux croquis de base, qui ne couvraient que quelques vues.
+Il y a donc eu beaucoup de nouveautés par rapport aux quelques croquis de base, qui ne couvraient que quelques vues.
+Le développement à été fait avec un écran de bureau de 1440 x 777 pixels
 
-On retrouve le même overlay, avec en plus le logo central qui est un lien vers la page "Mes commandes".
-Le bouton tout à gauche sert à basculer la visibilité de la barre latérale.
-La cloche de droite indique le nombre de notifications es contient aussi un lien vers la page "Mes commandes".
-Si on clique sur le nom à côté de la cloche, un menu permettant de se déconnecter apparait.
+La toute première page du site est la page d'accueil. Les utilisateurs pas encore authentifiés doivent passer par cette page pour avoir accès au login Switch AAI.
+Le bouton "Se connecter" redirige l'utilisateur vers la page de login Switch AAI.
 
-La première page de la liste est celle des paramètres.
-Cette page ressemble beaucoup à ce qui était prévu dans le croquis.
-Pour modifier les options, des boutons de type "switch" sont utilisés.
-Ces boutons sont avantageux puisqu'ils indiquent directement leur état : ON ou OFF.
-
-Par souci de confort, il est possible de d'activer ou de désactiver toutes les options d'un coup.
-
-\begin{figure}[h!]
-  \makebox[\textwidth]{\includegraphics[width=14cm]{ui_settings_page.PNG}}
-  \caption{Page des paramètres du technicien}
+\begin{figure}[h]
+  \includegraphics[width=14cm]{ui_welcome.PNG}
+  \caption{Page d'accueil}
 \end{figure}
 
-Côté fonctionnement, ils sont synchronisés avec le serveur, donc l'état affiché correspond à l'état mémorisé.
-Il n'y a pas besoin d'appliquer les modifications, puisqu'elles se font directement lors du changement d'état des boutons : une petite animation de chargement indique que les modifications sont en train d'être appliquées, ce qui indique à l'utilisateur que les changements sont biens enregistrés.
+Une fois l'utilisateur authentifié, il arrive sur la page principale.
+On y retrouve l'overlay tel qu'imaginé dans le croquis, avec les éléments suivants :
+\begin{itemize}
+  \item Le bouton tout à gauche sert à basculer la visibilité de la barre latérale
+  \item Le logo HEIG-VD de gauche est un lien vers la page "Mes commandes"
+  \item Le titre au centre porte le titre "Gestionnaire des travaux du FabLab"
+  \item La cloche de droite indique le nombre de notifications et est aussi un lien vers la page "Mes commandes"
+  \item Le prénom tout à droite déroule un menu permettant à l'utilisateur de se déconnecter
+\end{itemize}
+\bigskip
+
+Les onglets de la barre latérale permettent de naviguer sur les différentes pages du site. Les techniciens et les clients n'ont pas les mêmes onglets car ils n'ont pas accès aux mêmes fonctionnalités.
 
 \newpage
-La seconde page contient un tableau de toutes les demandes déposées ou attribuées : le client verra ses demandes déposées et le technicien verra celles qu'il s'est assigné.
-Ce tableau peut être trié selon plusieurs critères, et quand on clique sur une des entrées, la fenêtre de détails s'ouvre.
+La première page commune aux deux acteurs est celle de la liste des travaux disponibles, sous l'onglet du même nom. Elle présente une liste des travaux pour lesquels une demande peut être déposée.
+Chaque type de travail possède un titre, le nom de la machine, une brève description et un lien vers la site du constructeur. Si la présentation est identique pour les deux acteurs, seuls les clients peuvent cliquer soit sur le titre soit sur l'image pour ouvrir un formulaire pré-rempli correspondant au travail sélectionné.
 
-\begin{figure}[h!]
-  \makebox[\textwidth]{\includegraphics[width=14cm]{ui_myjobs_client.PNG}}
-  \caption{Page des demandes du client}
+\begin{figure}[h]
+  \includegraphics[width=14cm]{ui_joblist_page.PNG}
+  \caption{Page "Travaux disponibles" du client}
 \end{figure}
 
-La fenêtre de détails finale est presque identique à celle qui était prévue dans le croquis.
-On peut voir l'état d'avancement grâce au stepper en quatre étapes.
-La chatbox permet d'afficher les messages entre les interlocuteurs.
-La timeline affiche les évènements importants liés à la demande.
-Pour les fichiers, un numéro de version est indiqué.
-Cette indication est utile si un même fichier est modifié puis ajouté de nouveau.
+La seconde page commune est celle de la liste des demandes, sous l'onglet "Mes commandes". Pour le client, elle contient les demandes qu'il a déposé et pour le technicien, les demandes qu'il s'est assigné.
 
-\begin{figure}[h!]
-  \makebox[\textwidth]{\includegraphics[width=14cm]{ui_jobinfo_tech1.PNG}}
-  \caption{Détails d'une demande, côté technicien}
+\begin{figure}[h]
+  \includegraphics[width=14cm]{ui_myjobs_client.PNG}
+  \caption{Page "Mes commandes" du client}
+\end{figure}
+
+La table offre la possibilité de trier une colonne à la fois, et par défaut le tri est fait en fonction du statut.
+Ce tri par défaut fait en sorte que les demandes notifiées apparaissent toujours en premier. Une demande notifiée est une demande qui possède un point d'exclamation dans sa colonne "Statut".
+La cloche de notification indique toujours le nombre de demandes notifiées.
+
+En cliquant sur une des entrées du tableau, la fenêtre des détails va s'ouvrir. Dessus, on retrouve ce qui était prévu dans le croquis. Les détails sont affichés en colonne, en haut de la fenêtre.
+Si un commentaire est attaché à la demande, il est affiché quand on clique sur l'icône de la colonne correspondante. Si on clique sur le bouton de la colonne "Fichiers", un menu contenant les noms des fichiers se déroule. Il suffit de cliquer sur un des noms pour lancer le téléchargement du fichier choisi.
+Un stepper à 4 étapes indique visuellement l'état d'avancement du travail. En bas à gauche et à droite se situent la chatbox et la timeline.
+
+La chatbox est une fenêtre de chat pour l'échange de messages entre les acteurs. Une bannière délimite les messages par date, et une autre apparait si des nouveaux messages sont présents.
+Dans la timeline sont affichés tous les évènements de la demande. C'est depuis ici que peuvent être ajoutés des fichiers. Pour les évènements de type fichier, un numéro de version indique si un fichier à été écrasé. Il n'y a pas de limitations pour l'ajout des fichiers, hormis une limite de 5 MB par envoi.
+
+\begin{figure}[h]
+  \includegraphics[width=14cm]{ui_jobinfo_client2.PNG}
+  \caption{Fenêtre des détails d'une demande terminée, côté client}
+\end{figure}
+
+Quand une demande passe au statut "Terminé", le client voit apparaitre un long bouton vert tout en haut de la fenêtre. Ce bouton sert à évaluer le travail et à l'effacer. Une fois validé, le travail disparait pour tout le monde.
+
+\begin{figure}[h]
+  \includegraphics[width=14cm]{ui_jobinfo_client3.PNG}
+  \caption{Évaluation et suppression du travail terminé}
+\end{figure}
+
+L'alerte de notification pour la demande est retirée dès que la fenêtre des détails est fermée, signifiant que l'utilisateur a vu les changements.
+
+\newpage
+Si l'utilisateur est un technicien, une fonctionnalité de plus lui est offerte. Sa colonne "Statut" possède un bouton qui lui permet d'éditer le statut de la demande. Un sélecteur lui permet de choisir le nouveau statut parmi ceux qui sont disponibles. Il ne peut que faire avancer l'avancement de la demande, donc les options qui s'offrent à lui évoluent en fonction du stade actuel. Quand il met le statut "Terminé", il ne peut plus le modifier. La figure \ref{lifecycle.xml} illustre l'ordre des statuts.
+
+\begin{figure}[h]
+  \includegraphics[width=14cm]{ui_jobinfo_tech2.PNG}
+  \caption{Modification du statut accessible au technicien}
+\end{figure}
+
+\newpage
+Si le travail n'est pas encore assigné, la timeline et la chatbox ne sont pas disponibles. Par conséquent, la fenêtre des détails en informe l'utilisateur.
+Dès que la demande est assignée, la fenêtre retrouve son affichage normal.
+
+\begin{figure}[h]
+  \includegraphics[width=14cm]{ui_jobinfo_client1.PNG}
+  \caption{Fenêtre des détails d'une demande non assignée, vu par le client}
+\end{figure}
+
+La dernière page commune est celle des paramètres, aussi sous l'onglet du même nom. Elle ressemble beaucoup à ce qui était prévu dans le croquis.
+Il y a trois options pour personnaliser l'envoi d'emails de notification. Ces options déterminent quels évènements vont déclencher l'envoi d'un courriel.
+Pour les modifier, des switchs sont utilisés. Ils sont avantageux puisqu'ils indiquent directement leur état : ON ou OFF.
+Par souci de confort, il est possible de d'activer ou de désactiver toutes les options d'un coup, avec le switch "Notifications par mail".
+
+\begin{figure}[h]
+  \includegraphics[width=14cm]{ui_settings_page.PNG}
+  \caption{Page des paramètres du client}
+\end{figure}
+
+Il n'y a pas besoin d'appliquer les modifications, puisqu'elles se font directement lors du changement d'état des boutons : une animation de chargement indique que les modifications sont en train d'être appliquées, ce qui indique à l'utilisateur que les changements sont biens enregistrés.
+
+\newpage
+Comme mentionné plus tôt, les clients et les techniciens n'ont pas accès aux mêmes pages ou aux mêmes fonctionnalités.
+
+Les clients ont accès au formulaire de nouvelle demande. Ce formulaire est accessible soit depuis la page des travaux disponibles, soit depuis l'onglet "Nouvelle demande".
+Un formulaire ouvert depuis l'onglet est totalement vierge. Sur ce formulaire se trouvent tous les champs nécessaires à la création d'une nouvelle demande.
+
+\begin{figure}[h]
+  \includegraphics[width=14cm]{ui_submit1.PNG}
+  \caption{Formulaire vierge}
+\end{figure}
+
+L'utilisateur doit obligatoirement indiquer le type de travail, fournir les fichiers requis et indiquer une date de délai. Le commentaire éventuel est facultatif.
+Les types de fichiers requis sont indiqués sous le champ "Fichiers à joindre".
+
+\begin{figure}[h]
+  \includegraphics[width=14cm]{ui_submit2.PNG}
+  \caption{Formulaire incomplet}
+\end{figure}
+
+En cliquant sur le bouton "Soumettre", les champs sont vérifiés et en cas de problème, un message d'erreur apparait sous les champs concernés.
+Le formulaire ne peut être envoyé tant que des erreurs persistent. Quand il est finalement envoyé, la nouvelle demande se retrouve tout de suite dans le tableau de la page "Mes commandes".
+
+Les techniciens, quant à eux, ont accès à une page supplémentaire qui contient la liste de toutes les demandes non-assignées, depuis l'onglet "Commandes clients".
+Une table contenant tous les travaux non assignés est affichée. Les colonnes indiquent quelques informations de base, et surtout, il y a la possibilité de cocher les demandes. En cochant les demandes, le technicien peut se les assigner, à l'aide du bouton "Assigner". Une confirmation lui est demandée et une fois le choix validé, les travaux sélectionnés disparaissent de la table de tous les techniciens connectés, et le technicien qui s'est assigné les demandes les reçoit dans sa table de la page "Mes commandes".
+Chaque fois qu'une nouvelle demande est déposée par un client, tous les techniciens reçoivent cette nouvelle demande dans le tableau des demandes non-assignées.
+
+\begin{figure}[h]
+  \includegraphics[width=14cm]{ui_alljobs_page.PNG}
+  \caption{Table des demandes non-assignées du technicien}
+\end{figure}
+
+\begin{figure}[h]
+  \includegraphics[width=14cm]{ui_alljobs_comment.PNG}
+  \caption{Affichage du commentaire}
+\end{figure}
+
+\newpage
+\section{Interface pour mobiles}
+L'interface web étant responsive, elle doit être adaptée à un usage sur mobile. Les fonctionnalités offertes sont identiques que sur la version PC. Le seul changement est l'affichage.
+Grâce aux nombreux composants de la bibliothèque Vuetify et de la structure initiale du site, l'affichage adaptatif pour mobile était presque toujours fonctionnel. Il m'a tout de même fallu apporter des changements pour corriger les problèmes d'affichage.
+
+Le développement à été fait avec l'aide de la console Chrome, avec l'appareil Moto G4 de 360 x 640 pixels. Les vérifications ont été faites avec mon Samsung S8.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=12cm]{ui_mobile_joblist_portrait.PNG}
+  \caption{Barre latérale en mode portrait et liste des travaux disponibles}
+\end{figure}
+
+La barre latérale recouvre désormais le contenu des pages. Le contenu de la barre du haut change aussi pour pouvoir garder tous les éléments à l'écran. Ces derniers sont néanmoins assez éloignés les uns des autres pour ne pas cliquer sur l'élément voisin.
+Pour la page des travaux disponibles, au lieu d'une liste à deux colonnes, il n'en reste qu'une, suffisamment large pour afficher le contenu.
+
+\newpage
+Les tables aussi sont changées. En mode portrait, les lignes prennent la forme d'une liste, et le tri se fait depuis un sélecteur. Le fonctionnement est sinon identique.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=11cm]{ui_mobile_landscape.PNG}
+  \caption{Barre latérale en mode paysage}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[height=10cm]{ui_mobile_myjobs_client_portrait.PNG}
+  \caption{Table des demandes du client, mode portrait}
+\end{figure}
+
+\newpage
+En mode paysage, la forme est similaire que sur PC. L'avantage est qu'il y a la possibilité de changer d'orientation pour changer l'affichage des tables.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=11cm]{ui_mobile_myjobs_client_landscape.PNG}
+  \caption{Table des demandes du client, mode paysage}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=11cm]{ui_mobile_alljobs_landscape.PNG}
+  \caption{Table des demandes non-assignées, mode paysage}
+\end{figure}
+
+Le composant qui change radicalement de forme est la fenêtre des détails. Vu qu'il n'y a pas la place pour l'afficher en entier sur un écran de smartphone, j'ai décidé de mettre un carousel de 4 fenêtres à la place. Il y a une fenêtre pour les détails, une pour le stepper, une pour la timeline et une pour la chatbox. L'utilisateur peut naviguer entre ces vues en swipant du doigt.
+Si la demande n'est pas encore assignée, les fenêtres de la chatbox et de la timeline ne seront pas disponibles.
+
+\newpage
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=10cm]{ui_mobile_jobinfo.png}
+  \caption{Carousel des détails d'une demande du client, mode portrait}
+\end{figure}
+
+\newpage
+\section{Routage}
+Le frontend possède une liste de routes internes qui mènent chacunes à une page différente. C'est le routeur de la SPA qui s'occupe d'intercepter ces routes et d'afficher la bonne page.
+
+Le fichier "router.js" contient une représentation objet de ces routes. Chaque nom de route, signalée par "path", possède une vue (une page) associée, "component". L'utilisation d'un tableau "children" permet d'imbriquer des routes.
+
+\begin{minted}[breaklines]{javascript}
+const routes = [
+  {
+    path: "/",
+    redirect: "/app",
+  },
+  {
+    path: "/app",
+    component: () => import("./views/app"),
+    redirect: "/app/my-jobs",
+    children: [
+      {
+        path: "my-jobs", //page "Mes commandes"
+        component: () => import("./views/app/myJobs/MyJobs"),
+      },
+      {
+        path: "all-jobs", //page "Commandes clients"
+        component: () => import("./views/app/myJobs/AllJobs"),
+        beforeEnter: (to, from, next) => {
+          next(store.getters.getUser.is_technician ? {} : '/')
+        }
+      },
+      {
+        path: "job-list", //page "Travaux réalisables"
+        component: () => import("./views/app/jobList/JobList"),
+      },
+      {
+        path: "settings", //page "Paramètres"
+        component: () => import("./views/app/settings/Settings"),
+      },
+    ]
+  },
+  {
+    path: "*", //page 404
+    component: () => import("./views/Error")
+  }
+];
+\end{minted}
+
+Un garde de navigation, utilisé sur la route "all-jobs", permet de rediriger une route sous certaines conditions. En l'occurence, il faut que l'utilisateur soit un technicien, sans quoi il est redirigé ailleurs. La vérification de l'authentification ne se fait pas à ce niveau : ce sujet est traité dans un des chapitres suivants.
+
+\newpage
+Si on organise ces routes sous forme de liste, on obtient la chose suivante :
+\begin{itemize}
+  \item '/' : redirige sur /app (puis sur /app/my-jobs)
+  \item '/app' : racine de la SPA. Cette route toute seule redirige sur /my-jobs
+  \item '/app/my-jobs' : page "Mes commandes"
+  \item '/app/all-jobs' : page "Commandes clients", accessible seulement aux techniciens. Si un client tente d'y accéder, il est redirigé sur "/"
+  \item '/app/job-list' : page "Travaux réalisables"
+  \item '/app/settings' : page "Paramètres"
+  \item '/*' : toutes les routes indéfinies finissent ici, sur la page 404
+\end{itemize}
+\bigskip
+
+Si une route n'est pas trouvée, la ravissante page 404 apparait. Le bouton "Retour" redirige l'utilisateur sur la route "/". Au final, il est envoyé sur la page "Mes commandes".
+
+\begin{figure}[h]
+  \includegraphics[width=14cm]{ui_404.PNG}
+  \caption{Page 404}
 \end{figure}
 
 
-
-Si l'utilisateur est un technicien, il a accès à une page supplémentaire qui contient la liste de toutes les demandes non attribuées.
-Il peut voir des informations basiques concernant les demandes, comme le type de travail, la date de rendu et le commentaire.
-
-Pour qu'un technicien puisse s'attribuer des travaux, il peut cocher la checkbox des demandes voulues, puis cliquer sur le bouton vert "Assigner".
-Une fenêtre modale de confirmation apparaitra et une fois la validation faite, les demandes fraichement assignées seront ajoutées dans le tableau de la page "Mes travaux".
-
-\begin{figure}[h!]
-  \makebox[\textwidth]{\includegraphics[width=20cm]{ui_alljobs_assign.PNG}}
-  \caption{Page des travaux non-assignés}
-\end{figure}
-
-Pour voir le commentaire, s'il y en a un, il faut cliquer sur l'icône dans la colonne en question, pour faire apparaitre une petite fenêtre modale contenant le message.
-
-\begin{figure}[h!]
-  \makebox[\textwidth]{\includegraphics[width=20cm]{ui_alljobs_comment.PNG}}
-  \caption{Page des travaux non-assignés, vue du commentaire}
-\end{figure}
-
+\newpage
 \section{Gestion des données et pattern MVC}
 %% https://vuex.vuejs.org/#what-is-a-state-management-pattern
 %% https://code-cartoons.com/a-cartoon-guide-to-flux-6157355ab207
@@ -615,8 +870,8 @@ Il doit donc y avoir un endroit où les stocker : c'est là qu'intervient Vuex.
 Le partage de données entre composants est un possibilité, mais Vuex offre bien trop d'avantages.
 
 Vuex est un pattern et une librairie qui fait office de gestionnaire d'état pour les applications Vue.
-Plus précisément, c'est un lieu de stockage qui peut contenir des données, et qui offre des accesseurs et des mutateurs pour interagir avec.
-Ce lieu s'appelle le "store", le magasin en français.
+Plus précisément, c'est un lieu de stockage qui peut contenir des données, rangées dans le "state", et qui offre des accesseurs et des mutateurs pour interagir avec.
+Des fonctions sont aussi mises à disposition, et s'appellent des actions. Tous ces composants font partie du "store".
 
 Le premier avantage de ce système est qu'il n'y a qu'une seule instance des objets stockés dedans, une seule source de vérité accessible depuis tous les composants.
 Dans Vue, les composants s'échangent des données soit par props soit par évènements.
@@ -634,13 +889,13 @@ Les développeurs ont alors décidé de se débarasser du problème en créant F
 \figi{vuex2.xml}{14cm}{Échange de données avec le store}
 
 Avec Vuex, il n'y a pas de problème d'états différents, puisqu'il n'existe qu'un seul exemplaire de la ressource, qui est directement accessible.
-Si un composant veut modifier l'état, il doit passer par un mutateur et tout changement sera propagé aux composants qui en dépendent.
+Si un composant veut modifier l'état d'une ressource du store, il doit passer par un mutateur et tout changement sera propagé aux composants qui en dépendent.
 
 \newpage
 L'utilisation de mutateurs assure que les données soient modifiées de façon synchrone, contrôlée et prédictible.
 Les actions servent principalement à envoyer des requêtes au serveur pour y récupérer des données.
 Sur le schéma ci-dessous, on voit le cycle qui se produit lorsqu'un composant a besoin de récupérer des données depuis le serveur.
-Il appelle une action (une fonction qui retourne une promesse) qui va s'occuper de la requête et de la mutation de la ressource.
+Il appelle une action qui va s'occuper de la requête et de la mutation de la ressource.
 
 \figi{vuex.xml}{14cm}{Récupération des données du serveur}
 
@@ -648,9 +903,52 @@ Le second avantage est que toute la partie du code qui s'occupe des requêtes HT
 L'utilisation de Vuex a donc été très utile, surtout pour l'organisation du code et des données, et de l'application efficace du pattern MVC.
 De plus, il y a la garantie qu'il n'y aura jamais de problèmes avec l'état des variables entre composants.
 
+\newpage
+Lors du démarrage de la SPA, il faut que l'application se connecte au serveur Websocket, pour reçevoir les notifications du serveur.
+Les détails du serveur Websocket ne seront pas traités dans ce chapitre, donc cette partie ne parle que des canaux. Laravel Echo est la librairie JavaScript qui est utilisée dans ce projet.
+
+La réception de données par notification se fait via des canaux. Quand un client (désormais dans le sens client-serveur) se connecte à un canal, il va reçevoir tout ce que le serveur va diffuser dessus. Du point de vue du client, de la SPA dans ce cas, il faut s'abonner à un canal et associer une fonction callback à un évènement. Sur un canal, il peut y avoir plusieurs types d'évènements, qui peuvent être capturés par une fonction callback, qui est appellée à chaque fois que l'évènement a lieu, donc quand le serveur diffuse. Les données transmises du serveur au client circulent au format JSON.
+
+\begin{minted}[breaklines]{javascript}
+  window.Pusher = require('pusher-js')
+    window.Echo = new Echo({
+      broadcaster: 'pusher',
+      key: '23d1749ad2b7bf6d3315',
+      wsHost: window.location.hostname,
+      wsPort: 6001,
+      wssPort: 6001,
+      forceTLS: true,
+      disableStats: true,
+      encrypted: true,
+      enabledTransports: ['ws', 'wss'],
+    })
+    let id = this.state.user.id
+    window.Echo.channel('message.channel.' + id).listen('MessagePusherEvent', (e) => {
+      this.commit("addMessage", e.message)
+    })
+    window.Echo.channel('job.channel.' + id).listen('JobPusherEvent', (e) => {
+      if ('terminated' in e.job) this.commit("removeJob", e.job)
+      else this.commit("addOrUpdateJob", e.job)
+    })
+    if (this.state.user.is_technician) {
+      window.Echo.channel('job.channel.0').listen('JobPusherEvent', (e) => {
+        this.commit("addOrRemoveUnassignedJob", e.job)
+      })
+    }
+\end{minted}
+
+Cette portion du code frontend illustre comment procéder pour utiliser les notifications du serveur Websocket. L'objet "Echo" est initialisé avec les informations requises pour se connecter au serveur. Chaque client s'abonne aux canaux "message.channel.{id}" et "job.channel.{id}", avec l'identifiant de l'utilisateur pour "{id}". Ainsi, les clients ne partagent pas les mêmes canaux. Il faut ensuite écouter quand les évènements "MessagePusherEvent" et "JobPusherEvent" se produisent, et leur attribuer du code exécutable.
+
+Si l'utilisateur est un technicien, le canal "job.channel.0" est accessible. Tous les techniciens sont dessus, car il sert à reçevoir les nouvelles demandes.
+La liste suivante indique ce qui se passe dans le frontend quand le serveur diffuse du contenu :
+\begin{itemize}
+  \item 
+\end{itemize}
+
 \chapter{Conception du backend}
 \section{Présentation de Laravel}
 \section{Routes API}
+.htaccess, en parler
 \section{Notifications par mail}
 \section{Authentification par Switch AAI}
 %% https://www.switch.ch/aai/demo/medium/
@@ -798,7 +1096,7 @@ Si vous devez donner une spécification technique, n'oubliez pas de mentionner l
 L'exemple de la table \ref{specification}, assigne pour chaque exigence un numéro unique. Cette table est \textbf{normative}, chaque élément doit pouvoir être référencé par un identifiant unique (cf. T\ref{specification}-E3). Dans le cas ou cet identifiant est utilisé en dehors de ce document, la version du document devra être renseignée.
 
 \section{Index}
-\LaTeX~ permet d'indexer les mots \index{mots} importants. Il suffit de placer les termes importants d'un paragraphe dans la commande \texttt{\textbackslash index\{terme\}} et ils apparaîtront automatiquement à la fin de ce rapport dans l'index du document.
+\LaTeX~ permet d'indexer les mots \index{mots} importants. Il suffit de placer les termes importants d'un paragraphe dans la commande \texttt{\textbackslash index\{terme\}} et ils apparaitront automatiquement à la fin de ce rapport dans l'index du document.
 
 \index{Napoléon}
 
