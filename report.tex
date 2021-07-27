@@ -396,6 +396,7 @@ Il faut bien garder à l'esprit qu'une SPA se comporte comme une application, do
 On peut considérer que le client (client dans le sens client-serveur) est représenté par le frontend. Le frontend est donc en quelque sorte le prolongement du backend, puisque c'est cette entité qui va donner vie au système. C'est à travers elle que les utilisateurs vont pouvoir interagir avec l'ensemble du système.
 
 \chapter{Architecture de la base de données}
+\label{chapter:database}
 L'élaboration des modèles est une partie essentielle du développement car il s'agit de déterminer quelles informations il faut stocker dans la base de données pour pouvoir faire fonctionner le système. Une première réflexion à été nécessaire pour poser les fondations des tables. Pendant toute la phase de développement, des modifications et des ajouts ont eu lieu pour pouvoir pleinement implémenter les fonctionnalités du système.
 \figi{db_schema.svg}{14cm}{Schéma de la base de données}
 \newpage
@@ -425,7 +426,7 @@ Bien qu'une colonne pour le mot de passe soit présente, elle n'est pas utilisé
   $table->boolean('notify_email_status')->default(true); //indique si l'utilisateur veut être notifié par mail lorsque le statut d'une de ses demande change
   $table->boolean('notify_email_messages')->default(true); //indique si l'utilisateur veut être notifié par mail lorsque qu'il reçoit de nouveaux messages sur un de ses demandes
   $table->boolean('notify_email_files')->default(true); //indique si l'utilisateur veut être notifié par mail lorsque des fichiers sont ajoutés à une de ses demandes
-  $table->timestamp('notify_email_updated_at')->useCurrent(); //heure à laquelle l'un des trois champs "notify_email_..." à été modifié
+  $table->timestamp('notify_email_updated_at')->useCurrent(); //heure à laquelle l'un des trois champs "notify_email_..." à été modifié.
   $table->rememberToken(); //champ par défaut pour la classe "user" de Laravel, non utilisé
   $table->timestamps(); //colonnes "created_at" et "updated_at"
 \end{minted}
@@ -601,6 +602,7 @@ Le bouton "Se connecter" redirige l'utilisateur vers la page de login Switch AAI
 \begin{figure}[h]
   \includegraphics[width=14cm]{ui_welcome.PNG}
   \caption{Page d'accueil}
+  \label{img:welcome}
 \end{figure}
 
 Une fois l'utilisateur authentifié, il arrive sur la page principale.
@@ -904,52 +906,491 @@ L'utilisation de Vuex a donc été très utile, surtout pour l'organisation du c
 De plus, il y a la garantie qu'il n'y aura jamais de problèmes avec l'état des variables entre composants.
 
 \newpage
+Le state de l'application contient quelques variables qui doivent être accessibles depuis tous les composants. La portion de code suivante est tirée du fichier "store/index.js", qui est le fichier qui contient tout le store.
+
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+  state: {
+    user: JSON.parse(document.querySelector("meta[type='user']").getAttribute("value")), //infos de l'utilisateur, disponibles au démarrage dans le code HTML
+    jobs: [], //travaux déposés/assignés
+    unassignedJobs: [], //travaux non-assignés
+    formData: { //variable utilisée pour pouvoir ouvrir le formulaire depuis n'importe quelle page
+      dialog: false, //affichage de la fenêtre modale du formulaire
+      initialJob: null, //pour pré-remplir le formulaire avec le bon type de travail
+    },
+  },
+  \end{minted}
+  \caption{index.js, state du store}
+\end{figure}
+
 Lors du démarrage de la SPA, il faut que l'application se connecte au serveur Websocket, pour reçevoir les notifications du serveur.
 Les détails du serveur Websocket ne seront pas traités dans ce chapitre, donc cette partie ne parle que des canaux. Laravel Echo est la librairie JavaScript qui est utilisée dans ce projet.
 
-La réception de données par notification se fait via des canaux. Quand un client (désormais dans le sens client-serveur) se connecte à un canal, il va reçevoir tout ce que le serveur va diffuser dessus. Du point de vue du client, de la SPA dans ce cas, il faut s'abonner à un canal et associer une fonction callback à un évènement. Sur un canal, il peut y avoir plusieurs types d'évènements, qui peuvent être capturés par une fonction callback, qui est appellée à chaque fois que l'évènement a lieu, donc quand le serveur diffuse. Les données transmises du serveur au client circulent au format JSON.
+La réception de données par notification se fait via des canaux. Quand un client (désormais dans le sens client-serveur) se connecte à un canal, il va reçevoir tout ce que le serveur va diffuser dessus. Du point de vue du client, de la SPA dans ce cas, il faut s'abonner à un canal et associer une fonction callback à un évènement. Sur un canal, il peut y avoir plusieurs types d'évènements, qui peuvent être capturés par la fonction appellée à chaque fois que l'évènement a lieu, donc quand le serveur diffuse. Les données transmises du serveur au client circulent au format JSON.
 
-\begin{minted}[breaklines]{javascript}
-  window.Pusher = require('pusher-js')
-    window.Echo = new Echo({
-      broadcaster: 'pusher',
-      key: '23d1749ad2b7bf6d3315',
-      wsHost: window.location.hostname,
-      wsPort: 6001,
-      wssPort: 6001,
-      forceTLS: true,
-      disableStats: true,
-      encrypted: true,
-      enabledTransports: ['ws', 'wss'],
-    })
-    let id = this.state.user.id
-    window.Echo.channel('message.channel.' + id).listen('MessagePusherEvent', (e) => {
-      this.commit("addMessage", e.message)
-    })
-    window.Echo.channel('job.channel.' + id).listen('JobPusherEvent', (e) => {
-      if ('terminated' in e.job) this.commit("removeJob", e.job)
-      else this.commit("addOrUpdateJob", e.job)
-    })
-    if (this.state.user.is_technician) {
-      window.Echo.channel('job.channel.0').listen('JobPusherEvent', (e) => {
-        this.commit("addOrRemoveUnassignedJob", e.job)
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+    window.Pusher = require('pusher-js')
+      window.Echo = new Echo({
+        broadcaster: 'pusher',
+        key: '23d1749ad2b7bf6d3315',
+        wsHost: window.location.hostname,
+        wsPort: 6001,
+        wssPort: 6001,
+        forceTLS: true,
+        disableStats: true,
+        encrypted: true,
+        enabledTransports: ['ws', 'wss'],
       })
-    }
-\end{minted}
+      let id = this.state.user.id
+      window.Echo.channel('message.channel.' + id).listen('MessagePusherEvent', (e) => {
+        this.commit("addMessage", e.message)
+      })
+      window.Echo.channel('job.channel.' + id).listen('JobPusherEvent', (e) => {
+        if ('terminated' in e.job) this.commit("removeJob", e.job)
+        else this.commit("addOrUpdateJob", e.job)
+      })
+      if (this.state.user.is_technician) {
+        window.Echo.channel('job.channel.0').listen('JobPusherEvent', (e) => {
+          this.commit("addOrRemoveUnassignedJob", e.job)
+        })
+      }
+  \end{minted}
+  \caption{index.js, action "pusherConnect()"}
+  \label{figure:pusherConnect}
+\end{figure}
 
 Cette portion du code frontend illustre comment procéder pour utiliser les notifications du serveur Websocket. L'objet "Echo" est initialisé avec les informations requises pour se connecter au serveur. Chaque client s'abonne aux canaux "message.channel.{id}" et "job.channel.{id}", avec l'identifiant de l'utilisateur pour "{id}". Ainsi, les clients ne partagent pas les mêmes canaux. Il faut ensuite écouter quand les évènements "MessagePusherEvent" et "JobPusherEvent" se produisent, et leur attribuer du code exécutable.
+Si l'utilisateur est un technicien, le canal "job.channel.0" est accessible. Tous les techniciens sont connectés dessus, car il sert à reçevoir les nouvelles demandes.
 
-Si l'utilisateur est un technicien, le canal "job.channel.0" est accessible. Tous les techniciens sont dessus, car il sert à reçevoir les nouvelles demandes.
-La liste suivante indique ce qui se passe dans le frontend quand le serveur diffuse du contenu :
-\begin{itemize}
-  \item 
-\end{itemize}
+L'évènement "MessagePusherEvent" sert à transmettre un message de chat à l'interlocuteur. Le message est ajouté au tableau de l'objet "job" concerné.
 
+L'évènement "JobPusherEvent" sert à alerter les utilisateur qu'une demande à changé. Si elle est effacée par un client, elle est effacée du tableau "jobs". Sinon, la demande en question déjà dans le tableau est mise à jour : nouveaux fichiers, statut, timeline-events, etc.
+
+Une autre opération importante survient au chargement de la page : la récupération des données. Le tableau des demandes est rapatrié du serveur au démarrage. Par la suite, les nouveaux travaux seront ajoutés un par un soit en réponse à une requête HTTP, soit par notitification serveur.
+Si l'utilisateur est un technicien, le tableau des demandes non-assignées est récupéré quand il ouvre la page "Commandes clients".
+
+Au final, la situation peut être illustrée avec la figure suivante, reprise du second chapitre.
+Les notifications push correspondent aux notifications du serveur Websocket.
+\figi{figure3.xml}{14cm}{Requêtes et notifications push}
+
+Le fichier qui contient tout le store est disponible dans l'annexe.
+
+\newpage
 \chapter{Conception du backend}
-\section{Présentation de Laravel}
-\section{Routes API}
-.htaccess, en parler
+Le backend est l'organisme qui s'occupe de servir la page SPA, d'authentifier les utilisateurs et de gérer la base de données.
+Quand des requêtes sont reçues, le backend va effectuer des actions qui auront comme résultat final l'envoi d'une réponse. Il peut s'agir de réponses au format JSON, pour des données issues de la base de données, ou d'une page. S'il s'agit d'une page, c'est une "view" qui est retournée.
+
+Une "view" dans Laravel est une page HTML qui peut contenir des directives spéciales, en Blade. Le Blade est une syntaxe qui permet d'injecter du contenu dans le rendu de la page HTML, comme les composants Vue. Puisque la SPA est contenue dans une "view", le backend peut la servir comme n'importe quelle autre page. La procédure exacte est expliquée au prochain chapitre.
+
+\section{Modèles, migrations et contrôleurs}
+Un rôle important du backend est la gestion de la base de données. Pour répondre aux requêtes, le backend doit souvent interagir avec la base de données pour y retirer, insérer, modifier ou supprimer des données. Pour travailler avec une représentation objet de ces tables, une ORM, pour \emph{object-relational mapper}, est utilisée. Le but de l'ORM est de représenter les modèles relationnels de la base de données (tables) en modèles objet, utilisés en programmation. Ces modèles objet ne sont autres que des classes.
+
+L'ORM de Laravel s'appelle Eloquent. \href{https://laravel.com/docs/8.x/eloquent}{Cette page} contient toutes la documentation de l'interface Eloquent.
+
+Pour ajouter un nouveau modèle ORM dans Laravel, il faut d'abord créer quelques fichiers. Prenons l'exemple du modèle "message" :
+\begin{enumerate}
+  \item migration : create\_messages\_table.php
+  \item modèle : Message.php
+  \item contrôleur (optionnel) : MessageController.php
+\end{enumerate}
+\bigskip
+
+Le fichier de migration décrit quelles colonnes doivent être créées dans la base de données. Il faut au moins indiquer le nom et le type des données. D'autres attributs peuvent êtres indiqués, comme une valeur initiale, une clé étrangère, etc. Il faut ensuite utiliser une commande pour créer la table dans la base de données à partir de son fichier de migration..
+Le chapitre \ref{chapter:database} décrit les tables utilisés dans ce projet.
+
+\newpage
+Le fichier du modèle décrit la classe associée au modèle relationnel. Comme c'est une classe, on peut y mettre des méthodes et des attributs. Dans l'exemple, les attributs de la classe portent le nom des colonnes.
+
+\begin{minted}[breaklines]{javascript}
+class Message extends Model
+{
+  use HasFactory;
+  protected $fillable = [
+    'sender_id',
+    'recipient_id',
+    'job_id',
+    'text',
+    'notify'
+  ];
+}
+\end{minted}
+
+Ce modèle peut maintenant être utilisé dans les autres fichiers du backend. Puisque c'est un modèle objet, il n'y a pas besoin d'écrire des requêtes SQL pour interagir avec la base de données : ce sont les méthodes de la classe de base "Model" qui doivent êtres utilisées. Par exemple, pour réaliser quelques opérations de base, on peut procéder comme dans l'exemple ci-dessous :
+
+\begin{minted}[breaklines]{javascript}
+  $newMessage = new Message; //crée un objet "Message"
+  $newMessage->text = "Bonjour à tous";
+  $newMessage->save(); //une nouvelle ligne est ajoutée dans la db, avec la colonne "text" remplie
+
+  $messages = Message::where('recipient_id', 3)->get(); //retourne un tableau des messages ayant comme valeur "recipient_id" égale à 3
+
+  Message::find(4)->delete(); //supprime la ligne ayant comme id 4 dans la db
+\end{minted}
+
+Le contrôleur contient un ensemble de fonctions destinées à être appelées par les routes. Dans l'exemple, la fonction "store()" prend comme argument les informations de la requête, et crée une nouvelle instance de "Message" dans la base de données. Elle retourne ensuite l'objet créé. Il faut noter que les fonctions des contrôleurs peuvent aussi être appelées depuis d'autres contrôleurs.
+
+\begin{minted}[breaklines]{javascript}
+//la route "/message/store" appelle la méthode "store()" quand une requête POST lui est adressée
+Route::post('/message/store', [MessageController::class, 'store']);
+
+//La méthode store() récupère les données de la requête
+public function store(Request $request)
+{
+  $newMessage = new Message;
+  $newMessage->sender_id = $request->user()->id;
+  $newMessage->text = $request->text;
+  $newMessage->save();
+  $newMessage = Message::find($newMessage->id);
+
+  return $newMessage;
+}
+\end{minted}
+
+Pour ce projet, j'ai créé les modèles Eloquent "File", "Job", "Message", "TimelineEvent" et "User". Ces modèles portent le même nom à la convention près que les modèles relationnels de la base de données.
+
+\newpage
+\section{Routes Web et API}
+\label{section:API}
+La gestion des routes doit aussi se faire au niveau du backend. Dans le frontend, le routeur s'occupe d'intercepter certaines routes, mais quelle route faut-il prendre pour accéder à la SPA?
+Et comment accéder aux données du serveur depuis la SPA?
+
+La réponse se trouve dans les fichiers "routes/web.php" et "routes/api.php". Une route web est une route qui précède le nom du domaine, par example dans l'adresse "tb21-lieberherr.heig-vd.ch/welcome", la route web est "/welcome". Elles servent principalement à servir des pages et à rediriger l'utilisateur.
+
+Les routes web sont définies à partir de l'URL de la route et de la fonction associée. Des middlewares servent à protéger certaines routes. Les middlewares "auth" et "auth.basic" protègent les routes qui nécessitent que l'utilisateur soit authentifié.
+
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+  //<test route>
+  Route::any('/admin', function () {
+    return view('app');
+  })->where('all', '^(?!api).*$')->middleware('auth.basic');
+  //</test route>
+
+  Route::name('welcome')->any('/welcome', function () {
+    return view('welcome');
+  });
+
+  Route::name('app')->any('{all}', function () {
+    return view('app');
+  })->where('all', '^(?!api).*$')->middleware('auth');
+  \end{minted}
+  \caption{web.php}
+\end{figure}
+
+La route "/admin" sert uniquement à réaliser des essais. Lorsque la base de données subit une migration, il est possible de générer des utilisateurs lors du procédé grâce à un seeder. Ces faux utilisateurs servent à faire des essais sur le système. L'avantage est qu'il n'y a pas besoin de passer par le login AAI pour bénéficier de techniciens et de clients. Un middleware basique permet �� l'utilisateur de se connecter depuis son navigateur à l'un de ces comptes seedés.
+
+La route "/welcome" est la page d'accueil du site. C'est celle de la figure \ref{img:welcome}, qui permet à l'utilisateur d'accéder au service d'authentification Switch AAI. Elle ne doit pas être protégée car elle doit être accesible aux utilisateurs non-authentifiés.
+
+La dernière route, "/app", est celle qui retourne la SPA. Elle est évidemment protégée par un middleware et elle utilise une expression régulière (REGEX) pour capturer toutes les autres routes qui ne commencent pas par "api". Il faut imposer cette condition pour que les routes internes de la SPA puissent être accessibles depuis l'URL du navigateur.
+
+\newpage
+Au tour maintenant des routes API. L'API désigne l'interface de communication entre le serveur et le client, plus précisément elle répond aux questions suivantes :
+\begin{itemize}
+  \item Quelles sont les routes existantes ?
+  \item Que font ces routes ?
+  \item Quelles données et sous quel format dois-je les envoyer ?
+  \item Quelles sont les réponses et sous quel format ?
+\end{itemize}
+\bigskip
+
+Pour réaliser une API, il faut d'abord définir une route et y associer une fonction. Dans l'exemple, la route de type POST "/api/job/store" est créee dans le fichier "routes/api.php" du backend.
+Ensuite, il faut coder la fonction du frontend qui va appeller cette route. La fonction "storeJob()" du fichier "store/index.js" du frontend utilise axios pour envoyer des requêtes POST à l'adresse "/api/job/store" avec comme argument l'objet "arg".
+
+Quand une requête POST est envoyée à cette adresse, la fonction "JobController::store()" est appelée, et reçoit en argument l'objet "arg". Cette fonction va alors effectuer ce qu'elle a à faire, puis retourner une réponse. Cette réponse est récupérée par le frontend, et les données qu'elle contient se trouvent dans "response.data". La réponse d'une route API contient des données au format JSON.
+
+\begin{minted}[breaklines]{javascript}
+  //Exemple de route API, communication entre frontend et backend
+  //Définition de la route et fonction associée du backend
+  Route::prefix('/job')->group(function () {
+    Route::post('/store', [JobController::class, 'store']);
+  }
+
+  //Action Vuex du frontend
+  storeJob(arg) {
+    return axios
+      .post("/api/job/store", arg)
+      .then((response) => {
+        console.log(response.data)
+      })
+  }
+\end{minted}
+
+Les réponses retournées par le backend utilisent les modèles de la base de données, transformés en JSON. Souvent, des propriétés supplémentaires y sont attachées, comme avec le modèle "job" qui doit souvent posséder les attributs "timeline", "messages" et "files".
+
+Les détails des arguments et des réponses se trouvent dans les commentaires du code source. Le code source commenté se trouve dans l'annexe du rapport. Le code commenté ci-dessous est issu du fichier "api.php" du backend et fait la correspondance entre les routes et les fonctions frontend et backend.
+
+\newpage
+\begin{minted}[breaklines]{javascript}
+Route::prefix('/user')->group(function () {
+  Route::post('/logout', [UserController::class, 'logout']);
+  //action Vuex : logout()
+  //description : permet à l'utilisateur de se déconnecter
+});
+
+Route::group(['middleware' => ['auth']], function () {
+
+  Route::prefix('/user')->group(function () {
+    Route::get('/retrieve', function() { return Auth::user(); });
+    //action Vuex : retrieveUser()
+    //description : retourne le modèle "User" de l'utilisateur authentifié
+    Route::post('/update-settings', [UserController::class, 'updateSettings']);
+    //action Vuex : updateSettings()
+    //description : permet de modifier les paramètres de notifications par email
+  });
+
+  Route::get('/jobs/{id}', [JobController::class, 'index']);
+  //action Vuex : retrieveJobs()
+  //description : permet de récupérer les demandes de l'utilisateur. Si {id} == 0, tous les travaux non-assign��s sont retournés
+  Route::prefix('/job')->group(function () {
+    Route::post('/store', [JobController::class, 'store']);
+    //action Vuex : storeJob()
+    //description : permet d'ajouter une nouvelle demande dans le système
+    Route::post('/update-status', [JobController::class, 'updateStatus']);
+    //action Vuex : updateJobStatus()
+    //description : permet au technicien de modifier le statut de la demande
+    Route::post('/update-notify', [JobController::class, 'updateNotify']);
+    //action Vuex : updateJobNotify()
+    //description : permet à l'utilisateur de signaler que la demande ne doit plus avoir d'alerte nouveauté (demande plus notifiée)
+    Route::post('/assign', [JobController::class, 'assign']);
+    //action Vuex : assignJob()
+    //description : permet au technicien de s'assigner des demandes
+    Route::post('/terminate', [JobController::class, 'terminate']);
+    //action Vuex : terminateJob()
+    //description : permet au client d'évaluer et de supprimer (soft-delete) la demande
+  });
+
+  Route::prefix('/message')->group(function () {
+    Route::post('/store', [MessageController::class, 'store']);
+    //action Vuex : sendMessage()
+    //description : permet à l'utilisateur d'ajouter un nouveau message à une demande
+  });
+
+  Route::prefix('/file')->group(function () {
+    Route::post('/store', [FileController::class, 'store']);
+    //action Vuex : storeFiles()
+    //description : permet à l'utilisateur d'ajouter un ou plusieurs fichiers à une demande
+    Route::get('/download/{id}', [FileController::class, 'download']);
+    //action Vuex : downloadFile()
+    //description : permet à l'utilisateur de télécharger un fichier associé à une demande
+  });
+});
+\end{minted}
+
+Les fichiers déposés pour les demandes ne sont pas stockés dans une base de données mais dans un dossier nommé "FileStorage" et rangé sous storage/app/FileStorage. Laravel permet de stocker des fichiers extrêmement facilement. L'exemple suivant illustre comment sauver un fichier dans un dossier et de retourner le fichier sous forme de téléchargement.
+
+\begin{minted}[breaklines]{javascript}
+$request->file->storeAs('FileStorage', hash_file('sha256', $file)); //stocke le fichier dans le dossier "FileStorage" sous son nom haché
+
+return Storage::download("FileStorage/$file->hashed_name", $file->name); //retourne le fichier en lui donnant un autre nom visible par l'utilisateur
+\end{minted}
+
+Dans ce projet, le nom des fichiers stockés est obtenu en hâchant leur contenu. Ainsi, si un fichier identique à un autre est déposé, il sera écrasé, donc il n'y aura pas deux fichiers identiques mais bien un seul. Lorsqu'une demande est "soft-deleted", les fichiers physiques sont supprimés, si ils ne sont pas utilisés pour d'autres demandes.
+
+\section{Websocket et notifications push}
+Le serveur Websocket et les notifications push sont des éléments indispensables au bon fonctionnement du système. Pour utiliser mon propre serveur Websocket et ne pas passer par Pusher.com, Laravel Websockets est utilisé. C'est un paquet qui permet très simplement de se substituer à une installation qui utilisait Pusher.com. Comme c'était mon cas avant d'avoir découvert ce paquet, la mise en service a été simple et rapide.
+
+J'ai suivi ce \href{https://beyondco.de/docs/laravel-websockets/getting-started/installation}{guide d'installation} pour y parvenir.
+
+Pour créer un canal, il faut se rendre dans le fichier "routes/channels.php". Un canal doit porter un nom et il faut y attacher un fonction qui détermine si ou ou non l'utilisateur à le droit de s'y connecter. Si la fonction retourne vrai, alors l'utilisateur a accès à ce canal.
+
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+  Broadcast::channel('message.channel.{id}', function ($user, $id) {
+    return (int) $user->id === (int) $id;
+  });
+
+  Broadcast::channel('job.channel.{id}', function ($user, $id) {
+    return (int) $user->id === (int) $id;
+  });
+  \end{minted}
+  \caption{channels.php}
+\end{figure}
+
+Une fois que les canaux sont définis, il faut créer les fichiers pour les "Events". Un "Event" est un objet qui va être envoyé sur un canal. Pour cet exemple, le fichier "app/Events/MessagePusherEvent.php" est utilisé. Il s'agit de l'évènement qui est créé quand un nouveau message doit être diffusé.
+
+Cet objet peut posséder des attributs, qui seront accessibles par les récepteurs. La méthode "broadcastOn()" est appelée dès que la diffusion à lieu. Elle doit retourner le canal sur lequel l'objet va être expédié.
+
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+  class MessagePusherEvent implements ShouldBroadcastNow
+  {
+      use Dispatchable, InteractsWithSockets, SerializesModels;
+
+      public $message;
+
+      public function __construct($message)
+      {
+        $this->message = $message;
+      }
+
+      public function broadcastOn()
+      {
+        return new Channel('message.channel.'.$this->message->recipient_id);
+      }
+  }
+  \end{minted}
+  \caption{MessagePusherEvent.php}
+\end{figure}
+
+Pour émettre un évènement de diffusion, une simple ligne de code suffit :
+\begin{minted}[breaklines]{javascript}
+broadcast(new MessagePusherEvent($newMessage))->toOthers();
+\end{minted}
+
+La chaine de fonctions "broadcast()->toOthers()" sert à exécuter l'envoi de l'évènement. Il suffit juste d'instancier un nouvel "Event", de lui passer les données dans son constructeur et de le passer en argument à "broadcast()". Tous les évènements sont capturés depuis le frontend grâce à Laravel Echo.
+
+Si l'objet implémente l'interface "ShouldBroadcastNow", comme c'est le cas dans l'exemple, la diffusion se fait de façon synchrone, à l'appel de la fonction. Il est possible de placer ces évènements dans une file et de les envoyer de façon asynchrone mais pour ce projet, cette fonctionnalité n'est jamais utilisée pour la diffusion.
+
+Dans ce projet, il existe deux types d'évènements : "JobPusherEvent" et "MessagePusherEvent".
+
+Le "JobPusherEvent" contient les informations de la demande qui à été modifiée. Il est diffusé quand :
+\begin{itemize}
+  \item Un fichier est ajouté
+  \item Une nouvelle demande est postée
+  \item Le statut d'une demande est modifié
+  \item Une ou des demandes sont assignées
+  \item Une demande est supprimée par un client
+\end{itemize}
+\bigskip
+
+Le "MessagePusherEvent" contient le nouveau message de chat. Il est diffusé quand un message est ajouté à la demande. Pour rappel, le code frontend qui s'occupe de reçevoir et de réagir aux diffustions se trouve à la figure \ref{figure:pusherConnect}.
+
+\newpage
 \section{Notifications par mail}
+Le système de notifications par email est géré par le backend. Des emails peuvent êtres envoyés aux utilisateurs en fonction de leurs paramètres de notification.
+Pour rappel, il existe trois types d'évènements qui peuvent déclencher l'envoi :
+\begin{itemize}
+  \item Changement de statut
+  \item Ajout de fichiers
+  \item Nouveaux messages
+\end{itemize}
+\bigskip
+
+Le système comporte tout de même une petite subtilité : il faut pouvoir envoyer le email 10 minutes après qu'un de ces évènements ait eu lieu. Pour ce faire, il a fallu utiliser le système de "Queue", qui est un système de file. Dans cette file sont insérés des "Jobs". \textbf{Attention}! Ces "Jobs" sont des objets qui ressemblent aux "Events" de diffusion, mais qui se comportent différement. \textbf{Il n'y a aucun lien avec le modèle "Job"} qui correspond à une demande. La classe "Job" possède une méthode "handle()", qui est automatiquement exécutée en temps voulu par le système de file.
+
+Il faut donc créer un fichier pour le "Job", ainsi qu'un contrôleur associé. Ces fichiers se trouvent respectivement sous "app/Jobs/NotifyEmailJob.php" et sous "app/Http/Controllers/NotifyEmailController.php".
+
+Les travaux différés sont stockés dans la base de données, donc il faut un fichier de migration pour créer la nouvelle table.
+Une commande permet de créer cette migration ainsi que celle pour contenir les travaux qui n'ont pas pu être accomplis. Les tables s'appellent respectivement "JobsQueue" et "failed\_jobs"
+
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+  class NotifyEmailController extends Controller
+  {
+    public static function dispatchMailJob($id)
+    {
+      NotifyEmailJob::dispatch($id)->delay(now()->addMinutes(10));
+    }
+  }
+  \end{minted}
+  \caption{NotifyEmailController.php}
+\end{figure}
+
+L'expédition d'un travail est très simple : il faut juste appeller la méthode statique "NotifyEmailJob::dispatch()" et y chainer une fonction pour ajouter un délai.
+À l'appel de cette fonction, le travail va être placé dans la base de données. Il sera automatiquement exécuté après le délai spécifié. Une fois que le travail est exécuté, il est supprimé de la table. Si une erreur se produit et qu'il ne peut pas s'exécuter correctement, une nouvelle entrée de la table "failed\_jobs" est crée, contenant un message d'erreur utile pour débugger.
+
+La classe "NotifyEmailJob" doit implémenter l'interface "ShouldBeUnique" et posséder un attribut "uniqueId". Cette interface garantit que l'instance de "NotifyEmailJob" restera unique tant qu'il se trouve dans la file. Cette fonctionnalité est importante car la méthode "dispatchMailJob()" est toujours appelée quand un évènement pouvant enclencher l'envoi d'un mail survient.
+
+\newpage
+Une instance de "NotifyEmailJob" associée à l'utilisateur concerné est donc créée et ajouté à la file quand un des trois évènements survient, si aucun autre exemplaire pour le même utilisateur se trouve déjà dans la file. Au bout du délai, la méthode "handle()" est appelée. Dedans, le code vérifie si le mail peut être envoyé.
+
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+  class NotifyEmailJob implements ShouldQueue, ShouldBeUnique
+  {
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    public $userID;
+    public $uniqueId;
+
+    public function __construct($id)
+    {
+      $this->userID = $id;
+      $this->uniqueId = $id;
+    }
+
+    public function handle()
+    {
+      $user = User::find($this->userID);
+      $user_type = $user->is_technician ? 'technician' : 'client';
+      $jobs = Job::where($user_type.'_id', $this->userID)->where('notify_'.$user_type, true);
+      if($jobs->count() > 0)
+      {
+        $IDs = $jobs->pluck('id');
+        $is_new_status = TimelineEvent::whereIn('job_id', $IDs)->where('type', 'status')->where('notify_'.$user_type, true)->where('created_at', '>', $user->notify_email_updated_at)->count() > 0;
+        $is_new_files = TimelineEvent::whereIn('job_id', $IDs)->where('type', 'file')->where('notify_'.$user_type, true)->where('created_at', '>', $user->notify_email_updated_at)->count() > 0;
+        $is_new_messages = Message::whereIn('job_id', $IDs)->where('recipient_id', $this->userID)->where('notify', true)->where('created_at', '>', $user->notify_email_updated_at)->count() > 0;
+        if($user->notify_email_status && $is_new_status || $user->notify_email_files && $is_new_files || $user->notify_email_messages && $is_new_messages)
+        {
+          Mail::to($user->email)->send(new NotifyEmail($this->userID));
+        }
+      }
+    }
+  }
+  \end{minted}
+  \caption{NotifyEmailJob.php}
+\end{figure}
+
+Le système vérifie d'abord si des travaux doivent notifier l'utilisateur (attribut "notify\_client" ou "notify\_technician"). Si c'est le cas, il va ensuite regarder dans toutes les timelines, tous les messages et tous les fichiers de toutes les demandes notifiées. Il ne doit regarder que dans les objets qui ont été créés après que le dernier paramètre de notification ait été changé.
+Ce mécanisme sert à éviter que des emails soient envoyés à cause du mauvais évènement.
+
+\newpage
+Finalement, si une des conditions est remplie, le email peut être immédiatement envoyé. Pour envoyer un mail, il faut déjà créer un fichier pour déclarer une classe de type "mailable". Le fichier se trouve sous "app/Mail/NotifyEmail.php" et déclare la classe "NotifyEmail". Cette classe possède un constructeur et une méthode "build()", qui sert à créer le code HTML à partir d'une "View". La vue associée se trouve sous "resources/views/mails/email.blade.php".
+
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+  class NotifyEmail extends Mailable
+  {
+    use SerializesModels;
+
+    public $jobs;
+    public $userID;
+    public $jobTypeTextFormatter = array("cutting"=>"de découpage laser", "milling"=>"de fraisage CNC", "3Dprinting"=>"d'impression 3D", "engraving"=>"de gravure laser");
+    public $jobStatusFormatter = array(
+      "new"=>array("name"=>"Nouveau", "color"=>"#E0E0E0"),
+      "assigned"=>array("name"=>"ASSIGNÉ", "color"=>"#B3E5FC"),
+      "ongoing"=>array("name"=>"EN COURS", "color"=>"#03A9F4"),
+      "on-hold"=>array("name"=>"EN PAUSE", "color"=>"#F44336"),
+      "completed"=>array("name"=>"TERMINÉ", "color"=>"#4CAF50"));
+
+    public function __construct($id)
+    {
+      $this->userID = $id;
+      $this->subject("Notifications pour vos travaux");
+    }
+
+    public function build()
+    {
+      $user = User::find($this->userID);
+      $user_type = $user->is_technician ? 'technician' : 'client';
+      $this->jobs = Job::where($user_type.'_id', $this->userID)->where('notify_'.$user_type, true)->get();
+      foreach($this->jobs as $job){
+        $job->new_status_event = TimelineEvent::where('job_id', $job->id)->where('type', 'status')->where('notify_'.$user_type, true)->orderBy('created_at', 'desc')->first();
+        $job->new_files_count = TimelineEvent::where('job_id', $job->id)->where('type', 'file')->where('notify_'.$user_type, true)->count();
+        $job->new_messages_count = Message::where('job_id', $job->id)->where('recipient_id', $this->userID)->where('notify', true)->count();
+        $job->interlocutor = $user->is_technician ? User::find($job->client_id) : User::find($job->technician_id);
+      }
+      return $this->view('mails/email');
+    }
+  }
+  \end{minted}
+  \caption{NotifyEmail.php}
+\end{figure}
+
+La classe "NotifyEmail" possède des attributs accessibles depuis "email.blade.php". Ce dernier contient tout le code HTML et Blade pour construire le email à partir des demandes notifiées.
+
+\newpage
+Un email de notification affiche pour chaque demande contenant des nouveautés les éléments notifiés. Par example, dans la capture d'écran ci-dessous, la demande de gravure a reçu un nouveau message, tandis que la demande de fraisage CNC a un nouveau fichier et un nouveau statut.
+
+\begin{figure}[h]
+  \includegraphics[width=14cm]{email.PNG}
+  \caption{Aperçu d'un email de notification}
+\end{figure}
+
+Pour que le mail soit envoyé, il doit passer par un serveur SMTP, pour \emph{Simple Mail Transfer Protocol}. C'est un serveur qui s'occupe simplement de l'expédition des emails.
+Pour cette procédure, le serveur SMTP de l'école est utilisé. Il se trouve à l'addresse "smtp.heig-vd.ch" sur le port 25. Il ne possède pas de sécurité et par conséquent il n'y a pas besoin d'avoir un compte pour l'authentification. Il faut indiquer ces valeurs dans le fichier d'environnement.
+
+\newpage
 \section{Authentification par Switch AAI}
 %% https://www.switch.ch/aai/demo/medium/
 Une des fonctionnalités importante du projet est la connection au service à travers le login Switch AAI.
@@ -961,8 +1402,10 @@ Lorsque l'utilisateur veut accéder à une ressource, comme un site par exemple,
 
 
 \chapter{Déploiement}
+.htaccess
+stateless
+dist, public, Vue dans Laravel, queue worker, jobsQueue, shibboleth, HTTPS, SSL
 \section{Serveur Apache}
-\section{Serveur Websocket}
 \section{Processus supervisés}
 
 
@@ -1141,6 +1584,12 @@ Il est de coutume de signer la conclusion...
 
 %%if
 \chapter{Première annexe}
+\section{TEST}
+
+\begin{listing}[h]
+  \inputminted[breaklines]{php}{assets/figures/php.php}
+  \caption{Génération}
+\end{listing}
 
 Les annexes n'ont pas un contenu \underline{normatif} mais \underline{descriptif}. Tout contenu annexé ne doit pas être nécessaire à la bonne compréhension du travail.
 
