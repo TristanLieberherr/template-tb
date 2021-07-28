@@ -410,109 +410,152 @@ Sur le schéma de la base de données, on peut voir les liens que les tables ont
 \end{itemize}
 \bigskip
 
-Certaines colonnes sont communes à plusieurs des tables. C'est le cas de 'created\_at', qui indique l'heure de création de la ligne, et 'updated\_at', qui indique l'heure à laquelle la ligne à été modifiée pour la dernière fois. La description des colonnes est issue du fichier de migration de chaque table.
+Certaines colonnes sont communes à plusieurs des tables. C'est le cas de 'created\_at', qui indique l'heure de création de la ligne, et 'updated\_at', qui indique l'heure à laquelle la ligne à été modifiée pour la dernière fois.
 
 \section{Table 'users'}
 Cette table contient les informations des utilisateurs. Elle est essentielle puisque sans elle, il serait impossible de faire le lien entre les demandes et leur propriétaire et/ou technicien.
 Bien qu'une colonne pour le mot de passe soit présente, elle n'est pas utilisée pour authentifier les utilisateurs qui se connectent depuis leur compte Switch AAI. Elle est toutefois utilisée pour se connecter à des comptes seedés qui servent à effectuer des essais. Dans tous les cas, aucun mot de passe des comptes AAI ne sont stockés dedans.
 
-\begin{minted}[breaklines]{javascript}
-  $table->id(); //clé primaire, colonne "id"
-  $table->string('name'); //prénom
-  $table->string('surname'); //nom de famille
-  $table->string('email')->unique(); //adresse email
-  $table->boolean('is_technician')->default(false); //définit si l'utilisateur est un technicien. Si non, c'est un client
-  $table->string('password')->nullable(); //champ utilisé pour les comptes seedés, pour pouvoir se connecter sans passer par AAI
-  $table->boolean('notify_email_status')->default(true); //indique si l'utilisateur veut être notifié par mail lorsque le statut d'une de ses demande change
-  $table->boolean('notify_email_messages')->default(true); //indique si l'utilisateur veut être notifié par mail lorsque qu'il reçoit de nouveaux messages sur un de ses demandes
-  $table->boolean('notify_email_files')->default(true); //indique si l'utilisateur veut être notifié par mail lorsque des fichiers sont ajoutés à une de ses demandes
-  $table->timestamp('notify_email_updated_at')->useCurrent(); //heure à laquelle l'un des trois champs "notify_email_..." à été modifié.
-  $table->rememberToken(); //champ par défaut pour la classe "user" de Laravel, non utilisé
-  $table->timestamps(); //colonnes "created_at" et "updated_at"
-\end{minted}
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+    $table->id(); //clé primaire, colonne "id"
+    $table->string('name'); //prénom
+    $table->string('surname'); //nom de famille
+    $table->string('email')->unique(); //adresse email
+    $table->boolean('is_technician')->default(false); //définit si l'utilisateur est un technicien. Si non, c'est un client
+    $table->string('password')->nullable(); //champ utilisé pour les comptes seedés, pour pouvoir se connecter sans passer par AAI
+    $table->boolean('notify_email_status')->default(true); //indique si l'utilisateur veut être notifié par mail lorsque le statut d'une de ses demande change
+    $table->boolean('notify_email_messages')->default(true); //indique si l'utilisateur veut être notifié par mail lorsque qu'il reçoit de nouveaux messages sur un de ses demandes
+    $table->boolean('notify_email_files')->default(true); //indique si l'utilisateur veut être notifié par mail lorsque des fichiers sont ajoutés à une de ses demandes
+    $table->timestamp('notify_email_updated_at')->useCurrent(); //heure à laquelle l'un des trois champs "notify_email_..." à été modifié.
+    $table->rememberToken(); //champ par défaut pour la classe "user" de Laravel, non utilisé
+    $table->timestamps(); //colonnes "created_at" et "updated_at"
+  \end{minted}
+  \caption{Aperçu du fichier de migration de la table "users"}
+\end{figure}
 
+\newpage
 \section{Table 'jobs'}
 La table "jobs" correspond aux demandes. À chaque nouvelle demande est associée une ligne dans cette table. Une demande possède trois attributs essentiels sous forme de liste : des fichiers, des évènements et des messages. Il a donc fallu imaginer et ajouter les tables "files", "timeline\_events" et "messages", et les relier à la table "jobs" au travers de clés étrangères.
 
-\begin{minted}[breaklines]{javascript}
-  $table->id(); //clé primaire, colonne "id"
-  $table->unsignedBigInteger('client_id'); //clé étrangère sur la table "users" pour pouvoir savoir à quel client appartient la demande
-  $table->unsignedBigInteger('technician_id')->nullable(); //clé étrangère nullable sur la table "users" pour savoir à quel technicien est assignée la demande. Elle est nullable car au début, une demande n'a pas de technicien assigné.
-  $table->string('job_type'); //nom du type de travail
-  $table->text('description')->nullable(); //peut contenir un commentaire concernant la demande
-  $table->enum('status', ['new', 'assigned', 'ongoing', 'on-hold','completed'])->default('new'); //nom du statut en cours
-  $table->string('deadline'); //date de délai
-  $table->boolean('notify_client')->default(true); //indique au client qu'il y a eu du changement sur sa demande
-  $table->boolean('notify_technician')->default(true); //au technicien qu'il y a eu du changement sur sa demande
-  $table->string('client_name'); //prénom du client
-  $table->string('client_surname'); //nom du client
-  $table->string('technician_name')->nullable(); //prénom du technicien
-  $table->string('technician_surname')->nullable(); //nom du technicien
-  $table->integer('rating')->nullable(); //contient la note de 1 à 6 de la demande terminée
-  $table->timestamps(); //colonnes "created_at" et "updated_at"
-  $table->softDeletes(); //colonne "deleted_at".
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+    $table->id(); //clé primaire, colonne "id"
+    $table->unsignedBigInteger('client_id'); //clé étrangère sur la table "users" pour pouvoir savoir à quel client appartient la demande
+    $table->unsignedBigInteger('technician_id')->nullable(); //clé étrangère nullable sur la table "users" pour savoir à quel technicien est assignée la demande. Elle est nullable car au début, une demande n'a pas de technicien assigné.
+    $table->string('job_type'); //nom du type de travail
+    $table->text('description')->nullable(); //peut contenir un commentaire concernant la demande
+    $table->enum('status', ['new', 'assigned', 'ongoing', 'on-hold','completed'])->default('new'); //nom du statut en cours
+    $table->string('deadline'); //date de délai
+    $table->boolean('notify_client')->default(true); //indique au client qu'il y a eu du changement sur sa demande
+    $table->boolean('notify_technician')->default(true); //au technicien qu'il y a eu du changement sur sa demande
+    $table->string('client_name'); //prénom du client
+    $table->string('client_surname'); //nom du client
+    $table->string('technician_name')->nullable(); //prénom du technicien
+    $table->string('technician_surname')->nullable(); //nom du technicien
+    $table->integer('rating')->nullable(); //contient la note de 1 à 6 de la demande terminée
+    $table->timestamps(); //colonnes "created_at" et "updated_at"
+    $table->softDeletes(); //colonne "deleted_at".
 
-  $table->foreign('client_id')->references('id')->on('users');
-  $table->foreign('technician_id')->references('id')->on('users');
-\end{minted}
+    $table->foreign('client_id')->references('id')->on('users');
+    $table->foreign('technician_id')->references('id')->on('users');
+  \end{minted}
+  \caption{Aperçu du fichier de migration de la table "jobs"}
+\end{figure}
 
-Quand un "job" est accompli, il est "soft-deleted", ce qui signifie qu'il existe encore dans la base de données mais qu'il n'apparait plus dans les résultats des requêtes.
-Quand cet évènement a lieu, les lignes des tables "files", "timeline\_events" et "messages" associées sont elles complètement supprimées de la base de données.
+Quand une demande est accomplie, son "job" correspondant est "soft-deleted", ce qui signifie qu'il existe encore dans la base de données mais qu'il n'apparait plus dans les résultats des requêtes.
+Quand cet évènement a lieu, les lignes des tables "files", "timeline\_events" et "messages" associées sont complètement supprimées de la base de données.
 
+\newpage
 \section{Table 'messages'}
 Cette table contient les messages envoyés par les utilisateurs. Un message est lié à une demande et à deux utilisateurs.
 
-\begin{minted}[breaklines]{javascript}
-  $table->id(); //clé primaire, colonne "id"
-  $table->unsignedBigInteger('sender_id'); //clé étrangère sur la table "users" qui désigne l'émetteur du message
-  $table->unsignedBigInteger('recipient_id'); //clé étrangère sur la table "users" qui désigne le récepteur du message
-  $table->unsignedBigInteger('job_id'); //clé étrangère sur la table "jobs" qui indique à quelle demande est associé le message
-  $table->text('text'); //texte du message
-  $table->boolean('notify')->default(true); //indique au récepteur que c'est un nouveau message
-  $table->timestamps(); //colonnes "created_at" et "updated_at"
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+    $table->id(); //clé primaire, colonne "id"
+    $table->unsignedBigInteger('sender_id'); //clé étrangère sur la table "users" qui désigne l'émetteur du message
+    $table->unsignedBigInteger('recipient_id'); //clé étrangère sur la table "users" qui désigne le récepteur du message
+    $table->unsignedBigInteger('job_id'); //clé étrangère sur la table "jobs" qui indique à quelle demande est associé le message
+    $table->text('text'); //texte du message
+    $table->boolean('notify')->default(true); //indique au récepteur que c'est un nouveau message
+    $table->timestamps(); //colonnes "created_at" et "updated_at"
 
-  $table->foreign('sender_id')->references('id')->on('users');
-  $table->foreign('recipient_id')->references('id')->on('users');
-  $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade'); //cascade : si le "job" est supprimé de la base de données, le message le sera aussi
-\end{minted}
+    $table->foreign('sender_id')->references('id')->on('users');
+    $table->foreign('recipient_id')->references('id')->on('users');
+    $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade'); //cascade : si le "job" est supprimé de la base de données, le message le sera aussi
+  \end{minted}
+  \caption{Aperçu du fichier de migration de la table "messages"}
+\end{figure}
 
 \section{Table 'files'}
 La table "files" contient uniquement les informations des fichiers, et non pas les fichiers eux-mêmes. Ces derniers sont stockés dans un dossier géré par Laravel.
 
-\begin{minted}[breaklines]{javascript}
-  $table->id(); //clé primaire, colonne "id"
-  $table->unsignedBigInteger('job_id'); //clé étrangère sur la table "jobs" qui indique à quelle demande est associé le fichier
-  $table->string('hashed_name'); //nom haché du fichier (sha256)
-  $table->string('name'); //nom du fichier
-  $table->timestamps(); //colonnes "created_at" et "updated_at"
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+    $table->id(); //clé primaire, colonne "id"
+    $table->unsignedBigInteger('job_id'); //clé étrangère sur la table "jobs" qui indique à quelle demande est associé le fichier
+    $table->string('hashed_name'); //nom haché du fichier (sha256)
+    $table->string('name'); //nom du fichier
+    $table->timestamps(); //colonnes "created_at" et "updated_at"
 
-  $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade'); //cascade : si le "job" est supprimé de la base de données, le fichier le sera aussi
-\end{minted}
+    $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade'); //cascade : si le "job" est supprimé de la base de données, le fichier le sera aussi
+  \end{minted}
+  \caption{Aperçu du fichier de migration de la table "files"}
+\end{figure}
 
 Il faut noter que quand une ligne de cette table est sur le point d'être supprimée, un évènement a lieu, durant lequel le fichier physique est supprimé du dossier de stockage.
 Cet évènement est émis par le code backend et non pas par la base de données, donc attention à nettoyer les fichiers physiques manuellement si des lignes de cette table sont supprimées directement depuis la base de données.
 
+\newpage
 \section{Table 'timeline\_events'}
 Cette table contient les évènements des demandes. Il n'y a que deux types d'évènements possibles : "status" et "file", qui sont créés respectivement quand un nouveau statut est attribué et qu'un fichier à été ajouté ou écrasé.
 
-\begin{minted}[breaklines]{javascript}
-  $table->id(); //clé primaire, colonne "id"
-  $table->unsignedBigInteger('job_id'); //clé étrangère sur la table "jobs" qui indique à quelle demande est associé l'évènement
-  $table->enum('type', ['status', 'file']); //type d'évènement : nouveau statut ou fichier ajouté/écrasé
-  $table->string('data')->nullable(); //contient le nom du statut si le type est "status", ou le nom du fichier si le type est "file"
-  $table->boolean('notify_client')->default(true); //indique au client que le timeline_event est nouveau
-  $table->boolean('notify_technician')->default(true); //indique au technicien que le timeline_event est nouveau
-  $table->timestamps(); //colonnes "created_at" et "updated_at"
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+    $table->id(); //clé primaire, colonne "id"
+    $table->unsignedBigInteger('job_id'); //clé étrangère sur la table "jobs" qui indique à quelle demande est associé l'évènement
+    $table->enum('type', ['status', 'file']); //type d'évènement : nouveau statut ou fichier ajouté/écrasé
+    $table->string('data')->nullable(); //contient le nom du statut si le type est "status", ou le nom du fichier si le type est "file"
+    $table->boolean('notify_client')->default(true); //indique au client que le timeline_event est nouveau
+    $table->boolean('notify_technician')->default(true); //indique au technicien que le timeline_event est nouveau
+    $table->timestamps(); //colonnes "created_at" et "updated_at"
 
-  $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade'); //cascade : si le "job" est supprimé de la base de données, le timeline_event le sera aussi
-\end{minted}
+    $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade'); //cascade : si le "job" est supprimé de la base de données, le timeline_event le sera aussi
+  \end{minted}
+  \caption{Aperçu du fichier de migration de la table 'timeline\_events'}
+\end{figure}
 
 \section{Tables 'jobsQueue' et 'failed\_jobs'}
-Ces deux tables sont automatiquement créées quand on implémente une file. Une file contient des tâches à réaliser de manière asynchrone ou délayées. Dans le cas de ce projet, il faut envoyer des emails avec un délai de 10 minutes. Les tâches sont effectuées en arrière plan, donc les performances de l'API ne sont pas impactées.
+Ces deux tables sont automatiquement créées quand on implémente une file, c'est pourquoi les colonnes ne sont pas commentées. Une file contient des tâches à réaliser de manière asynchrone ou délayées. Dans le cas de ce projet, il faut envoyer des emails avec un délai de 10 minutes. Les tâches sont effectuées en arrière plan, donc les performances de l'API ne sont pas impactées.
 Les tâches sont stockées dans la table que j'ai nommé "jobsQueue". Quand elles sont terminées, elles sont automatiquement supprimées de la table. En cas d'échec, une ligne est crée dans la table "failed\_jobs", contenant des informations quant à la source de l'erreur.
 
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+  $table->bigIncrements('id');
+  $table->string('queue')->index();
+  $table->longText('payload');
+  $table->unsignedTinyInteger('attempts');
+  $table->unsignedInteger('reserved_at')->nullable();
+  $table->unsignedInteger('available_at');
+  $table->unsignedInteger('created_at');
+  \end{minted}
+  \caption{Aperçu du fichier de migration de la table "jobsQueue"}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+  $table->id();
+  $table->string('uuid')->unique();
+  $table->text('connection');
+  $table->text('queue');
+  $table->longText('payload');
+  $table->longText('exception');
+  $table->timestamp('failed_at')->useCurrent();
+  \end{minted}
+  \caption{Aperçu du fichier de migration de la table 'failed\_jobs'}
+\end{figure}
+
 \chapter{Conception du frontend}
-%% https://themeforest.net/item/piaf-vuejs-admin-dashboard/23160320
 Afin de partir depuis une bonne base, Mr. Chevallier a partagé avec moi un site préfait, nommé PIAF, acheté par l'institut IAI.
 J'ai pu forker le repo sur GitHub, et à partir de là, j'ai pu commencer à réaliser le frontend. Je n'ai donc pas eu à créer un projet Vue à partir de zéro, et les pages déjà présentes m'ont servi d'exemple lors de mon apprentissage du framework. J'ai principalement utilisé la bibliothèque de composants Vuetify pour réaliser l'interface du site.
 
@@ -787,44 +830,47 @@ Le frontend possède une liste de routes internes qui mènent chacunes à une pa
 
 Le fichier "router.js" contient une représentation objet de ces routes. Chaque nom de route, signalée par "path", possède une vue (une page) associée, "component". L'utilisation d'un tableau "children" permet d'imbriquer des routes.
 
-\begin{minted}[breaklines]{javascript}
-const routes = [
-  {
-    path: "/",
-    redirect: "/app",
-  },
-  {
-    path: "/app",
-    component: () => import("./views/app"),
-    redirect: "/app/my-jobs",
-    children: [
-      {
-        path: "my-jobs", //page "Mes commandes"
-        component: () => import("./views/app/myJobs/MyJobs"),
-      },
-      {
-        path: "all-jobs", //page "Commandes clients"
-        component: () => import("./views/app/myJobs/AllJobs"),
-        beforeEnter: (to, from, next) => {
-          next(store.getters.getUser.is_technician ? {} : '/')
-        }
-      },
-      {
-        path: "job-list", //page "Travaux réalisables"
-        component: () => import("./views/app/jobList/JobList"),
-      },
-      {
-        path: "settings", //page "Paramètres"
-        component: () => import("./views/app/settings/Settings"),
-      },
-    ]
-  },
-  {
-    path: "*", //page 404
-    component: () => import("./views/Error")
-  }
-];
-\end{minted}
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+  const routes = [
+    {
+      path: "/",
+      redirect: "/app",
+    },
+    {
+      path: "/app",
+      component: () => import("./views/app"),
+      redirect: "/app/my-jobs",
+      children: [
+        {
+          path: "my-jobs", //page "Mes commandes"
+          component: () => import("./views/app/myJobs/MyJobs"),
+        },
+        {
+          path: "all-jobs", //page "Commandes clients"
+          component: () => import("./views/app/myJobs/AllJobs"),
+          beforeEnter: (to, from, next) => {
+            next(store.getters.getUser.is_technician ? {} : '/')
+          }
+        },
+        {
+          path: "job-list", //page "Travaux réalisables"
+          component: () => import("./views/app/jobList/JobList"),
+        },
+        {
+          path: "settings", //page "Paramètres"
+          component: () => import("./views/app/settings/Settings"),
+        },
+      ]
+    },
+    {
+      path: "*", //page 404
+      component: () => import("./views/Error")
+    }
+  ];
+  \end{minted}
+  \caption{router.js}
+\end{figure}
 
 Un garde de navigation, utilisé sur la route "all-jobs", permet de rediriger une route sous certaines conditions. En l'occurence, il faut que l'utilisateur soit un technicien, sans quoi il est redirigé ailleurs. La vérification de l'authentification ne se fait pas à ce niveau : ce sujet est traité dans un des chapitres suivants.
 
@@ -905,9 +951,9 @@ Le second avantage est que toute la partie du code qui s'occupe des requêtes HT
 L'utilisation de Vuex a donc été très utile, surtout pour l'organisation du code et des données, et de l'application efficace du pattern MVC.
 De plus, il y a la garantie qu'il n'y aura jamais de problèmes avec l'état des variables entre composants.
 
-\newpage
 Le state de l'application contient quelques variables qui doivent être accessibles depuis tous les composants. La portion de code suivante est tirée du fichier "store/index.js", qui est le fichier qui contient tout le store.
 
+\newpage
 \begin{figure}[h]
   \begin{minted}[breaklines]{javascript}
   state: {
@@ -960,7 +1006,8 @@ La réception de données par notification se fait via des canaux. Quand un clie
   \label{figure:pusherConnect}
 \end{figure}
 
-Cette portion du code frontend illustre comment procéder pour utiliser les notifications du serveur Websocket. L'objet "Echo" est initialisé avec les informations requises pour se connecter au serveur. Chaque client s'abonne aux canaux "message.channel.{id}" et "job.channel.{id}", avec l'identifiant de l'utilisateur pour "{id}". Ainsi, les clients ne partagent pas les mêmes canaux. Il faut ensuite écouter quand les évènements "MessagePusherEvent" et "JobPusherEvent" se produisent, et leur attribuer du code exécutable.
+\newpage
+La portion du code frontend à la figure \ref{figure:pusherConnect} illustre comment procéder pour utiliser les notifications du serveur Websocket. L'objet "Echo" est initialisé avec les informations requises pour se connecter au serveur. Chaque client s'abonne aux canaux "message.channel.{id}" et "job.channel.{id}", avec l'identifiant de l'utilisateur pour "{id}". Ainsi, les clients ne partagent pas les mêmes canaux. Il faut ensuite écouter quand les évènements "MessagePusherEvent" et "JobPusherEvent" se produisent, et leur attribuer du code exécutable.
 Si l'utilisateur est un technicien, le canal "job.channel.0" est accessible. Tous les techniciens sont connectés dessus, car il sert à reçevoir les nouvelles demandes.
 
 L'évènement "MessagePusherEvent" sert à transmettre un message de chat à l'interlocuteur. Le message est ajouté au tableau de l'objet "job" concerné.
@@ -974,14 +1021,14 @@ Au final, la situation peut être illustrée avec la figure suivante, reprise du
 Les notifications push correspondent aux notifications du serveur Websocket.
 \figi{figure3.xml}{14cm}{Requêtes et notifications push}
 
-Le fichier qui contient tout le store est disponible dans l'annexe.
+Le fichier complet "index.js" qui contient tout le store est disponible dans l'annexe.
 
 \newpage
 \chapter{Conception du backend}
 Le backend est l'organisme qui s'occupe de servir la page SPA, d'authentifier les utilisateurs et de gérer la base de données.
 Quand des requêtes sont reçues, le backend va effectuer des actions qui auront comme résultat final l'envoi d'une réponse. Il peut s'agir de réponses au format JSON, pour des données issues de la base de données, ou d'une page. S'il s'agit d'une page, c'est une "view" qui est retournée.
 
-Une "view" dans Laravel est une page HTML qui peut contenir des directives spéciales, en Blade. Le Blade est une syntaxe qui permet d'injecter du contenu dans le rendu de la page HTML, comme les composants Vue. Puisque la SPA est contenue dans une "view", le backend peut la servir comme n'importe quelle autre page. La procédure exacte est expliquée au prochain chapitre.
+Une "view" dans Laravel est une page HTML qui peut contenir des directives spéciales, en Blade. Le Blade est une syntaxe qui permet d'injecter du contenu dans le rendu de la page HTML, comme les composants Vue. Puisque la SPA est contenue dans une "view", le backend peut la servir comme n'importe quelle autre page.
 
 \section{Modèles, migrations et contrôleurs}
 Un rôle important du backend est la gestion de la base de données. Pour répondre aux requêtes, le backend doit souvent interagir avec la base de données pour y retirer, insérer, modifier ou supprimer des données. Pour travailler avec une représentation objet de ces tables, une ORM, pour \emph{object-relational mapper}, est utilisée. Le but de l'ORM est de représenter les modèles relationnels de la base de données (tables) en modèles objet, utilisés en programmation. Ces modèles objet ne sont autres que des classes.
@@ -1002,50 +1049,61 @@ Le chapitre \ref{chapter:database} décrit les tables utilisés dans ce projet.
 \newpage
 Le fichier du modèle décrit la classe associée au modèle relationnel. Comme c'est une classe, on peut y mettre des méthodes et des attributs. Dans l'exemple, les attributs de la classe portent le nom des colonnes.
 
-\begin{minted}[breaklines]{javascript}
-class Message extends Model
-{
-  use HasFactory;
-  protected $fillable = [
-    'sender_id',
-    'recipient_id',
-    'job_id',
-    'text',
-    'notify'
-  ];
-}
-\end{minted}
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+  class Message extends Model
+  {
+    use HasFactory;
+    protected $fillable = [
+      'sender_id',
+      'recipient_id',
+      'job_id',
+      'text',
+      'notify'
+    ];
+  }
+  \end{minted}
+  \caption{Aperçu du fichier "Message.php"}
+\end{figure}
 
 Ce modèle peut maintenant être utilisé dans les autres fichiers du backend. Puisque c'est un modèle objet, il n'y a pas besoin d'écrire des requêtes SQL pour interagir avec la base de données : ce sont les méthodes de la classe de base "Model" qui doivent êtres utilisées. Par exemple, pour réaliser quelques opérations de base, on peut procéder comme dans l'exemple ci-dessous :
 
-\begin{minted}[breaklines]{javascript}
-  $newMessage = new Message; //crée un objet "Message"
-  $newMessage->text = "Bonjour à tous";
-  $newMessage->save(); //une nouvelle ligne est ajoutée dans la db, avec la colonne "text" remplie
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+    $newMessage = new Message; //crée un objet "Message"
+    $newMessage->text = "Bonjour à tous";
+    $newMessage->save(); //une nouvelle ligne est ajoutée dans la db, avec la colonne "text" remplie
 
-  $messages = Message::where('recipient_id', 3)->get(); //retourne un tableau des messages ayant comme valeur "recipient_id" égale à 3
+    $messages = Message::where('recipient_id', 3)->get(); //retourne un tableau des messages ayant comme valeur "recipient_id" égale à 3
 
-  Message::find(4)->delete(); //supprime la ligne ayant comme id 4 dans la db
-\end{minted}
+    Message::find(4)->delete(); //supprime la ligne ayant comme id 4 dans la db
+  \end{minted}
+  \caption{Exemple de manipulation de la classe "Message"}
+\end{figure}
 
 Le contrôleur contient un ensemble de fonctions destinées à être appelées par les routes. Dans l'exemple, la fonction "store()" prend comme argument les informations de la requête, et crée une nouvelle instance de "Message" dans la base de données. Elle retourne ensuite l'objet créé. Il faut noter que les fonctions des contrôleurs peuvent aussi être appelées depuis d'autres contrôleurs.
 
-\begin{minted}[breaklines]{javascript}
-//la route "/message/store" appelle la méthode "store()" quand une requête POST lui est adressée
-Route::post('/message/store', [MessageController::class, 'store']);
+\newpage
 
-//La méthode store() récupère les données de la requête
-public function store(Request $request)
-{
-  $newMessage = new Message;
-  $newMessage->sender_id = $request->user()->id;
-  $newMessage->text = $request->text;
-  $newMessage->save();
-  $newMessage = Message::find($newMessage->id);
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+  //la route "/message/store" appelle la méthode "store()" quand une requête POST lui est adressée
+  Route::post('/message/store', [MessageController::class, 'store']);
 
-  return $newMessage;
-}
-\end{minted}
+  //La méthode store() récupère les données de la requête
+  public function store(Request $request)
+  {
+    $newMessage = new Message;
+    $newMessage->sender_id = $request->user()->id;
+    $newMessage->text = $request->text;
+    $newMessage->save();
+    $newMessage = Message::find($newMessage->id);
+
+    return $newMessage;
+  }
+  \end{minted}
+  \caption{Exemple de route et de sa fonction associée}
+\end{figure}
 
 Pour ce projet, j'ai créé les modèles Eloquent "File", "Job", "Message", "TimelineEvent" et "User". Ces modèles portent le même nom à la convention près que les modèles relationnels de la base de données.
 
@@ -1099,91 +1157,96 @@ Ensuite, il faut coder la fonction du frontend qui va appeller cette route. La f
 
 Quand une requête POST est envoyée à cette adresse, la fonction "JobController::store()" est appelée, et reçoit en argument l'objet "arg". Cette fonction va alors effectuer ce qu'elle a à faire, puis retourner une réponse. Cette réponse est récupérée par le frontend, et les données qu'elle contient se trouvent dans "response.data". La réponse d'une route API contient des données au format JSON.
 
-\begin{minted}[breaklines]{javascript}
-  //Exemple de route API, communication entre frontend et backend
-  //Définition de la route et fonction associée du backend
-  Route::prefix('/job')->group(function () {
-    Route::post('/store', [JobController::class, 'store']);
-  }
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+    //Exemple de route API, communication entre frontend et backend
+    //Définition de la route et fonction associée du backend
+    Route::prefix('/job')->group(function () {
+      Route::post('/store', [JobController::class, 'store']);
+    }
 
-  //Action Vuex du frontend
-  storeJob(arg) {
-    return axios
-      .post("/api/job/store", arg)
-      .then((response) => {
-        console.log(response.data)
-      })
-  }
-\end{minted}
+    //Action Vuex du frontend
+    storeJob(arg) {
+      return axios
+        .post("/api/job/store", arg)
+        .then((response) => {
+          console.log(response.data)
+        })
+    }
+  \end{minted}
+  \caption{Exemple d'une route API et de la fonction frontend qui l'appelle}
+\end{figure}
 
 Les réponses retournées par le backend utilisent les modèles de la base de données, transformés en JSON. Souvent, des propriétés supplémentaires y sont attachées, comme avec le modèle "job" qui doit souvent posséder les attributs "timeline", "messages" et "files".
 
 Les détails des arguments et des réponses se trouvent dans les commentaires du code source. Le code source commenté se trouve dans l'annexe du rapport. Le code commenté ci-dessous est issu du fichier "api.php" du backend et fait la correspondance entre les routes et les fonctions frontend et backend.
 
 \newpage
-\begin{minted}[breaklines]{javascript}
-Route::prefix('/user')->group(function () {
-  Route::post('/logout', [UserController::class, 'logout']);
-  //action Vuex : logout()
-  //description : permet à l'utilisateur de se déconnecter
-});
-
-Route::group(['middleware' => ['auth']], function () {
-
+\begin{figure}[h!]
+  \begin{minted}[breaklines]{javascript}
   Route::prefix('/user')->group(function () {
-    Route::get('/retrieve', function() { return Auth::user(); });
-    //action Vuex : retrieveUser()
-    //description : retourne le modèle "User" de l'utilisateur authentifié
-    Route::post('/update-settings', [UserController::class, 'updateSettings']);
-    //action Vuex : updateSettings()
-    //description : permet de modifier les paramètres de notifications par email
+    Route::post('/logout', [UserController::class, 'logout']);
+    //action Vuex : logout()
+    //description : permet à l'utilisateur de se déconnecter
   });
-
-  Route::get('/jobs/{id}', [JobController::class, 'index']);
-  //action Vuex : retrieveJobs()
-  //description : permet de récupérer les demandes de l'utilisateur. Si {id} == 0, tous les travaux non-assign��s sont retournés
-  Route::prefix('/job')->group(function () {
-    Route::post('/store', [JobController::class, 'store']);
-    //action Vuex : storeJob()
-    //description : permet d'ajouter une nouvelle demande dans le système
-    Route::post('/update-status', [JobController::class, 'updateStatus']);
-    //action Vuex : updateJobStatus()
-    //description : permet au technicien de modifier le statut de la demande
-    Route::post('/update-notify', [JobController::class, 'updateNotify']);
-    //action Vuex : updateJobNotify()
-    //description : permet à l'utilisateur de signaler que la demande ne doit plus avoir d'alerte nouveauté (demande plus notifiée)
-    Route::post('/assign', [JobController::class, 'assign']);
-    //action Vuex : assignJob()
-    //description : permet au technicien de s'assigner des demandes
-    Route::post('/terminate', [JobController::class, 'terminate']);
-    //action Vuex : terminateJob()
-    //description : permet au client d'évaluer et de supprimer (soft-delete) la demande
+  Route::group(['middleware' => ['auth']], function () {//toutes ces routes sont protégées
+    Route::prefix('/user')->group(function () {
+      Route::get('/retrieve', function() { return Auth::user(); });
+      //action Vuex : retrieveUser()
+      //description : retourne le modèle "User" de l'utilisateur authentifié
+      Route::post('/update-settings', [UserController::class, 'updateSettings']);
+      //action Vuex : updateSettings()
+      //description : permet de modifier les paramètres de notifications par email
+    });
+    Route::get('/jobs/{id}', [JobController::class, 'index']);
+    //action Vuex : retrieveJobs()
+    //description : permet de récupérer les demandes de l'utilisateur. Si {id} == 0, toutes les demandes non-assignées sont retournées
+    Route::prefix('/job')->group(function () {
+      Route::post('/store', [JobController::class, 'store']);
+      //action Vuex : storeJob()
+      //description : permet d'ajouter une nouvelle demande dans le système
+      Route::post('/update-status', [JobController::class, 'updateStatus']);
+      //action Vuex : updateJobStatus()
+      //description : permet au technicien de modifier le statut de la demande
+      Route::post('/update-notify', [JobController::class, 'updateNotify']);
+      //action Vuex : updateJobNotify()
+      //description : permet à l'utilisateur de signaler que la demande ne doit plus avoir d'alerte nouveauté (demande plus notifiée)
+      Route::post('/assign', [JobController::class, 'assign']);
+      //action Vuex : assignJob()
+      //description : permet au technicien de s'assigner des demandes
+      Route::post('/terminate', [JobController::class, 'terminate']);
+      //action Vuex : terminateJob()
+      //description : permet au client d'évaluer et de supprimer (soft-delete) la demande
+    });
+    Route::prefix('/message')->group(function () {
+      Route::post('/store', [MessageController::class, 'store']);
+      //action Vuex : sendMessage()
+      //description : permet à l'utilisateur d'ajouter un nouveau message à une demande
+    });
+    Route::prefix('/file')->group(function () {
+      Route::post('/store', [FileController::class, 'store']);
+      //action Vuex : storeFiles()
+      //description : permet à l'utilisateur d'ajouter un ou plusieurs fichiers à une demande
+      Route::get('/download/{id}', [FileController::class, 'download']);
+      //action Vuex : downloadFile()
+      //description : permet à l'utilisateur de télécharger un fichier associé à une demande
+    });
   });
+  \end{minted}
+  \caption{API : correspondance entre toutes les routes et toutes les actions}
+\end{figure}
 
-  Route::prefix('/message')->group(function () {
-    Route::post('/store', [MessageController::class, 'store']);
-    //action Vuex : sendMessage()
-    //description : permet à l'utilisateur d'ajouter un nouveau message à une demande
-  });
-
-  Route::prefix('/file')->group(function () {
-    Route::post('/store', [FileController::class, 'store']);
-    //action Vuex : storeFiles()
-    //description : permet à l'utilisateur d'ajouter un ou plusieurs fichiers à une demande
-    Route::get('/download/{id}', [FileController::class, 'download']);
-    //action Vuex : downloadFile()
-    //description : permet à l'utilisateur de télécharger un fichier associé à une demande
-  });
-});
-\end{minted}
-
+\newpage
 Les fichiers déposés pour les demandes ne sont pas stockés dans une base de données mais dans un dossier nommé "FileStorage" et rangé sous storage/app/FileStorage. Laravel permet de stocker des fichiers extrêmement facilement. L'exemple suivant illustre comment sauver un fichier dans un dossier et de retourner le fichier sous forme de téléchargement.
 
-\begin{minted}[breaklines]{javascript}
-$request->file->storeAs('FileStorage', hash_file('sha256', $file)); //stocke le fichier dans le dossier "FileStorage" sous son nom haché
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+  $request->file->storeAs('FileStorage', hash_file('sha256', $file)); //stocke le fichier dans le dossier "FileStorage" sous son nom haché
 
-return Storage::download("FileStorage/$file->hashed_name", $file->name); //retourne le fichier en lui donnant un autre nom visible par l'utilisateur
-\end{minted}
+  return Storage::download("FileStorage/$file->hashed_name", $file->name); //retourne le fichier en lui donnant un autre nom visible par l'utilisateur
+  \end{minted}
+  \caption{Exemple pour le stockage de fichiers}
+\end{figure}
 
 Dans ce projet, le nom des fichiers stockés est obtenu en hâchant leur contenu. Ainsi, si un fichier identique à un autre est déposé, il sera écrasé, donc il n'y aura pas deux fichiers identiques mais bien un seul. Lorsqu'une demande est "soft-deleted", les fichiers physiques sont supprimés, si ils ne sont pas utilisés pour d'autres demandes.
 
@@ -1209,6 +1272,7 @@ Pour créer un canal, il faut se rendre dans le fichier "routes/channels.php". U
 
 Une fois que les canaux sont définis, il faut créer les fichiers pour les "Events". Un "Event" est un objet qui va être envoyé sur un canal. Pour cet exemple, le fichier "app/Events/MessagePusherEvent.php" est utilisé. Il s'agit de l'évènement qui est créé quand un nouveau message doit être diffusé.
 
+\newpage
 Cet objet peut posséder des attributs, qui seront accessibles par les récepteurs. La méthode "broadcastOn()" est appelée dès que la diffusion à lieu. Elle doit retourner le canal sur lequel l'objet va être expédié.
 
 \begin{figure}[h]
@@ -1254,7 +1318,7 @@ Le "JobPusherEvent" contient les informations de la demande qui à été modifi�
 \end{itemize}
 \bigskip
 
-Le "MessagePusherEvent" contient le nouveau message de chat. Il est diffusé quand un message est ajouté à la demande. Pour rappel, le code frontend qui s'occupe de reçevoir et de réagir aux diffustions se trouve à la figure \ref{figure:pusherConnect}.
+Le "MessagePusherEvent" contient le nouveau message de chat. Il est diffusé quand un message est ajouté à la demande. Pour rappel, le code frontend qui s'occupe de reçevoir et de réagir aux diffusions se trouve à la figure \ref{figure:pusherConnect}.
 
 \newpage
 \section{Notifications par mail}
@@ -1274,6 +1338,8 @@ Il faut donc créer un fichier pour le "Job", ainsi qu'un contrôleur associé. 
 Les travaux différés sont stockés dans la base de données, donc il faut un fichier de migration pour créer la nouvelle table.
 Une commande permet de créer cette migration ainsi que celle pour contenir les travaux qui n'ont pas pu être accomplis. Les tables s'appellent respectivement "JobsQueue" et "failed\_jobs"
 
+La création d'un travail différé est très simple : il faut juste appeller la méthode statique "NotifyEmailJob::dispatch()" et y chainer une fonction pour ajouter un délai.
+
 \begin{figure}[h]
   \begin{minted}[breaklines]{javascript}
   class NotifyEmailController extends Controller
@@ -1287,7 +1353,6 @@ Une commande permet de créer cette migration ainsi que celle pour contenir les 
   \caption{NotifyEmailController.php}
 \end{figure}
 
-L'expédition d'un travail est très simple : il faut juste appeller la méthode statique "NotifyEmailJob::dispatch()" et y chainer une fonction pour ajouter un délai.
 À l'appel de cette fonction, le travail va être placé dans la base de données. Il sera automatiquement exécuté après le délai spécifié. Une fois que le travail est exécuté, il est supprimé de la table. Si une erreur se produit et qu'il ne peut pas s'exécuter correctement, une nouvelle entrée de la table "failed\_jobs" est crée, contenant un message d'erreur utile pour débugger.
 
 La classe "NotifyEmailJob" doit implémenter l'interface "ShouldBeUnique" et posséder un attribut "uniqueId". Cette interface garantit que l'instance de "NotifyEmailJob" restera unique tant qu'il se trouve dans la file. Cette fonctionnalité est importante car la méthode "dispatchMailJob()" est toujours appelée quand un évènement pouvant enclencher l'envoi d'un mail survient.
@@ -1392,25 +1457,277 @@ Pour cette procédure, le serveur SMTP de l'école est utilisé. Il se trouve à
 
 \newpage
 \section{Authentification par Switch AAI}
-%% https://www.switch.ch/aai/demo/medium/
-Une des fonctionnalités importante du projet est la connection au service à travers le login Switch AAI.
-Le gros avantage est que les nouveaux utilisateurs n'ont pas besoin de se créer un nouveau compte.
+Une des fonctionnalités importante du projet est la connection au service à travers le login Switch AAI. Le gros avantage est que les nouveaux utilisateurs n'ont pas besoin de se créer un nouveau compte. Il y a deux termes importants à connaitre à partir de maintenant : IP et SP. Les \emph{Identity Provider} sont les organismes qui possèdent l'identité des utilisateurs. Les \emph{Service Providers} sont les organismes qui utilisent ces identités pour leur service. Ce projet en est un.
 
-Le déroulement et fonctionnement de l'authentification se déroule en plusieurs étapes.
-Lorsque l'utilisateur veut accéder à une ressource, comme un site par exemple, il essaie d'y accéder depuis son navigateur.
+Lorsqu'un utilisateur souhaite accéder à une ressource protégée, en l'occurence la SPA, située à l'adresse "/app", le serveur doit vérifier si l'accès lui est autorisé : une session valide est nécessaire. Une session est représentée par un cookie, stocké par le navigateur. Ce cookie contient des informations qui permettent au serveur de savoir si la session est valide ou non, et si elle est active ou non.
 
+Pour que le serveur puisse gérer ce procédé, il a besoin du service Shibboleth.
+Si la session est invalide ou inexistante, l'utilisateur doit être redirigé vers le service de découverte, qui lui permet de s'authentifier avec son compte Switch AAI.
 
+\figi{shibboleth1.xml}{12cm}{Redirection vers le service de découverte}
 
+Pour implémenter ce mécanisme, il faut d'abord installer Shibboleth. \href{https://www.switch.ch/aai/guides/sp/installation/}{Cette page} contient les détails de l'installation.
+Il faut utiliser un serveur NTP pour synchroniser l'heure de la machine, car sans ça, il risque d'y avoir des problèmes de timeout. Il faut aussi s'assurer que le module SSL d'Apache soit enclenché.
+Une fois ces conditions remplies, il faut installer Shibboleth.
+
+Quand il est installé, il faut passer par une étape de configuration, expliquée en détails sur \href{https://www.switch.ch/aai/guides/sp/configuration/}{cette page}.
+Shibboleth utilise un fichier de configuration nommé "shibboleth2.xml", qui se trouve dans le répertoire "/etc/shibboleth". En suivant la procédure décrite sur la page mentionnée juste avant, ce fichier est automatiquement généré. Il indique entre autre l'identifiant du service, l'adresse du service de découverte et l'adresse du IP.
+
+\newpage
+Il faut ensuite créer une nouvelle ressource pour le service. Cette étape consiste à indiquer quel IP il faut utiliser et à quels attributs il faut accéder.
+
+\begin{figure}[h]
+  \includegraphics[width=14cm]{registry1.PNG}
+  \caption{Aperçu de la ressource}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[height=3cm]{registry2.PNG}
+  \caption{Attributs à disposition}
+\end{figure}
+
+Pour ce projet, l'organisation est la HES-SO (c'est eux qui possèdent l'identité des utilisateurs) et que le service peut avoir accès à l'adresse email, au nom complet et à l'identifiant unique des utilisateurs. La fiche complète est disponible à \href{https://rr.aai.switch.ch/view_resource.php?resource=11600}{cette adresse}.
+
+Après ça, il faut ajouter des lignes dans le fichier de configuration "/etc/apache2/sites-enabled/000-default-le-ssl.conf" du serveur Apache. Ce fichier de configuration est expliqué au prochain chapitre, mais pour l'instant, il faut se contenter du code suivant :
+
+\begin{figure}[h]
+  \begin{minted}[breaklines]{html}
+  <Location /Shibboleth.sso>
+    SetHandler shib
+  </Location>
+  <Location />
+    AuthType Shibboleth
+    ShibRequestSetting requireSession false
+    Require shibboleth
+  </Location>
+  \end{minted}
+  \caption{code à ajouter dans le fichier de configuration}
+  \label{code:Location}
+\end{figure}
+
+\newpage
+La directive sous "<Location /Shibboleth.sso>" indique que les routes qui commencent par "/Shibboleth.sso" sont gérées par Shibboleth.
+Celles sous "<Location />" indiquent que pour toutes les autres routes, c'est le service Shibboleth est utilisé pour l'authentification. Si "requireSession" vaut "true", ces routes sont verrouillées et si un utilisateur sans session valide tente d'y accéder, il est directement redirigé vers le service de découverte.
+
+Il faut le laisser à "false" car ce n'est pas à ce niveau qu'on veut protéger l'accès au site : c'est à un étage plus bas, au niveau du code backend que celà doit avoir lieu.
+Le schéma suivant illustre la situation :
+
+\figi{protected_routes1.xml}{12cm}{Cheminement des routes web}
+
+On y voit le cheminement des routes web. La route protégée est celle qui permet d'accéder à la SPA. Les routes qui commencent par "/Shibboleth.sso" sont automatiquement interceptées par Apache et gérées par Shibboleth. Pour qu'elles soient interceptées, il faut ajouter une directive dans le fichier ".htaccess" du dossier backend.
+
+Ce fichier sert à imposer des directives dynamiques au serveur Apache, dynamiques dans le sens qu'il n'y a pas besoin de modifier les fichiers ".conf" et de redémarrer le serveur pour appliquer les changements. Les directives supplémentaires sont généralement propres projet backend, et peuvent simplement êtres modifiées sans nécessiter de redémarrage.
+Laravel possède déjà ce fichier rempli par défaut, et il faut tout simplement ajouter la ligne suivante juste en dessous de la ligne "RewriteCond \%{REQUEST\_FILENAME} !-f".
+
+Les "RewriteCond" sont les conditions à respecter pour qu'un "RewriteRule" soit effectué. La réécriture des routes est très importante dans notre cas car elle permet de toujours passer par "index.php". Ce fichier est le point d'entrée de tout le site, et il est nécessaire de passer par cet endroit pour que les bonnes pages soient servies.
+
+\newpage
+Avec la nouvelle condition ajoutée, le premier noeud du schéma \ref{protected_routes1.xml} est créé : les routes qui commencent par "/Shibboleth.sso" ne sont pas transmises au backend. Au lieu de ça, c'est le service Shibboleth qui les reçoit et qui s'en occupe.
+
+\begin{figure}[h]
+  \begin{minted}[breaklines]{python}
+  # Send Requests To Front Controller...
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_URI} !^(/Shibboleth.sso) #à ajouter
+  RewriteRule ^ index.php [L]
+  \end{minted}
+  \caption{aperçu du fichier ".htaccess"}
+\end{figure}
+
+Les autres routes sont donc gérées par le backend Laravel. A ce niveau, la route "/welcome" retourne la page d'accueil et toutes les autres sont gérées par la SPA. Au niveau de la SPA, c'est le routeur Vue qui s'occupe d'afficher les pages et de gérer les pages inexistantes.
+Pour gérer le second noeud, celui de la couche backend, c'est simplement le code dans le fichier "web.php" qui s'en occupe.
+
+Il reste encore une dernière étape pour que Laravel puisse gérer l'authentification avec Shibboleth. Pour cela, il faut installer le paquet "laravel-shibboleth" et suivre la procédure indiquée sur la \href{https://github.com/uabookstores/laravel-shibboleth}{page Github} du paquet.
+
+Un nouveau fichier de configuration est créé sous "config/shibboleth.php". Il faut s'assurer que les valeurs suivantes soient appliquées :
+
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+  'idp_login' => '/Shibboleth.sso/Login', //route de login
+  'idp_logout' => '/Shibboleth.sso/Logout', //route de logout
+  'authenticated' => '/', //route pour les utilisateurs authentifiés
+
+  'entitlement' => 'uniqueID',
+
+  'user' => [ //mapping des attributs mis à disposition par le IdentityProvider aux attributs du modèle Eloquent "User"
+    'email' => 'mail',
+    'name' => 'givenName',
+    'surname' => 'surname',
+  ],
+
+  'add_new_users' => true, //les nouveaux utilisateurs doivent être ajoutés dans la base de données
+  \end{minted}
+  \caption{aperçu du fichier "shibboleth.php"}
+\end{figure}
+
+Quand un nouvel utilisateur est créé, son champ "password" dans la base de données est fixé à "shibboleth", pour indiquer qu'il dépend du "Identity provider". Le mot de passe n'est en aucun cas utilisé pour authentifié un utilisateur. Les champs "email", "name" et "surname" sont automatiquement remplis avec les attributs fournis par le fournisseur d'identités.
+
+\newpage
+Il faut encore apporter un petit changement dans le fichier "config/auth.php" :
+
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+  'providers' => [
+    'users' => [
+      'driver' => 'shibboleth', //il faut dire que Shibboleth s'occupe de l'authentification
+      'model' => App\Models\User::class,
+    ],
+  ],
+  \end{minted}
+  \caption{aperçu du fichier "auth.php"}
+\end{figure}
+
+Il ne reste qu'une dernière étape pour que tout le système d'authentification fonctionne. Dans Laravel, quand un utilisateur veut accéder à une route protégée et qu'il n'est pas authentifié, la fonction "redirectTo()" située dans le fichier "app/Http/Middleware/Authenticate.php" est invoquée. Cette fonction doit retourner une route, est c'est par conséquent la route "/welcome" qui doit être retournée. Ainsi, quand l'utilisateur non authentifié veut accéder à une route protégée, il est toujours redirigé sur la page d'accueil.
+
+Sur la page d'accueil, le lien vers le service de découverte redirige sur la route "/shibboleth-login". Cette route est automatiquement créée par la paquet, ainsi que la route "/shibboleth-logout". Ces routes sont gérées par Shibboleth et servent, comme leur nom l'indique, à se connecter et à se déconnecter de son compte.
+Pour se déconnecter, il faut accéder à la route "/user/logout" de l'API. La fonction associée redirige vers la route "shibboleth-logout".
+
+Au final, le site principal est accessible uniquement aux utilisateurs authentifiés. Il faut noter que si l'utilisateur se déconnecte, il n'est plus authentifié par Laravel et est envoyé sur la page d'accueil, mais sa session Shibboleth persiste tant qu'il ne ferme pas son navigateur. Il peut tenter d'accéder à nouveau au site, mais il n'aura cette fois pas besoin d'entrer ses identifiants.
+
+\figi{shibboleth2.xml}{12cm}{Accès à une route protégée}
+
+\newpage
 \chapter{Déploiement}
-.htaccess
-stateless
-dist, public, Vue dans Laravel, queue worker, jobsQueue, shibboleth, HTTPS, SSL
-\section{Serveur Apache}
+Le déploiement du site nécessite d'utiliser un serveur HTTP qui tourne en permanance, afin de servir les pages et de répondre aux requêtes entrantes. Mais dans le cadre de ce projet, il faut aussi faire tourner un serveur Websocket et un "Queue worker", qui sert à effectuer les travaux différés de manière asynchrone (emails).
+
+Une machine virtuelle de l'école est utilisée à cet effet, avec comme système d'exploitation la version 20.04 d'Ubuntu. Il est possible de s'y connecter à distance via le protocole SSH. Le site est disponible à l'adresse \href{https://tb21-lieberherr.heig-vd.ch}{https://tb21-lieberherr.heig-vd.ch}.
+
+\section{Code source}
+Le code source se trouve sur Github. Il existe deux repos pour l'ensemble du projet : un pour le frontend et l'autre pour le backend.
+Le repo du frontend se trouve à \href{https://github.com/TristanLieberherr/piaf}{cette page}, dans le repo "piaf". Puisqu'il s'agit du fork du site de base, il n'est pas publiquement visible.
+
+Le repo du backend se trouve à \href{https://github.com/TristanLieberherr/fablab-website}{cette page}, dans le repo "fablab-website". Ce repo est accessible et visible de tous. Il contient déjà la version compliée du frontend.
+
+Pour intégrer la SPA du frontend dans le code du backend, il faut d'abord compiler le projet. Lors de la compilation, les pages et composants Vue sont traduits en HTML, CSS et JavaScript.
+Une fois terminé, le dossier "dist" est rempli avec deux fichiers et un dossier :
+\begin{itemize}
+  \item Le dossier "assets", qui contient les images, les logos, et le code JS et CSS.
+  \item Le fichier "favicon.ico", qui est l'icône qui apparait dans le navigateur.
+  \item Le fichier "index.html", qui contient la page HTML de lancement.
+\end{itemize}
+\bigskip
+
+Ces trois éléments du dossier "dist" doivent ensuite être déposés dans le dossier "public" du backend. Il faut aussi impérativement copier le contenu de "index.html" pour le mettre dans "resources/views/app.blade.php".
+
+\newpage
+\section{Serveur Apache et certifical SSL}
+Les détails concernant la configuration du serveur Apache se trouvent dans cette section. Le serveur Apache est un serveur HTTP. Son but est de répondre aux requêtes HTTP qui lui sont envoyées. C'est don un processus qui tourne nuit et jour, et qui fait appel au code du backend pour répondre à ces requêtes. Apache s'occupe plus spécifiquement des requêtes web et API. Le serveur Websocket est une autre entité qui sera abordé dans une autre section.
+
+J'ai suivi \href{https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-ubuntu-20-04}{ce tutoriel} pour l'obtention du certificat et de la sécurisation du serveur, ainsi que \href{https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-18-04}{ce tutoriel} pour l'installation basique du serveur.
+Il faut tout d'abord cloner le repo "fablab-website" qui contient le code du backend.
+
+Ensuite, il faut installer Apache 2 et Certbot. Certbot est un exécutable qui automatise l'obtention d'un certifical SSL auprès de l'autorité de certification "Let's Encrypt". L'avantage est qu'en passant par eux, le certificat est gratuit. Ce certificat est nécessaire pour pouvoir utiliser le protocole sécurisé HTTPS.
+
+Avant de lancer Certbot, il faut déjà ajouter quelques lignes dans le fichier de configuration de l'hôte virtuel sous "/etc/apache2/sites-available/000-default-le-ssl.conf". Un hôte virtuel permet à la machine de pouvoir gérer plusieurs serveurs virtuels en même temps, par exemple si plusieurs sites sont hébergés sur la même machine. Dans le cas de ce projet, il n'en a qu'un seul.
+Il faut ajouter les lignes ServerAdmin, DocumentRoot et ServerName, ainsi que configurer ce qui se trouve dans la balise "<Directory /var/www/fablab-website>". Par la suite, il faudra y ajouter quelques lignes pour tenir compte du certificat SSL.
+
+\begin{figure}[h]
+  \begin{minted}[breaklines]{html}
+  <IfModule mod_ssl.c>
+  <VirtualHost *:443> #le virtual host écoute sur le port 443
+    ServerAdmin tristan.lieberherr@heig-vd.ch #email de l'admin
+    DocumentRoot /var/www/fablab-website/public #chemin vers le dossier "public"
+    ServerName tb21-lieberherr.heig-vd.ch #nom du serveur
+    <Directory /var/www/fablab-website>
+    Options Indexes FollowSymLinks
+    AllowOverride All #pour pouvoir utiliser le .htaccess
+    Require all granted #accepter toutes les requêtes
+    Allow from all
+    </Directory>
+    <Location /Shibboleth.sso>
+    SetHandler shib
+    </Location>
+    <Location />
+    AuthType Shibboleth
+    ShibRequestSetting requireSession false
+    Require shibboleth
+    </Location>
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+  </VirtualHost>
+  </IfModule>
+  \end{minted}
+  \caption{Aperçu du fichier "000-default-le-ssl.conf"}
+\end{figure}
+
+Avec cette première configuration, il est temps d'utiliser Certbot pour l'obtention du certificat. Le programme va demander quelques interactions textuelles et une fois terminé, le certificat est disponible et il se trouve dans le répertoire "/etc/letsencrypt/live/tb21-lieberherr.heig-vd.ch".
+
+\newpage
+Il est à présent nécessaire de l'inclure dans le fichier de configuration.
+
+\begin{figure}[h]
+  \begin{minted}[breaklines]{html}
+    ...
+    </Location>
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+    #ajouter les trois lignes suivantes
+    SSLCertificateFile /etc/letsencrypt/live/tb21-lieberherr.heig-vd.ch/fullchain.pem #chemin vers la chaine complète
+    SSLCertificateKeyFile /etc/letsencrypt/live/tb21-lieberherr.heig-vd.ch/privkey.pem #chemin vers la clé privée
+    Include /etc/letsencrypt/options-ssl-apache.conf
+  </VirtualHost>
+  </IfModule>
+  \end{minted}
+  \caption{Ajout du certificat au fichier de configuration}
+\end{figure}
+
+Les certificats délivrés par Let's Encrypt ne durent que 90 jours, il faut donc un système pour les renouveler automatiquement. Heureusement, Certbot s'en occupe déjà. Il faut juste s'assurer qu'il fonctionne en faisant un essai à blanc. Il n'y a donc pas besoin de se soucier de la validité du certificat, qui est vérifiée deux fois par jour par le programme.
+
+Pour finir, il faut reprendre le fichier ".htaccess" et y ajouter une dernière directive pour limiter la taille des reqûetes à 5 MB, limite fixée pour l'envoi des fichiers. Il suffit simplement d'ajouter une ligne vers la fin du fichier :
+
+\begin{figure}[h]
+  \begin{minted}[breaklines]{python}
+    ...
+    RewriteRule ^ index.php [L]
+
+    php_value upload_max_filesize 5M #à ajouter
+    </IfModule>
+  \end{minted}
+  \caption{Ajout de la limite d'upload}
+\end{figure}
+
+Désormais, les requêtes HTTP passent en HTTPS, et si le navigateur Chrome est utilisé, un icone de verrou indique que la navigation est sécurisée.
+
+\newpage
 \section{Processus supervisés}
+Pour que le système soit totalement fonctionnel, il a besoin de deux autres services : le serveur Websocket et le "Queue worker", qui est le precessus qui s'occupe d'effectuer les travaux différés de manière asynchrone, pour les emails. Pour qu'ils puissent tourner en permanence et qu'ils soient capables de se relancer en cas d'erreur, il faut faire appel à un logiciel de contrôle de processus.
+Ce logiciel s'appelle Supervisor.
+
+Une fois installer, il faut créer deux nouveaux fichiers qui correspondent aux deux services qu'il faut gérer. Les fichiers s'appellent "laravel-queue.conf" et "laravel-websocket.conf", situés sous "/etc/supervisor/conf.d". Ces fichiers contiennent la configuration de chaque service.
+
+\begin{figure}[h]
+  \begin{minted}[breaklines]{python}
+  [program:laravel-queue]
+  process_name=%(program_name)s_%(process_num)02d #nom du processus
+  command=php /var/www/fablab-website/artisan queue:work #commande à effectuer
+  user=root #utilisateur en tant que qui exécuter la commande
+  autostart=true #permet de démarrer tout seul
+  autorestart=true #permet de redémarrer en cas de fermeture
+  numprocs=1 #nombre de processus. 1 seul suffit pour les deux services
+  \end{minted}
+  \caption{laravel-queue.conf}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{minted}[breaklines]{python}
+  [program:laravel-websocket]
+  process_name=%(program_name)s_%(process_num)02d
+  command=php /var/www/fablab-website/artisan websockets:serve
+  user=root
+  autostart=true
+  autorestart=true
+  numprocs=1
+  \end{minted}
+  \caption{laravel-websocket.queue}
+\end{figure}
+
+Tant que Supervisor est en service, il va s'occuper de ces processus. En cas de souci, ils sont redémarrés automatiquement. Si nécessaire, il est possible de créer plusieurs processus par service, mais ce n'est pas le cas pour ce projet.
 
 
-
-
+\newpage
+\chapter{Conclusion}
 \chapter{Introduction}
 L'introduction est une section requise dans un rapport technique. Introduisez votre travail, l'idée de départ et les objectifs attendus. Un lecteur qui découvrirait votre projet au travers de cette introduction devrait ainsi être capable d'en comprendre le cadre, l'idée générale et les aboutissants du projet.
 
@@ -1560,8 +1877,6 @@ Lorsque vous mentionnez des quantités, utilisez les unités du système interna
 \mintinline{latex}{\SI{42.12}{\kilo\gram\metre\per\square\second}}\par
 %%fi
 
-\chapter{Conclusion}
-
 %%if
 Bien que non nécessaire dans un rapport de Bachelor, la discussion finale d'un projet résume les résultats obtenus et dresse une conclusion objective du projet. Un manager de société est souvent amené à lire de nombreux rapport, il ne s'intéresse généralement qu'à l'introduction au contexte de l'étude et à sa conclusion.
 
@@ -1584,7 +1899,7 @@ Il est de coutume de signer la conclusion...
 
 %%if
 \chapter{Première annexe}
-\section{TEST}
+\section{code.php}
 
 \begin{listing}[h]
   \inputminted[breaklines]{php}{assets/figures/php.php}
