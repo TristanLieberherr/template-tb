@@ -47,7 +47,7 @@
   \let\cleardoublepage\clearpage
   \listoftables
   \let\cleardoublepage\clearpage
-  \listoflistings
+  %\listoflistings
 }
 
 \printnomenclature
@@ -1638,12 +1638,16 @@ Le déploiement du site nécessite d'utiliser un serveur HTTP qui tourne en perm
 
 Une machine virtuelle de l'école est utilisée à cet effet, avec comme système d'exploitation la version 20.04 d'Ubuntu. Il est possible de s'y connecter à distance via le protocole SSH. Le site est disponible à l'adresse \href{https://tb21-lieberherr.heig-vd.ch}{https://tb21-lieberherr.heig-vd.ch}.
 
+J'ai rédigé un fichier nommé "deploiement.md" qui retrace mon parcours effectué pour le déploiement de l'application et qui contient beaucoup de détails.
+Un autre fichier nommé "protocole.md" contient tout le protocole d'essais que j'ai suivi pour tester l'application du projet, que j'ai effectué une fois le système déployé.
+Ils sont disponibles publiquement sur le repo Github du backend.
+
 \section{Code source}
 Le code source se trouve sur Github. Il existe deux repos pour l'ensemble du projet : un pour le frontend et l'autre pour le backend.
 Le repo du frontend se trouve à \href{https://github.com/TristanLieberherr/piaf}{cette page}, dans le repo "piaf". Puisqu'il s'agit du fork du site de base, il n'est pas publiquement visible.
 La version du dernier commit est la 5ecb65d.
 
-Le repo du backend se trouve à \href{https://github.com/TristanLieberherr/fablab-website}{cette page}, dans le repo "fablab-website". Ce repo est accessible et visible de tous. Il contient déjà la version compliée du frontend. La version du dernier commit est la 2280990.
+Le repo du backend se trouve à \href{https://github.com/TristanLieberherr/fablab-website}{cette page}, dans le repo "fablab-website". Ce repo est accessible et visible de tous. Il contient déjà la version compliée du frontend. La version du dernier commit est la b70c3ac.
 
 Pour intégrer la SPA du frontend dans le code du backend, il faut d'abord compiler le projet. Lors de la compilation, les pages et composants Vue sont traduits en HTML, CSS et JavaScript.
 Une fois terminé, le dossier "dist" est rempli avec deux fichiers et un dossier :
@@ -1773,172 +1777,54 @@ Tant que Supervisor est en service, il va s'occuper de ces processus. En cas de 
 \newpage
 \chapter{Conclusion}
 
+\section{Principales sources d'information}
+Durant toute la durée de ce projet, je n'ai cessé d'apprendre de nouvelles choses. J'ai utilisé plusieurs sites pour obtenir des informations et de la documentation, c'est pourquoi je dédie cette liste à tous les principaux sites qui m'ont servi tout au long de ce projet :
 
+\begin{enumerate}
+  \item stackoverflow.com : c'est le forum mondial numéro un pour les programmeurs\cite{stackoverflow}
+  \item laravel.com : documentation de Laravel\cite{laravel}
+  \item vuetify.com : documentation de la bibliothèque Vuetify\cite{vuetify}
+  \item vuejs.org : documentation de Vue\cite{vue}
+  \item The Net Ninja, youtube.com : tutoriels pour apprendre les bases de Vue\cite{ninja}
+  \item w3schools.com : documentation et exemples pour HTML, CSS et JavaScript\cite{w3schools}
+  \item digitalocean.com : de nombreux tutoriels, pour Apache et Ubuntu entre autres\cite{digitalocean}
+  \item switch.ch : toute la procédure pour l'utilisation de Shibboleth\cite{switch}
+  \item trustradius.com : de nombreux avis d'utilisateurs qui utilisent les différents frameworks, que j'ai pu consulter pour me faire mon avis sur le sujet\cite{trustradius}
+  \item vuex.vuejs.org : découverte et explications de Vuex\cite{vuex}
+  \item unlayer.com : réalisation du template HTML pour le mail de notification\cite{unlayer}
+  \item freefrontend.com : inspiration et templates gratuits de pages HTML\cite{freefrontend}
+  \item beyondco.de : documentation de Laravel Websockets\cite{websockets}
+\end{enumerate}
 
+\section{Planning du projet}
+Le planning en question se trouve en annexe \ref{appendix:planning} du document. Je l'ai aussi mis en annexe externe du document, en raison de sa taille.
 
+Au début du projet, j'ai établi la planification des mes heures. En en discutant avec Mr. Chevallier, j'ai estimé qu'il allait me falloir environ 516 heures, en utilisant des marges correctes.
+Au final, il ne m'en a fallu que 442, soit environ trois jours de plus que le minimum légal de 420 heures.
 
-\chapter{Introduction}
-L'introduction est une section requise dans un rapport technique. Introduisez votre travail, l'idée de départ et les objectifs attendus. Un lecteur qui découvrirait votre projet au travers de cette introduction devrait ainsi être capable d'en comprendre le cadre, l'idée générale et les aboutissants du projet.
+Sur certains aspects, j'ai un peu débordé, surtout pour la rédaction du rapport et l'authentification avec Switch, qui ont pris plus de temps que prévu.
+À l'inverse, certaines parties ont été plus rapides que prévu, comme ça a été le cas avec le déploiement du serveur.
 
-\section{Contexte}
-Cette section \underline{n'est pas obligatoire}, mais elle est souvent présente dans un rapport technique pour compléter l'introduction et définir le contexte du travail \cad le cadre formel dans lequel le travail est mené.
+Au bout de ces 442 heures de travail, je peux m'estimer satisfait du travail accompli. J'ai appris que certaines étapes du développement prennent plus de temps que d'autres, et c'est donc une leçon que j'ai appris, qui me servira peut-être plus tard dans ma carrière.
 
-%%if
-\section{Citations et bibliographie}
-Citer vos sources est essentiel. Avec \texttt{biblatex} vous pouvez facilement citer des articles, des livres ou des sites internet. Toutes les citations dans le texte seront automatiquement regroupées en fin de document dans la section \guillemotleft Bibliographie\guillemotright. Par exemple, citons un article d'Einstein \cite{einstein} ou le livre de Dirac \cite{dirac}.
+\section{Remerciements et conclusion finale}
+Je tenais avant tout à remercier les gens qui m'ont aidé dans la réalisation de ce projet. Sans eux, la réalisation n'aurait sûrement pas été possible, et le résultat n'aurait jamais été de cette qualité.
 
-Parfois il peut être utile d'utiliser un gestionnaire de bibliographie. La communauté académique recommande l'outil \href{https://www.zotero.org/}{Zotero} qui permet de gérer une bibliothèque numérique d'ouvrages et de références numériques. Il permet également de générer une bibliographie compatible avec \LaTeX.
+Je remercie Mr. Benjamin Wolf, qui m'a mis la machine virtuelle de l'école à disposition, et qui s'est occupé de l'entrée DNS de mon site.
 
-\section{Exemple d'équation}
-L'une des principales forces de \LaTeX est la saisie d'équations. L'équation \ref{eq:1}, citée à titre d'exemple, représente la transformation de phase d'une lentille biconvexe. Pour rédiger une équation \LaTeX vous pouvez utiliser des outils en ligne tels que \href{https://www.latex4technics.com/}{latex4technics}.
+Je remercie aussi Mr. Michael Binggeli, un de mes collègues et amis qui m'a donné son feedback pour l'interface du site, et qui a su relever des aspects importants à améliorer.
 
-\begin{equation} \label{eq:1}
-  \begin{split}
-    L(x,y) &= \exp\left( - i\frac{{2\pi }}{\lambda }\left( {n\Delta \varphi (x,y) + \Delta {\varphi _0} - \Delta \varphi (x,y)} \right)\right)\\
-    &= {\exp\left({i\frac{{2\pi }}{\lambda }\Delta {\varphi _0}}\right)}{\exp\left({ - i\frac{{2\pi }}{{\lambda f}}({x^2} + {y^2})}\right)}
-  \end{split}
-\end{equation}
+Finalement, je remercie Mr. Yves Chevallier, qui m'a beaucoup aidé dans ce projet. Il a pu partager beaucoup de connaissances avec moi, et a su m'aider à surmonter les difficultés rencontrées.
 
-\section{Exemples de diagrammes}
+Je peux m'estimer fier de moi. Au début du semestre, je ne m'y connaissait presque pas dans le domaine du web. Quelques mois plus tard, à la fin de ce projet, je me rend compte que j'ai acquis beaucoup de nouvelles connaissances ainsi qu'une belle expérience. Même s'il y a eu des difficultés, du stress et des incertitudes tout au long de ce projet, j'ai su le mener à bien.
 
-Les diagrammes de flux peuvent être réalisés en utilisant l'outil \href{https://app.diagrams.net/}{draw.io}. Une exportation en \texttt{.xml} (non compressé) permet de garder les sources de la figure. Le rendu en \texttt{.pdf} sera réalisé à la volée à la compilation. L'intérêt est double : n'avoir qu'une source de vérité \cad pas d'image intermédiaire à stocker, et réduire la quantité d'information stockée.
-
-Puisque la source est au format XML, les textes sont accessibles au correcteur orthographique et il vous est rendu possible les modifier sans avoir à éditer l'image. La figure \ref{euclide.xml} en est un exemple.
-
-
-\figi{euclide.xml}{9cm}{Algorithme d'Euclide}
-
-Notons qu'il est inutile d'insérer des images coloriées là où la couleur n'offre aucune valeur ajoutée ; évitez également les ombrages et autres effets de style. Enfin, préférez toujours des représentations vectorielles là où c'est possible.
-
-Voici un autre type de diagramme utile (figure \ref{sequence.xml}), celui d'une séquence UML.
-
-\figi{sequence.xml}{8cm}{Diagramme de séquence}
-
-\section{Exemple de figure}
-
-Pour présenter des résultats d'expérience, vous pouvez soit dessiner des graphiques manuellement en utilisant des outils de dessin vectoriel comme Inkscape ou Adobe Illustrator comme illustré à la figure \ref{plot.svg} ou alors, vous pouvez utiliser Python ou Matlab. Avec ce dernier choix, vous pouvez générer vos figures à la volée : le code source \ref{python} permet de générer la figure \ref{bode.py}.
-
-\fig{plot.svg}{Exemple de graphique plan}
-
-\begin{listing}[h]
-  \inputminted[breaklines]{php}{assets/figures/php.php}
-  \caption{Génération d'un diagramme de Bode \label{python}}
-\end{listing}
-
-
-\figi{bode.py}{12cm}{Diagramme de Bode généré à la volée}
-
-\clearpage
-
-\subsection{Schémas électroniques}
-Vous pouvez également utiliser TikZ pour créer vos propres schémas électriques et électroniques comme l'exemple \ref{circuit}.
-
-\begin{figure}[h]
-  \begin{center}
-    \begin{circuitikz}
-      \draw
-      (0,0) to [short, *-] (6,0)
-      to [V, l_=$\mathrm{j}{\omega}_m \underline{\phi}^s_R$] (6,2)
-      to [R, l_=$R_R$] (6,4)
-      to [short, i_=$\underline{i}^s_R$] (5,4)
-      (0,0) to [open, v^>=$\underline{u}^s_s$] (0,4)
-      to [short, *- ,i=$\underline{i}^s_s$] (1,4)
-      to [R, l=$R_s$] (3,4)
-      to [L, l=$L_{\sigma}$] (5,4)
-      to [short, i_=$\underline{i}^s_M$] (5,3)
-      to [L, l_=$L_M$] (5,0);
-    \end{circuitikz}
-    \caption{Circuit électrique \label{circuit}}
-  \end{center}
-\end{figure}
-
-\subsection{Dessins techniques}
-L'intégration de dessins mécaniques est préférée en vue filaire. SolidWorks conserve la représentation vectorielle à l'exportation. À partir du PDF généré, l'image peut être isolée et sauvegardée en format SVG.
-
-\begin{figure}[!ht]
-  \begin{center}
-    \includegraphics[width=10cm]{\assetsdir/assembly.svg.\graphicsExt}
-  \end{center}
-  \caption[Assemblage mécanique]{\label{assembly}Réducteur cycloïdale de puissance comportant 6. l'axe de sortie, 14. le roulement de sortie, 1. le corps du réducteur en aluminium, 3 et 5. les disques cycloïdaux et 2. les goupilles de prise... D'autres informations liées à la figure elle-même peuvent aussi figurer dans la légende}
-\end{figure}
-
-Notez ici que la légende est particulièrement longue. Celle que vous retrouverez dans la table figures est plus courte. La commande \mintinline{latex}{\caption[courte]{longue}} permet de saisir une légende courte, pour la table des figures et longue pour le corps du document.
-
-La figure \ref{assembly} est un dessin technique épuré qui permet de décrire un phénomène ou un fonctionnement important dans le rapport technique. Les mises en plan détaillées seront quant à elles disponibles en annexes.
-
-\clearpage
-\section{Tableaux}
-
-Concernant les tableaux, restez simple et minimaliste, n'ajoutez des séparateurs que là ou c'est nécessaire pour améliorer la lisibilité. Une liste de quelques cantons suisses est donnée à titre d'exemple dans la table \ref{cantons}.
-
-\begin{table}[h]
-  \begin{center}
-    \caption{Liste des cantons \label{cantons}}
-    \begin{tabular}{c|l|r}
-      Abréviation & Nom du canton & Depuis                  \\ \hline
-      ZH          & Zürich        & \ordinalnum{1} mai 1351 \\
-      BE          & Berne         & 6 mars 1353             \\
-      FR          & Fribourg      & 22 décembre 1481        \\
-      VD          & Vaud          & 19 février 1815         \\
-      VS          & Valais        & 4 août 1815             \\
-      NE          & Neuchâtel     & 19 mai 1815             \\
-      GE          & Genève        & 19 mai 1815
-    \end{tabular}
-  \end{center}
-\end{table}
-
-Si vous devez donner une spécification technique, n'oubliez pas de mentionner les valeurs minimales, maximales et nominales sans omettre l'unité de mesure. Notez que les séparateurs verticaux sont souvent critiqués pour réduire la lisibilité mais parfois ils sont utiles. Utilisez-les avec parcimonie.
-
-\begin{table}[h]
-  \begin{center}
-    \caption{Exigences techniques \label{specification}}
-    \begin{tabularx}{\textwidth}{cXcccc}
-      No. & Exigence                                                                   & Min. & Nom. & Max. & Unité                           \\ \toprule
-      E1  & Tension d'alimentation                                                     & 12   & 24   & 48   & \si{\volt}                      \\ \midrule
-      E2  & Fréquence                                                                  & 50   &      & 60   & \si{\hertz}                     \\ \midrule
-      E3  & Concentration                                                              &      & 300  & 1200 & \si{\nano\gram\per\milli\litre} \\ \midrule
-      E4  & \multicolumn{5}{l}{Doit pouvoir être stoppé à l'aide d'un arrêt d'urgence}
-    \end{tabularx}
-  \end{center}
-\end{table}
-
-L'exemple de la table \ref{specification}, assigne pour chaque exigence un numéro unique. Cette table est \textbf{normative}, chaque élément doit pouvoir être référencé par un identifiant unique (cf. T\ref{specification}-E3). Dans le cas ou cet identifiant est utilisé en dehors de ce document, la version du document devra être renseignée.
-
-\section{Index}
-\LaTeX~ permet d'indexer les mots \index{mots} importants. Il suffit de placer les termes importants d'un paragraphe dans la commande \texttt{\textbackslash index\{terme\}} et ils apparaitront automatiquement à la fin de ce rapport dans l'index du document.
-
-\index{Napoléon}
-
-Imaginons que dans cette section nous parlions du cheval blanc \index{cheval blanc} de Napoléon. Il se pourrait que le lecteur recherche ce passage dans la version imprimée du rapport. Avec l'index, rien de plus facile. Allez jeter un oeil à la page \pageref{index}.
-
-\section{Notes de bas de page}
-
-\maraja{Je suis une marginale, et je suis utile pour résumé un paragraphe en quelques mots.} Parfois, il est plus élégant d'annoter une définition en utilisant une note de bas de page \footnote{La note en bas de page (ou note de bas de page) est une forme littéraire, consistant en une ou plusieurs lignes ne figurant pas dans le texte.}. Alternativement il est possible d'annoter un paragraphe avec une note marginale.
-
-\section{Glossaire et acronymes}
-
-La \Gls{heig-vd} membre de la \Gls{hes-so} propose ce modèle de document. Le format \LaTeX est particulièrement adapté pour les documents qui contiennent des expressions mathématiques. Pour plus de détail sur l'utilisation d'un glossaire, se référer à \url{https://www.overleaf.com/learn/latex/Glossaries}. Tient donc, ci-dessus nous utilisons deux acronymes. Les trouverez-vous dans le glossaire en page \pageref{glossaire} ?
-
-\section{Unités de mesure}
-
-Lorsque vous mentionnez des quantités, utilisez les unités du système international. \LaTeX~et le paquet \textsf{siunitx} permet la saisie de quantités. La commande suivante permet d'afficher \SI{42.12}{\kilo\gram\metre\per\square\second}.\par
-
-\mintinline{latex}{\SI{42.12}{\kilo\gram\metre\per\square\second}}\par
-%%fi
-
-%%if
-Bien que non nécessaire dans un rapport de Bachelor, la discussion finale d'un projet résume les résultats obtenus et dresse une conclusion objective du projet. Un manager de société est souvent amené à lire de nombreux rapport, il ne s'intéresse généralement qu'à l'introduction au contexte de l'étude et à sa conclusion.
-
-Il est de coutume de signer la conclusion...
-%%fi
+Le cahier des charges a été rempli avec succès, et je suis très satisfait du résultat final. Je trouve que l'interface est agréable, et j'ai vérifié que le système fonctionnait bien grâce au protocole d'essais que j'ai rigoureusement réalisé. J'espère que ce projet pourra servir au FabLab, qu'il pourra dépasser le stade de prototype, et qu'il soit un jour disponible à tous les collaborateurs de l'école.
 
 \vfil
 \hspace{8cm}\makeatletter\@author\makeatother\par
 \hspace{8cm}\begin{minipage}{5cm}
-  %%if
   % Place pour signature numérique
   \printsignature
-  %%fi
 \end{minipage}
 \clearpage
 
@@ -1946,99 +1832,114 @@ Il est de coutume de signer la conclusion...
 \appendixpage
 \addappheadtotoc
 
-%%if
-\chapter{Première annexe}
-Cette annexe contient quelques fichiers sources détaillants l'utilisation de l'API.
-
-\section{Code source backend}
-
-\begin{figure}[h]
-  \inputminted[breaklines]{javascript}{assets/code/2014_10_12_000000_create_users_table.php}
-  \caption{2014\_10\_12\_000000\_create\_users\_table.php}
-\end{figure}
-
-\begin{figure}[h]
-  \inputminted[breaklines]{javascript}{assets/code/2019_08_19_000000_create_failed_jobs_table.php}
-  \caption{2019\_08\_19\_000000\_create\_failed\_jobs\_table.php}
-\end{figure}
-
-\begin{figure}[h]
-  \inputminted[breaklines]{javascript}{assets/code/2021_04_01_075350_create_jobs_table.php}
-  \caption{2021\_04\_01\_075350\_create\_jobs\_table.php}
-\end{figure}
-
-\begin{figure}[h]
-  \inputminted[breaklines]{javascript}{assets/code/2021_04_23_123136_create_files_table.php}
-  \caption{2021\_04\_23\_123136\_create\_files\_table.php}
-\end{figure}
-
-\begin{figure}[h]
-  \inputminted[breaklines]{javascript}{assets/code/2021_04_28_140349_create_timeline_events_table.php}
-  \caption{2021\_04\_28\_140349\_create\_timeline\_events\_table.php}
-\end{figure}
-
-\begin{figure}[h]
-  \inputminted[breaklines]{javascript}{assets/code/2021_05_26_122557_create_jobsQueue_table.php}
-  \caption{2021\_05\_26\_122557\_create\_jobsQueue_table.php}
-\end{figure}
-
-\begin{figure}[h]
-  \inputminted[breaklines]{javascript}{assets/code/2021_05_30_144810_create_messages_table.php}
-  \caption{2021\_05\_30\_144810\_create\_messages\_table.php}
-\end{figure}
-
-\begin{figure}[h]
-  \inputminted[breaklines]{javascript}{assets/code/api.php}
-  \caption{api.php}
-\end{figure}
+\chapter{Code source}
+Cette annexe contient quelques fichiers sources pour détailler l'utilisation de l'API.
 
 \begin{figure}[h]
   \inputminted[breaklines]{javascript}{assets/code/web.php}
   \caption{web.php}
 \end{figure}
-
+\newpage
+\begin{figure}[h]
+  \inputminted[breaklines]{javascript}{assets/code/api.php}
+  \caption{api.php}
+\end{figure}
+\newpage
+\begin{figure}[h]
+  \inputminted[breaklines]{javascript}{assets/code/2014_10_12_000000_create_users_table.php}
+  \caption{2014\_10\_12\_000000\_create\_users\_table.php}
+\end{figure}
+\newpage
+\begin{figure}[h]
+  \inputminted[breaklines]{javascript}{assets/code/2021_04_01_075350_create_jobs_table.php}
+  \caption{2021\_04\_01\_075350\_create\_jobs\_table.php}
+\end{figure}
+\newpage
+\begin{figure}[h]
+  \inputminted[breaklines]{javascript}{assets/code/2021_04_23_123136_create_files_table.php}
+  \caption{2021\_04\_23\_123136\_create\_files\_table.php}
+\end{figure}
+\newpage
+\begin{figure}[h]
+  \inputminted[breaklines]{javascript}{assets/code/2021_04_28_140349_create_timeline_events_table.php}
+  \caption{2021\_04\_28\_140349\_create\_timeline\_events\_table.php}
+\end{figure}
+\newpage
+\begin{figure}[h]
+  \inputminted[breaklines]{javascript}{assets/code/2021_05_30_144810_create_messages_table.php}
+  \caption{2021\_05\_30\_144810\_create\_messages\_table.php}
+\end{figure}
+\newpage
 \begin{figure}[h]
   \inputminted[breaklines]{javascript}{assets/code/FileController.php}
   \caption{FileController.php}
 \end{figure}
-
+\newpage
 \begin{figure}[h]
-  \inputminted[breaklines]{javascript}{assets/code/JobController.php}
-  \caption{JobController.php}
+  \inputminted[breaklines, linenos , firstline=1, lastline=50]{javascript}{assets/code/JobController.php}
+  \caption{JobController.php, lignes 1 à 50}
 \end{figure}
-
+\newpage
+\begin{figure}[h]
+  \inputminted[breaklines, linenos , firstline=51, lastline=100]{javascript}{assets/code/JobController.php}
+  \caption{JobController.php, lignes 51 à 100}
+\end{figure}
+\newpage
+\begin{figure}[h]
+  \inputminted[breaklines, linenos , firstline=101, lastline=150]{javascript}{assets/code/JobController.php}
+  \caption{JobController.php, lignes 101 à 150}
+\end{figure}
+\newpage
+\begin{figure}[h]
+  \inputminted[breaklines, linenos , firstline=151]{javascript}{assets/code/JobController.php}
+  \caption{JobController.php, lignes 151 à 182}
+\end{figure}
+\newpage
 \begin{figure}[h]
   \inputminted[breaklines]{javascript}{assets/code/MessageController.php}
   \caption{MessageController.php}
 \end{figure}
-
+\newpage
 \begin{figure}[h]
   \inputminted[breaklines]{javascript}{assets/code/UserController.php}
   \caption{UserController.php}
 \end{figure}
-
-\section{Code source frontend}
-
+\newpage
 \begin{figure}[h]
-  \inputminted[breaklines]{javascript}{assets/code/index.js}
-  \caption{index.js}
+  \inputminted[breaklines, linenos, firstline=1, lastline=50]{javascript}{assets/code/index.js}
+  \caption{index.js, lignes 1 à 50}
+\end{figure}
+\newpage
+\begin{figure}[h]
+  \inputminted[breaklines, linenos, firstline=51, lastline=100]{javascript}{assets/code/index.js}
+  \caption{index.js, lignes 51 à 100}
+\end{figure}
+\newpage
+\begin{figure}[h]
+  \inputminted[breaklines, linenos, firstline=101, lastline=150]{javascript}{assets/code/index.js}
+  \caption{index.js, lignes 101 à 150}
+\end{figure}
+\newpage
+\begin{figure}[h]
+  \inputminted[breaklines, linenos, firstline=151, lastline=200]{javascript}{assets/code/index.js}
+  \caption{index.js, lignes 151 à 200}
+\end{figure}
+\newpage
+\begin{figure}[h]
+  \inputminted[breaklines, linenos, firstline=201]{javascript}{assets/code/index.js}
+  \caption{index.js, lignes 201 à 235}
 \end{figure}
 
-Les annexes n'ont pas un contenu \underline{normatif} mais \underline{descriptif}. Tout contenu annexé ne doit pas être nécessaire à la bonne compréhension du travail.
+\newpage
+\chapter{Planning}
+Cette annexe contient le planning Excel de ce projet.
 
-Les annexes contiennent généralement :
-
-\begin{itemize}
-  \item les dessins mécaniques (mises en plan);
-  \item les schémas électriques détaillés;
-  \item des photographies du projet;
-  \item des scripts et des extraits de code source;
-  \item des documents techniques \pex \emph{datasheet};
-  \item des développements mathématiques.
-\end{itemize}
-\section{Sous section}
-\lipsum[1]
-%%fi
+\begin{figure}[h]
+  \centering
+  \includegraphics[angle=90, height=\textheight, keepaspectratio]{Planning.pdf}
+  \caption{Planning}
+  \label{appendix:planning}
+\end{figure}
 
 \let\cleardoublepage\clearpage
 \backmatter
@@ -2046,24 +1947,5 @@ Les annexes contiennent généralement :
 \label{glossaire}
 \printnoidxglossary
 \printbibliography
-\label{index}
-\printindex
-
-%%if
-\clearpage
-\Large\textbf{Colophon :}\par\normalsize
-\thispagestyle{empty}
-La qualité de cet ouvrage repose que le moteur \LaTeX. La mise en page et le format sont inspirés d'ouvrages scientifiques tels que le modèle de thèse de l'EPFL et celui des publications O'Reilly.
-
-Les diagrammes et les illustrations sont édités depuis l'outil en ligne draw.io. Certaines illustrations ont été reprises dans Adobe Illustrator. Les représentations 3D sont exportées de SolidWorks et certains graphiques sont générés à la volée depuis un code source Python.
-
-L'auteur fictive de ce document \emph{Maria Bernasconi} est un nom emprunté, par amusement, aux spécimens publiés par Postfinance.
-
-Ce document a été compilé avec XeLaTeX.
-
-La famille de police de caractères utilisée est \emph{Computed Modern} créée par Donald Knuth avec son logiciel METAFONT.
-\vfil
-Le Colophon est le dernier élément d'un document qui contient des notes de l'auteur concernant la mise en page et l'édition du document : il est parfaitement optionnel.
-%%fi
 
 \end{document}

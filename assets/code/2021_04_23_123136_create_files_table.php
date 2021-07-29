@@ -20,7 +20,7 @@ class CreateFilesTable extends Migration
       $table->string('name');
       $table->timestamps();
 
-      $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
+    $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
     });
   }
 

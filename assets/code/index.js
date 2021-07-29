@@ -7,7 +7,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: JSON.parse(document.querySelector("meta[type='user']").getAttribute("value")),
+    user:
+      JSON.parse(document.querySelector("meta[type='user']").getAttribute("value")),
     jobs: [],
     unassignedJobs: [],
     formData: {
