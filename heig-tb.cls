@@ -373,7 +373,7 @@ Yverdon-les-Bains, le \@date
 \newcommand{\authentification}{
 \chapter*{\authenticiationname}
 \addcontentsline{toc}{chapter}{\authenticiationname}
-Je soussigné\ifx\@genre\female e\fi, \@author, atteste par la présente avoir réalisé seul\ifx\@genre\female e\fi~ce travail et n’avoir utilisé aucune autre source que celles expressément mentionnées.
+Je soussigné\ifx\@genre\female e\fi, \@author, atteste par la présente avoir réalisé seul\ifx\@genre\female e\fi~ce travail et n'avoir utilisé aucune autre source que celles expressément mentionnées.
 \vfil
 {\leftskip9cm\relax\@author\par
 \ifdefined\@signature

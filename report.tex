@@ -60,7 +60,7 @@
 \mainmatter
 \chapter{Introduction}
 \section{Contexte}
-En l'état actuel, il n'y a pas de système automatisé pour déposer des demandes de travaux au FabLab. Il faut s'adresser à un technicien et discuter avec pour pouvoir lui soumettre son projet, et attendre qu'il ait fini avant d'aller récupérer le résultat. Pendant le temps où le technicien est à l'œuvre, le client n'a aucune idée de l'état d'avancement de sa demande. En cas de souci, le technicien doit recontacter le client, lui demander des clarifications ou des fichiers, avant de pouvoir continuer.
+En l'état actuel, il n'y a pas de système automatisé pour déposer des demandes de travaux au FabLab. Il faut s'adresser à un technicien et discuter avec pour pouvoir lui soumettre son projet, et attendre qu'il ait fini avant d'aller récupérer le résultat. Pendant le temps où le technicien est à l'oeuvre, le client n'a aucune idée de l'état d'avancement de sa demande. En cas de souci, le technicien doit recontacter le client, lui demander des clarifications ou des fichiers, avant de pouvoir continuer.
 
 D'après la description de la procédure actuelle, il est possible de mettre en évidence les défauts :
 
@@ -94,29 +94,29 @@ Le client, une fois la pièce récupérée et le technicien remercié, évalue l
 
 \figi{BPMN.xml}{14cm}{Diagramme BPMN du cas d'utilisation}
 
-Bien sûr, les échanges seront disponibles en toutes circonstances, dès lors que le travail a été assigné à un technicien. Les acteurs pourront en tout temps s'échanges des messages instantanés et des fichiers.
+Bien sûr, les échanges seront disponibles en toutes circonstances, dès lors que le travail a été assigné à un technicien. Les acteurs pourront en tout temps s'échanger des messages instantanés et des fichiers.
 
 \newpage
 \section{Cahier des charges}
-Le cahier des charges à été établi dès le début du projet et n'a pas eu besoin d'être mis à jour par la suite.
+Le cahier des charges a été établi dès le début du projet et n'a pas eu besoin d'être mis à jour par la suite.
 Dans ce cahier des charges, je me suis engagé à réaliser les tâches suivantes :
 
 \begin{enumerate}
-  \item Réaliser une interface Web pour la demande de travaux, qui comporte au moins les fonctionnalités suivantes :
+  \item Réaliser une interface web pour la gestion des demandes de travaux, qui comporte au moins les fonctionnalités suivantes :
         \begin{itemize}
-          \item Liste des prestations offertes.
-          \item Faire une demande de travail pour une des prestations offertes.
-          \item Suivi en temps réel de l'état d'avancement de la demande.
-          \item Échange de fichiers et de messages avec le technicien.
-          \item Personnaliser les notifications par email.
-          \item Les techniciens ont accès aux demandes de travaux déposées par les clients.
-          \item Les techniciens peuvent faire évoluer le status de la demande.
+          \item Liste des prestations offertes
+          \item Faire une demande de travail pour une des prestations offertes
+          \item Suivi en temps réel de l'état d'avancement de la demande
+          \item Échange de fichiers et de messages avec le technicien
+          \item Personnaliser les notifications par email
+          \item Les techniciens ont accès aux demandes de travaux déposées par les clients
+          \item Les techniciens peuvent faire évoluer l'état d'avancement des demandes
         \end{itemize}
-  \item Assurer une interface responsive et réactive (depuis smartphone).
-  \item Architecturer la base de données.
-  \item Coder le backend : ORM, gestion des demandes, notifications.
-  \item Déployer l'interface sur une VM de l'école.
-  \item Réaliser les tests de fonctionnement.
+  \item Assurer une interface responsive et réactive (depuis smartphone)
+  \item Architecturer la base de données
+  \item Coder le backend : ORM, gestion des demandes, notifications
+  \item Déployer l'interface sur une VM de l'école
+  \item Réaliser les tests de fonctionnement
 \end{enumerate}
 \bigskip
 Ce cahier des charges garantit que le système final de ce projet sera opérationnel.
@@ -134,7 +134,7 @@ Je les ai regroupés en deux tableaux, pour les clients et les techniciens.
       N1.1 & Être capable de déposer des demandes de travaux                                                                \\ \midrule
       N1.2 & Être capable de consulter les demandes déposées et leur état d'avancement, fichiers joints et messages envoyés \\ \midrule
       N1.3 & Besoin d'être averti en étant hors-ligne d'évènements liés aux demandes                                        \\ \midrule
-      N1.4 & Nécessité de pouvoir communiquer efficacement avec le technicien, d'échanger des messages et des fichiers      \\ \midrule
+      N1.4 & Nécessité de pouvoir communiquer efficacement avec le technicien, d'échanger des messages et des fichiers avec \\ \midrule
       N1.5 & Pouvoir accéder et interagir avec l'interface depuis un PC ou un smartphone                                    \\ \midrule
       N1.6 & Besoin de récupérer et d'évaluer le travail accompli                                                           \\ \midrule
     \end{tabularx}
@@ -150,7 +150,7 @@ Je les ai regroupés en deux tableaux, pour les clients et les techniciens.
       N2.2 & Être capable de consulter les demandes assignées et leur état d'avancement, fichiers joints et messages envoyés \\ \midrule
       N2.3 & Être capable de mettre à jour l'état d'avancement des commandes assignées                                       \\ \midrule
       N2.4 & Besoin d'être averti en étant hors-ligne d'évènements liés aux demandes                                         \\ \midrule
-      N2.5 & Nécessité de pouvoir communiquer efficacement avec le client, d'échanger des messages et des fichiers           \\ \midrule
+      N2.5 & Nécessité de pouvoir communiquer efficacement avec le client, d'échanger des messages et des fichiers avec      \\ \midrule
       N2.6 & Pouvoir accéder et interagir avec l'interface depuis un PC ou un smartphone                                     \\ \midrule
     \end{tabularx}
   \end{center}
@@ -158,16 +158,15 @@ Je les ai regroupés en deux tableaux, pour les clients et les techniciens.
 
 \newpage
 Afin de répondre à ces besoins identifiés, j'ai pu établir le tableau des fonctions, qui liste les fonctionnalités auxquelles les utilisateurs auront accès.
-Le but va être de fournir toutes ces fonctionnalités depuis l'interface web.
 
 \begin{table}[h]
   \begin{center}
     \caption{Fonctions du système}
     \begin{tabularx}{\textwidth}[t]{p{0.5cm}Xp{1cm}}
       No. & Fonction                                                                                                                                                                                   & Besoin No.         \\ \toprule
-      F1  & Créer une nouvelle demande de travaux via un formulaire adaptatif en fonction du type de travail, avec possibilité de joindre des fichiers et un commentaire à l'intention des techniciens & N1.1               \\ \midrule
-      F2  & Visualiser une liste des travaux déposés ou assignés, contenant pour chaque demande toutes les informations associées                                                                      & N1.2 \newline N2.2 \\ \midrule
-      F3  & Visualiser une liste de tous les travaux non-assignés, contenant pour chaque demande les informations du formulaire                                                                        & N2.1               \\ \midrule
+      F1  & Créer une nouvelle demande de travail via un formulaire adaptatif en fonction du type de travail, avec possibilité de joindre des fichiers et un commentaire à l'intention des techniciens & N1.1               \\ \midrule
+      F2  & Visualiser une liste des demandes déposées ou assignées, contenant pour chaque demande toutes les informations associées                                                                   & N1.2 \newline N2.2 \\ \midrule
+      F3  & Visualiser une liste de toutes les demandes non-assignées, contenant pour chaque demande les informations du formulaire                                                                    & N2.1               \\ \midrule
       F4  & Possibilité de s'assigner des demandes non-assignées                                                                                                                                       & N2.1               \\ \midrule
       F5  & Échanger des messages instantanés depuis un salon de discussion lié à une demande                                                                                                          & N1.4 \newline N2.5 \\ \midrule
       F6  & Ajouter des fichiers à une demande                                                                                                                                                         & N1.4 \newline N2.5 \\ \midrule
@@ -188,30 +187,30 @@ Je n'ai par conséquent jamais utilisé de framework auparavant.
 Après avoir exploré le net et consulté mon mentor, j'ai découvert qu'il existait une multitude de frameworks.
 J'ai ensuite sommairement rempli un tableau qui regroupe certains des frameworks populaires afin d'établir un comparatif, pour mettre en évidence les avantages et les inconvénients de chacun.
 
-Étant donné la prédisposition pour le framework backend Laravel, comme expliqué plus loin, j'ai limité le nombre de frameworks backend dans le tableau.
-J'ai choisi parmi les choix les plus populaires,var en général, si un outil est populaire, il sera facile de trouver des réponses et des solutions sur internet.
-En vérifiant sur StackOverflow, j'ai trouvé des graphiques qui appuient mon propos.
+Étant donné la prédisposition pour les frameworks Laravel et Vue, comme expliqué plus loin, j'ai limité le nombre de frameworks dans les tableaux.
+J'ai choisi parmi les plus populaires, car en général, si un outil est populaire, il sera facile de trouver des réponses et des solutions sur internet.
+En vérifiant sur StackOverflow, j'ai trouvé à \href{https://insights.stackoverflow.com/trends}{cette adresse} un outil qui génère des graphiques montrant la tendance de certains sujets.
 
 \begin{table}[h]
   \begin{center}
     \caption{Comparaison des bases de données}
-    \begin{tabularx}{\textwidth}[t]{m{1cm}Xp{4cm}p{4cm}}
-      No.                               & Technologie     & Avantages & Inconvénients \\ \toprule
-      1                                 & MySQL           & 
-      \textbf{+} DB relationnelle \newline
+    \begin{tabularx}{\textwidth}[t]{m{0.5cm}Xp{4cm}p{4cm}}
+      No.                            & Technologie     & Avantages & Inconvénients \\ \toprule
+      1                              & MySQL           & 
+      \textbf{+} Relationnelle \newline
       \textbf{+} Très populaire
-                                        & 
-      \textbf{--} Convient mal pour stocker énormément de données                     \\ \midrule
-      2                                 & MongoDB         & 
-      \textbf{+} Performant             & 
-      \textbf{--} Non relationnelle                                                   \\ \midrule
-      3                                 & PostgreSQL      & 
+                                     & 
+      \textbf{--} Convient mal pour stocker énormément de données                  \\ \midrule
+      2                              & MongoDB         & 
+      \textbf{+} Performante         & 
+      \textbf{--} Non relationnelle                                                \\ \midrule
+      3                              & PostgreSQL      & 
       \textbf{+} Riche en fonctionnalités \newline
-      \textbf{+} DB relationnelle/objet & 
-      \textbf{--} Plus complexe que MySQL                                             \\ \midrule
-      4                                 & Oracle Database & 
-      \textbf{+} DB relationnelle       & 
-      \textbf{--} Payant                                                              \\ \midrule
+      \textbf{+} Relationnelle/objet & 
+      \textbf{--} Plus complexe que MySQL                                          \\ \midrule
+      4                              & Oracle Database & 
+      \textbf{+} Relationnelle       & 
+      \textbf{--} Payante                                                          \\ \midrule
     \end{tabularx}
   \end{center}
 \end{table}
@@ -222,13 +221,13 @@ En vérifiant sur StackOverflow, j'ai trouvé des graphiques qui appuient mon pr
 
 Au final, j'ai choisi MySQL comme base de données.
 
-Pourquoi MySQL ? Car c'est ce qui semble être LA base de données par défaut. Elle est gratuite, populaire, je m'en suis déjà servi et à défaut d'avoir besoin de spécifications particulières en terme de performances, convient très bien à n'importe quel projet.
+Pourquoi MySQL ? Car c'est ce qui semble être LA base de données par défaut. Elle est gratuite, populaire, je m'en suis déjà servi et à défaut d'avoir besoin de spécifications particulières en terme de performances, elle convient très bien à n'importe quel projet.
 Il fallait aussi que ce soit une base relationnelle, c'est à dire avec des tables de modèles définis.
 
 \begin{table}[h]
   \begin{center}
     \caption{Comparaison des frameworks backend}
-    \begin{tabularx}{\textwidth}[t]{m{1cm}Xp{4cm}p{4cm}}
+    \begin{tabularx}{\textwidth}[t]{m{0.5cm}Xp{4.7cm}p{4.7cm}}
       No. & Technologie & Avantages & Inconvénients \\ \toprule
       1   & Laravel     & 
       \textbf{+} Simple \newline
@@ -260,14 +259,14 @@ Il fallait aussi que ce soit une base relationnelle, c'est à dire avec des tabl
 
 Au final, j'ai choisi Laravel comme framework backend.
 
-Pourquoi Laravel ? Car c'est un framework très simple pour les débutants comme moi, et que le professeur Chevallier sait s'en servir.
-En cas de problèmes, il saura m'aider et m'orienter, ce qui selon moi justifie pleinement son utilisation.
+Pourquoi Laravel ? Car c'est un framework très simple pour les débutants comme moi, et que mon professeur responsable sait déjà s'en servir.
+En cas de problèmes, il saura m'aider et m'orienter, ce qui selon moi justifie pleinement l'utilisation de ce framework en particulier.
 \newpage
 
 \begin{table}[h]
   \begin{center}
     \caption{Comparaison des frameworks frontend}
-    \begin{tabularx}{\textwidth}[t]{m{1cm}Xp{4cm}p{4cm}}
+    \begin{tabularx}{\textwidth}[t]{m{0.5cm}Xp{4.7cm}p{4.7cm}}
       No. & Technologie & Avantages & Inconvénients \\ \toprule
       1   & Angular     & 
       \textbf{+} Très complet
@@ -294,16 +293,12 @@ En cas de problèmes, il saura m'aider et m'orienter, ce qui selon moi justifie 
 
 Au final, j'ai choisi Vue comme framework frontend.
 
-Pourquoi Vue ? Car la raison principale est que l'institut IAI possède un site template qui utilise Vue, qui s'appelle PIAF, auquel j'ai pu avoir accès.
-Toute la structure du site était déjà faite, ce qui procure un gain de temps énorme.
-C'est aussi pour ça que je n'ai inclu que React et Angular dans mon comparatif : avec Vue, ils forment ensemble les principaux frameworks frontend.
-Vue est aussi un framework très simple pour les débutants, et qui gagne en popularité.
-Il est apparement très bien documenté et il existe des bibliothèques gratuites de composants.
+Pourquoi Vue ? La raison principale est que l'institut IAI possède un site template qui utilise Vue, qui s'appelle PIAF, auquel j'ai pu avoir accès.
+Toute la structure du site est déjà faite, ce qui procure un gain de temps énorme en terme de développement.
+C'est un framework très simple pour les débutants, il est apparemment très bien documenté et il existe en plus de ça des bibliothèques de composants gratuites.
 
-J'ai évidemment dû me fier à l'avis des auteurs, car ne connaisant rien, il m'a parfois été difficile de vraiment comprendre les différences entre les outils.
-Néanmoins, j'ai pu me faire une idée quant à ce qui existe dans le milieu.
-%% https://www.trustradius.com/products/laravel-php-framework/reviews?qs=pros-and-cons
-
+J'ai évidemment dû me fier à l'avis des auteurs qui ont écrit les nombreux articles en ligne que j'ai consulté, car en ne connaissant rien du milieu, il m'a parfois été difficile de vraiment comprendre les différences entre les frameworks.
+Néanmoins, j'ai pu me faire une idée quant à ce qui existe dans le milieu : les trois principaux frameworks frontend utilisés sont ceux que j'ai listé dans le tableau, à savoir Vue, React et Angular.
 
 %% https://trends.google.fr/trends/explore?date=today%205-y&q=%2Fg%2F11c0vmgx5d,%2Fg%2F11c6w0ddw9,%2Fm%2F012l1vxv
 %% https://trends.google.fr/trends/explore?date=today%205-y&q=Laravel,%2Fm%2F06y_qx,%2Fm%2F0_v2szx,%2Fm%2F0505cl
@@ -314,7 +309,7 @@ Avant de parler en détail des aspects techniques, ce chapitre a pour but de dre
 
 \section{Fonctionnement des pages web}
 La structure d'un site est assez simple : c'est un ensemble de pages consultables à la demande. Chaque page possède du code HTML et CSS, responsable de la mise en forme du contenu, et du code JavaScript, qui permet d'exécuter des actions, par example quand on clique sur un bouton.
-Quand vous naviguez sur un site, vous avez accès à une arborescence de pages, chacunes identifiées par une addresse, une route : il s'agit de l'URL, le texte visible en haut du navigateur.
+Quand vous naviguez sur un site, vous avez accès à une arborescence de pages, chacunes identifiées par une adresse, une route : il s'agit de l'URL, le texte visible en haut du navigateur.
 
 Dans le cadre de ce chapitre, nous avons affaire à deux principales entités distinctes :
 \begin{itemize}
@@ -346,26 +341,26 @@ Ce fonctionnement implique qu'il n'y a que très peu de temps d'attente pour l'a
 
 Désormais, un site n'est plus juste un assortiment de pages inertes et figées, c'est devenu une sorte d'entité "vivante", à la façon d'une application.
 On appelle ce type de site une "SPA" pour \emph{Single Page Application}.
-Cela dit, il peut encore y avoir des requêtes, sauf que cette fois, il ne s'agit plus de demander une page entière, mais seulement d'accéder à des ressources.
-Le volume de données est donc considérablement réduit puisque tout le code HTML est déjà présent : il s'agit de rapatrier uniquement les données à afficher.
+Cela dit, il peut encore y avoir des requêtes, sauf que cette fois, il ne s'agit plus de demander une page entière, mais seulement les données à être affichées.
+Le volume de données est donc considérablement réduit puisque tout le code HTML est déjà présent : il s'agit de rapatrier uniquement les données brutes.
 
 \newpage
 De plus, avec l'apparition de ces sites "intelligents", une nouvelle technologie très intéressante est apparue : celle des websockets.
 Grâce aux websockets, les serveurs ont désormais la possibilité de spontanément contacter les clients pour leur envoyer des données.
 
-Sans cette technologie, les serveurs ne pouvaient que reçevoir des requêtes et non pas les envoyer.
-Désormais, des échanges spontanés bidirectionnels peuvent se faire.
+Sans cette technologie, les serveurs ne peuvent que répondre aux requêtes, sans aucun moyen pour initier eux-mêmes une communication avec les clients.
+Avec les websockets, des échanges spontanés bidirectionnels peuvent donc se faire via des notifications push.
 
 \section{Base de données et backend}
-Le terme de "backend" désigne la partie du site qui s'occupe de la gestion des données, de l'authentification des utilisateurs et de l'envoi de la SPA.
-Quand un client s'addresse au serveur, ce dernier va effectuer des actions, par exemple pour stocker ou retourner des ressources, envoyer des mails ou encore envoyer des notifications push aux clients. Toutes ces actions sont écrites dans le backend. On peut considérer que le serveur et le backend sont la même chose, d'un point de vue pratique.
+Le terme de "backend" désigne la partie du système qui s'occupe de la gestion des données, de l'authentification des utilisateurs et de l'envoi de la SPA.
+Quand un client s'adresse au serveur, ce dernier va effectuer des actions, par exemple pour stocker ou retourner des ressources, envoyer des mails ou encore envoyer des notifications push aux clients. Toutes ces actions sont écrites dans le backend. On peut considérer que le serveur et le backend sont la même chose, d'un point de vue pratique.
 
 Le backend est très souvent couplé à une base de données qu'il utilise pour stocker les données du système, par example les données concernant les utilisateurs.
 La base de données est un système de stockage organisé de ressources, qui permet d'insérer, d'éditer, de retirer et de supprimer les ressources qu'elle contient.
 Dans le cas d'une base de données relationnelle, le stockage se fait à la manière d'un tableur : chaque ligne représente une entrée, et chaque entrée possède des attributs rangés en colonnes, tout comme dans un tableur Excel.
 
-Les clients communiquent avec le backend via une API, une interface qui associe à chaque route, chaque addresse, à un type de réponse.
-L'API décrit le format des données échangées, entre le code PHP côté backend et le code JavaScript côté frontend.
+Les clients communiquent avec le backend via une API, une interface qui associe à chaque route un type de réponse.
+L'API décrit le format des données échangées entre le code PHP côté backend et le code JavaScript côté frontend.
 
 \figi{figure3.xml}{14cm}{Échanges de données entre le client et le backend}
 \newpage
@@ -386,9 +381,9 @@ Le CSS est un language qui sert à donner du style aux feuilles HTML. Par exempl
 Le frontend est aussi composé du code JavaScript, qui sert à ce que du code soit exécuté quand il y en a besoin :
 \begin{itemize}
   \item Réaction aux évènements, comme quand un bouton est appuyé
-  \item Envoi des requêtes HTTP
-  \item Réception des notifications par Websocket
-  \item Modification dynamique de l'affichage HTML
+  \item Envoi des requêtes HTTP sans recharger la page (Ajax)
+  \item Réception des notifications push par websocket
+  \item Rendu dynamique de l'affichage HTML
 \end{itemize}
 \bigskip
 
@@ -413,8 +408,8 @@ Sur le schéma de la base de données, on peut voir les liens que les tables ont
 Certaines colonnes sont communes à plusieurs des tables. C'est le cas de 'created\_at', qui indique l'heure de création de la ligne, et 'updated\_at', qui indique l'heure à laquelle la ligne à été modifiée pour la dernière fois.
 
 \section{Table 'users'}
-Cette table contient les informations des utilisateurs. Elle est essentielle puisque sans elle, il serait impossible de faire le lien entre les demandes et leur propriétaire et/ou technicien.
-Bien qu'une colonne pour le mot de passe soit présente, elle n'est pas utilisée pour authentifier les utilisateurs qui se connectent depuis leur compte Switch AAI. Elle est toutefois utilisée pour se connecter à des comptes seedés qui servent à effectuer des essais. Dans tous les cas, aucun mot de passe des comptes AAI ne sont stockés dedans.
+Cette table contient les informations des utilisateurs. Elle est essentielle puisque sans elle, il serait impossible de faire le lien entre les demandes et leur propriétaire et/ou technicien, ni même d'authentifier les utilisateurs.
+Bien qu'une colonne pour le mot de passe soit présente, elle n'est pas utilisée pour authentifier les utilisateurs qui se connectent depuis leur compte Switch AAI, mais elle est nécessaire pour le paquet Laravel-Shibboleth. Elle peut être utilisée pour se connecter uniquement à des comptes seedés qui servent à effectuer des essais. Dans tous les cas, aucun mot de passe des comptes AAI ne sont stockés dedans.
 
 \begin{figure}[h]
   \begin{minted}[breaklines]{javascript}
@@ -527,7 +522,7 @@ Cette table contient les évènements des demandes. Il n'y a que deux types d'é
 
 \section{Tables 'jobsQueue' et 'failed\_jobs'}
 Ces deux tables sont automatiquement créées quand on implémente une file, c'est pourquoi les colonnes ne sont pas commentées. Une file contient des tâches à réaliser de manière asynchrone ou délayées. Dans le cas de ce projet, il faut envoyer des emails avec un délai de 10 minutes. Les tâches sont effectuées en arrière plan, donc les performances de l'API ne sont pas impactées.
-Les tâches sont stockées dans la table que j'ai nommé "jobsQueue". Quand elles sont terminées, elles sont automatiquement supprimées de la table. En cas d'échec, une ligne est crée dans la table "failed\_jobs", contenant des informations quant à la source de l'erreur.
+Les tâches sont stockées dans la table que j'ai nommé "jobsQueue". Quand elles sont terminées, elles sont automatiquement supprimées de la table. En cas d'échec, une ligne est créée dans la table "failed\_jobs", contenant des informations quant à la source de l'erreur.
 
 \begin{figure}[h]
   \begin{minted}[breaklines]{javascript}
@@ -560,15 +555,15 @@ Afin de partir depuis une bonne base, Mr. Chevallier a partagé avec moi un site
 J'ai pu forker le repo sur GitHub, et à partir de là, j'ai pu commencer à réaliser le frontend. Je n'ai donc pas eu à créer un projet Vue à partir de zéro, et les pages déjà présentes m'ont servi d'exemple lors de mon apprentissage du framework. J'ai principalement utilisé la bibliothèque de composants Vuetify pour réaliser l'interface du site.
 
 \section{Cycle de vie d'une demande}
-Dés lors de sa création, une demande va passer par plusieurs étapes tout au long de son cycle de vie : ces étapes sont caractérisées par son statut.
+Dès lors de sa création, une demande va passer par plusieurs étapes tout au long de son cycle de vie : ces étapes sont caractérisées par son statut.
 Le statut est l'indication de l'état d'avancement de la demande, et c'est donc cette propriété que le technicien peut faire évoluer.
 
 Au tout début du cycle, le client doit remplir le formulaire de nouvelle demande et le soumettre. Il doit indiquer le type de travail, la date de rendu et doit joindre les fichiers requis.
 Il n'y a que les comptes clients qui ont la capacité de déposer des demandes. Une limite est fixée à 10 demandes en parallèle, pour éviter d'éventuels abus.
-La nouvelle demande non-assignée est transmise aux techniciens, qui peuvent la voir et qui ont la capacité de se l'assigner.
+La nouvelle demande est non-assignée et est transmise aux techniciens, qui peuvent la voir et qui ont la capacité de se l'assigner.
 
 Pour qu'un technicien puisse faire avancer l'état de la demande, il doit d'abord se l'assigner, car une demande non-assignée ne peut pas encore être modifiée.
-Quand un technicien s'est assigné la demande, elle n'est plus visible des autres techniciens. Le statut passe à "Assigné" et le technicien à accès à tous les détails de la demande.
+Quand un technicien s'est assigné la demande, elle n'est plus visible des autres techniciens. Le statut passe à "Assigné" et le technicien a accès à tous les détails de la demande.
 L'assignation débloque aussi la possibilité d'envoyer des messages instantanés et d'ajouter des fichiers de la part des deux acteurs : avant ça, ces fonctionnalités sont bloquées.
 Les évènements de la timeline sont générés automatiquement lors de l'ajout ou de l'écrasement d'un fichier et lors du changement de statut.
 
@@ -582,16 +577,16 @@ La timeline peut indiquer deux types d'évènements :
 \newpage
 Quand le technicien est prêt à se mettre au travail, il peut mettre le statut "En cours". Si un problème survient pendant ce temps et qu'il doit interrompre le travail, il peut mettre le statut "En pause".
 
-Quand il a terminé, le stade final est le statut "Terminé". Quand ce statut est atteint, le technicien ne peut plus le changer. Le travail du technicien est à ce point accompli et il n'a plus rien à faire. C'est au tour du client de noter la qualité du service et de valider la supression de la demande terminée. Quand c'est fait, la demande disparait et n'est plus du tout accessible. Elle n'est cependant pas supprimée de la base de donnée car sinon la note serait perdue, mais elle est inaccessible des acteurs.
+Quand il a terminé, le stade final est le statut "Terminé". Quand ce statut est atteint, le technicien ne peut plus le changer. Le travail du technicien est à ce point accompli et il n'a plus rien à faire. C'est au tour du client de noter la qualité du service et de valider la supression de la demande terminée. Quand c'est fait, la demande disparait et n'est plus du tout accessible. Elle n'est cependant pas supprimée de la base de données car sinon la note serait perdue, mais elle est inaccessible des acteurs.
 
 Le diagramme ci-dessous représente les différents statuts et stades que la demande va atteindre durant son cycle, dans l'ordre chronologique.
 
 \figi{lifecycle.xml}{12cm}{Cycle de vie d'une demande}
 
 \begin{enumerate}
-  \item La demande est toute nouvelle. Elle n'a pas encore été assignée à un technicien, part conséquent il n'est pas encore possible d'échanger des messages ou d'ajouter des fichiers. Ce statut initial est automatique.
-  \item La demande à été assignée à un technicien, donc il y a désormais une prise en charge du travail. Il peut maintenant y avoir des échanges de messages et des fichiers peuvent êtres ajoutés. Ce statut est automatiquement mis à jour quand la demande est assignée.
-  \item La demande est soit en cours de production, soit en arrêt. Ces deux statuts peuvent êtres interchangés manuellement par le technicien. Le mode "En pause" indique au client que le travail à dû être mis en attente à cause d'un problème. C'est aux deux acteurs de discuter entre eux pour le régler.
+  \item La demande est toute nouvelle. Elle n'a pas encore été assignée à un technicien, par conséquent il n'est pas encore possible d'échanger des messages ou d'ajouter des fichiers. Ce statut initial est automatique.
+  \item La demande a été assignée à un technicien, donc il y a désormais une prise en charge du travail. Il peut maintenant y avoir des échanges de messages et des fichiers peuvent être ajoutés. Ce statut est automatiquement mis à jour quand la demande est assignée.
+  \item La demande est soit en cours de production, soit en arrêt. Ces deux statuts peuvent être interchangés manuellement par le technicien. Le mode "En pause" indique au client que le travail a dû être mis en attente à cause d'un problème. C'est aux deux acteurs de discuter entre eux pour le régler.
   \item Le travail est terminé. Ce statut est atteignable manuellement. Le client est en mesure de venir chercher le travail accompli, et peut désormais se débarasser la demande, après avoir évalué la qualité du travail.
 \end{enumerate}
 \bigskip
@@ -602,45 +597,45 @@ Avant de commencer à coder, j'ai réalisé quelques croquis initiaux pour défi
 Au final, l'apparence a beaucoup été infulencée par les composants issus de bibliothèques externes (Vuetify) et par la forme du site de base.
 Néanmoins, mes croquis ont servi de base pour le placement de certains composants. Il faut noter que ces croquis ne traitent que de la version PC de l'interface.
 
-Pour naviguer sur le site, j'ai décidé d'utiliser un overlay composé de deux barres fixes sur le haut et sur la gauche qui contiennent les liens vers les pages.
+Pour naviguer sur le site, j'ai décidé d'utiliser un overlay composé de deux barres fixes, sur le haut et sur la gauche, qui contiennent les liens vers les pages.
 La barre de gauche peut être masquée pour bénéficier de pages qui prennent toute la largeur.
 
 \figi{ui_overlay.xml}{14cm}{Croquis de l'overlay}
 
 Ce style est assez standard puisqu'on le rencontre sur de nombreux sites (Cyberlearn, Vuetify, Youtube, ...).
 C'est d'ailleurs celui qui était utilisé dans le site de base.
-On y retrouve certains éléments habituels, comme la cloche de notifications ou le nom de l'utilisateur qui permet de dérouler un menu.
+On y retrouve certains éléments habituels, comme la cloche des notifications ou le nom de l'utilisateur qui permet de dérouler un menu.
 
 Pour pouvoir modifier les paramètres de notifications par mail, j'ai imaginé une page pour le réglage des paramètres.
 Sur cette page sont aussi affichées quelques informations de base concernant le compte de l'utilisateur, comme le nom, l'adresse mail et le nombre de demandes actives.
 
 Pour pouvoir déposer une demande, j'ai voulu mettre une liste des travaux disponibles avec une image et une description de chaque machine.
-Le formulaire dans lequel il faut indiquer le type de travail, la date de rendu et les fichiers nécessaires à été imaginé et dessiné.
+Le formulaire dans lequel il faut indiquer le type de travail, la date de rendu et les fichiers nécessaires a aussi été imaginé.
 
 \newpage
 \figi{ui_settings.xml}{14cm}{Croquis de la page des paramètres}
 \figi{ui_submit_job.xml}{14cm}{Croquis de la liste des travaux disponibles et du formulaire}
 
-J'ai aussi décidé de créer une fenêtre qui donne une vue d'ensemble sur la demande sélectionnée.
-Cette fenêtre est le point central d'une demande, puisqu'elle contient toutes les informations de la demande : statut, fichiers, timeline, messagerie, etc.
+J'ai aussi décidé de créer une fenêtre qui donne une vue d'ensemble pour une demande sélectionnée.
+Cette fenêtre est le point central d'une demande, puisqu'elle contient toutes les informations de cette dernière : statut, fichiers, timeline, messagerie, etc.
 Elle doit aussi permettre au technicien de faire évoluer le statut de la demande, et permettre aux deux acteurs d'y ajouter des messages et des fichiers.
 La motivation derrière cette vue est que je trouvais essentiel de regrouper toutes les informations et fonctionnalités d'une demande en un seul endroit. C'est non seulement un gain de temps mais aussi un gain de confort de tout avoir à portée de clic.
 
 \newpage
-\figi{ui_jobinfo.xml}{14cm}{Croquis des détails d'une demande}
+\figi{ui_jobinfo.xml}{14cm}{Croquis de la fenêtre des détails d'une demande}
 
-Cette fenêtre est à la base issue d'un croquis abandonné, qui illustrait la liste des demandes. Le chat aurait été sur une page à part et les informations auraient été affichées directement dans la liste des demandes. J'ai jugé cette idée mauvaise, car le fait d'avoir un chat à part n'est pas pratique et confortable. C'est pourquoi j'ai abandonné ce croquis pour faire place à la fenêtre des détails.
+La fenêtre ci-dessous est à la base issue d'un croquis abandonné, qui illustrait la liste des demandes. Le chat aurait été sur une page à part et les informations auraient été affichées directement dans la liste des demandes. J'ai jugé cette idée mauvaise, car le fait d'avoir un chat à part n'est pas pratique et confortable. C'est pourquoi j'ai abandonné ce croquis pour faire place à la fenêtre des détails.
 
 \figi{ui_joblist1.xml}{14cm}{Croquis abandonné de la liste des demandes}
 
 \newpage
 \section{Interface finale}
-Le résultat final à été basé sur les croquis, bien que les composants de la bibliothèque Vuetify aient fortement influencé le design.
+Le résultat final a été basé sur les croquis, bien que les composants de la bibliothèque Vuetify aient fortement influencé le design.
 Il y a donc eu beaucoup de nouveautés par rapport aux quelques croquis de base, qui ne couvraient que quelques vues.
-Le développement à été fait avec un écran de bureau de 1440 x 777 pixels
+Le développement a été fait avec un écran de bureau de 1440 x 777 pixels.
 
 La toute première page du site est la page d'accueil. Les utilisateurs pas encore authentifiés doivent passer par cette page pour avoir accès au login Switch AAI.
-Le bouton "Se connecter" redirige l'utilisateur vers la page de login Switch AAI.
+Le bouton "Se connecter" redirige l'utilisateur vers la page de login AAI, en principe déjà connue des utilisateurs.
 
 \begin{figure}[h]
   \includegraphics[width=14cm]{ui_welcome.PNG}
@@ -663,14 +658,15 @@ Les onglets de la barre latérale permettent de naviguer sur les différentes pa
 
 \newpage
 La première page commune aux deux acteurs est celle de la liste des travaux disponibles, sous l'onglet du même nom. Elle présente une liste des travaux pour lesquels une demande peut être déposée.
-Chaque type de travail possède un titre, le nom de la machine, une brève description et un lien vers la site du constructeur. Si la présentation est identique pour les deux acteurs, seuls les clients peuvent cliquer soit sur le titre soit sur l'image pour ouvrir un formulaire pré-rempli correspondant au travail sélectionné.
+Chaque type de travail possède un titre, le nom de la machine, une brève description et un lien vers le site du constructeur. Si la présentation est identique pour les deux acteurs, seuls les clients peuvent cliquer soit sur le titre soit sur l'image pour ouvrir un formulaire pré-rempli correspondant au travail sélectionné.
+L'image ci-dessous illustre les quatre travaux disponibles.
 
 \begin{figure}[h]
   \includegraphics[width=14cm]{ui_joblist_page.PNG}
   \caption{Page "Travaux disponibles" du client}
 \end{figure}
 
-La seconde page commune est celle de la liste des demandes, sous l'onglet "Mes commandes". Pour le client, elle contient les demandes qu'il a déposé et pour le technicien, les demandes qu'il s'est assigné.
+La seconde page commune est celle de la liste des demandes, sous l'onglet "Mes commandes". Pour le client, elle contient les demandes qu'il a déposé et pour le technicien, les demandes qui lui sont assignées.
 
 \begin{figure}[h]
   \includegraphics[width=14cm]{ui_myjobs_client.PNG}
@@ -686,7 +682,7 @@ Si un commentaire est attaché à la demande, il est affiché quand on clique su
 Un stepper à 4 étapes indique visuellement l'état d'avancement du travail. En bas à gauche et à droite se situent la chatbox et la timeline.
 
 La chatbox est une fenêtre de chat pour l'échange de messages entre les acteurs. Une bannière délimite les messages par date, et une autre apparait si des nouveaux messages sont présents.
-Dans la timeline sont affichés tous les évènements de la demande. C'est depuis ici que peuvent être ajoutés des fichiers. Pour les évènements de type fichier, un numéro de version indique si un fichier à été écrasé. Il n'y a pas de limitations pour l'ajout des fichiers, hormis une limite de 5 MB par envoi.
+Dans la timeline sont affichés tous les évènements de la demande. C'est depuis ici que peuvent être ajoutés des fichiers. Pour les évènements de type fichier, un numéro de version indique si un fichier a été écrasé. Il n'y a pas de limitations pour l'ajout des fichiers, hormis une limite de 5 MB par envoi.
 
 \begin{figure}[h]
   \includegraphics[width=14cm]{ui_jobinfo_client2.PNG}
@@ -703,7 +699,7 @@ Quand une demande passe au statut "Terminé", le client voit apparaitre un long 
 L'alerte de notification pour la demande est retirée dès que la fenêtre des détails est fermée, signifiant que l'utilisateur a vu les changements.
 
 \newpage
-Si l'utilisateur est un technicien, une fonctionnalité de plus lui est offerte. Sa colonne "Statut" possède un bouton qui lui permet d'éditer le statut de la demande. Un sélecteur lui permet de choisir le nouveau statut parmi ceux qui sont disponibles. Il ne peut que faire avancer l'avancement de la demande, donc les options qui s'offrent à lui évoluent en fonction du stade actuel. Quand il met le statut "Terminé", il ne peut plus le modifier. La figure \ref{lifecycle.xml} illustre l'ordre des statuts.
+Si l'utilisateur est un technicien, une fonctionnalité de plus lui est offerte. Sa colonne "Statut" possède un bouton qui lui permet d'éditer le statut de la demande. Un sélecteur lui permet de choisir le nouveau statut parmi ceux qui sont disponibles. Il ne peut que faire progresser l'avancement de la demande, donc les options qui s'offrent à lui évoluent en fonction du stade actuel. Quand il met le statut "Terminé", il ne peut plus le modifier. La figure \ref{lifecycle.xml} illustre l'ordre des statuts.
 
 \begin{figure}[h]
   \includegraphics[width=14cm]{ui_jobinfo_tech2.PNG}
@@ -722,7 +718,7 @@ Dès que la demande est assignée, la fenêtre retrouve son affichage normal.
 La dernière page commune est celle des paramètres, aussi sous l'onglet du même nom. Elle ressemble beaucoup à ce qui était prévu dans le croquis.
 Il y a trois options pour personnaliser l'envoi d'emails de notification. Ces options déterminent quels évènements vont déclencher l'envoi d'un courriel.
 Pour les modifier, des switchs sont utilisés. Ils sont avantageux puisqu'ils indiquent directement leur état : ON ou OFF.
-Par souci de confort, il est possible de d'activer ou de désactiver toutes les options d'un coup, avec le switch "Notifications par mail".
+Par souci de confort, il est possible d'activer ou de désactiver toutes les options d'un coup, avec le switch "Notifications par mail".
 
 \begin{figure}[h]
   \includegraphics[width=14cm]{ui_settings_page.PNG}
@@ -732,7 +728,7 @@ Par souci de confort, il est possible de d'activer ou de désactiver toutes les 
 Il n'y a pas besoin d'appliquer les modifications, puisqu'elles se font directement lors du changement d'état des boutons : une animation de chargement indique que les modifications sont en train d'être appliquées, ce qui indique à l'utilisateur que les changements sont biens enregistrés.
 
 \newpage
-Comme mentionné plus tôt, les clients et les techniciens n'ont pas accès aux mêmes pages ou aux mêmes fonctionnalités.
+Comme mentionné plus tôt, les clients et les techniciens n'ont pas accès aux mêmes pages et aux mêmes fonctionnalités.
 
 Les clients ont accès au formulaire de nouvelle demande. Ce formulaire est accessible soit depuis la page des travaux disponibles, soit depuis l'onglet "Nouvelle demande".
 Un formulaire ouvert depuis l'onglet est totalement vierge. Sur ce formulaire se trouvent tous les champs nécessaires à la création d'une nouvelle demande.
@@ -755,7 +751,7 @@ Le formulaire ne peut être envoyé tant que des erreurs persistent. Quand il es
 
 Les techniciens, quant à eux, ont accès à une page supplémentaire qui contient la liste de toutes les demandes non-assignées, depuis l'onglet "Commandes clients".
 Une table contenant tous les travaux non assignés est affichée. Les colonnes indiquent quelques informations de base, et surtout, il y a la possibilité de cocher les demandes. En cochant les demandes, le technicien peut se les assigner, à l'aide du bouton "Assigner". Une confirmation lui est demandée et une fois le choix validé, les travaux sélectionnés disparaissent de la table de tous les techniciens connectés, et le technicien qui s'est assigné les demandes les reçoit dans sa table de la page "Mes commandes".
-Chaque fois qu'une nouvelle demande est déposée par un client, tous les techniciens reçoivent cette nouvelle demande dans le tableau des demandes non-assignées.
+Chaque fois qu'une nouvelle demande est déposée par un client, tous les techniciens peuvent la voir en temps réel depuis ce tableau.
 
 \begin{figure}[h]
   \includegraphics[width=14cm]{ui_alljobs_page.PNG}
@@ -769,10 +765,10 @@ Chaque fois qu'une nouvelle demande est déposée par un client, tous les techni
 
 \newpage
 \section{Interface pour mobiles}
-L'interface web étant responsive, elle doit être adaptée à un usage sur mobile. Les fonctionnalités offertes sont identiques que sur la version PC. Le seul changement est l'affichage.
-Grâce aux nombreux composants de la bibliothèque Vuetify et de la structure initiale du site, l'affichage adaptatif pour mobile était presque toujours fonctionnel. Il m'a tout de même fallu apporter des changements pour corriger les problèmes d'affichage.
+L'interface web étant réactive, elle doit être adaptée à un usage sur mobile. Les fonctionnalités offertes sont identiques que sur la version PC : le seul changement est l'affichage.
+Grâce aux nombreux composants de la bibliothèque Vuetify et de la structure initiale du site, l'affichage adaptatif pour mobile était presque toujours fonctionnel. Il m'a tout de même fallu apporter des changements pour corriger certains problèmes d'affichage.
 
-Le développement à été fait avec l'aide de la console Chrome, avec l'appareil Moto G4 de 360 x 640 pixels. Les vérifications ont été faites avec mon Samsung S8.
+Le développement a été fait avec l'aide de la console Chrome, en utilisant l'appareil virtuel Moto G4 de 360 x 640 pixels. Les vérifications ont été faites en parallèle depuis mon Samsung S8.
 
 \begin{figure}[h]
   \centering
@@ -814,7 +810,7 @@ En mode paysage, la forme est similaire que sur PC. L'avantage est qu'il y a la 
 \end{figure}
 
 Le composant qui change radicalement de forme est la fenêtre des détails. Vu qu'il n'y a pas la place pour l'afficher en entier sur un écran de smartphone, j'ai décidé de mettre un carousel de 4 fenêtres à la place. Il y a une fenêtre pour les détails, une pour le stepper, une pour la timeline et une pour la chatbox. L'utilisateur peut naviguer entre ces vues en swipant du doigt.
-Si la demande n'est pas encore assignée, les fenêtres de la chatbox et de la timeline ne seront pas disponibles.
+Si la demande n'est pas encore assignée, les fenêtres de la chatbox et de la timeline ne sont pas présentes.
 
 \newpage
 
@@ -897,15 +893,14 @@ Si une route n'est pas trouvée, la ravissante page 404 apparait. Le bouton "Ret
 
 \newpage
 \section{Gestion des données et pattern MVC}
-%% https://vuex.vuejs.org/#what-is-a-state-management-pattern
 %% https://code-cartoons.com/a-cartoon-guide-to-flux-6157355ab207
 La gestion des données est un aspect très important du frontend.
-Pour ce faire, il existe un design pattern très populaire qui s'appelle le MVC, pour "Model View Controller".
-Dans son fonctionnement, on retrouve trois parties :
+Pour ce faire, il existe un design pattern très populaire qui s'appelle le MVC, pour \emph{Model View Controller}.
+Ce pattern est constitué de trois axes :
 \begin{enumerate}
-  \item Contrôleur : c'est la partie qui gère les interactions entre l'utilisateur et les données.
-  \item Modèle : c'est les données qui vont être affichées.
-  \item Vue : c'est l'interface visuelle qui présente les données.
+  \item Contrôleur : c'est la partie qui gère les interactions entre l'utilisateur et les données
+  \item Modèle : c'est les données qui vont être affichées
+  \item Vue : c'est l'interface visuelle qui présente les données
 \end{enumerate}
 \bigskip
 
@@ -919,7 +914,7 @@ Le partage de données entre composants est un possibilité, mais Vuex offre bie
 
 Vuex est un pattern et une librairie qui fait office de gestionnaire d'état pour les applications Vue.
 Plus précisément, c'est un lieu de stockage qui peut contenir des données, rangées dans le "state", et qui offre des accesseurs et des mutateurs pour interagir avec.
-Des fonctions sont aussi mises à disposition, et s'appellent des actions. Tous ces composants font partie du "store".
+Des fonctions sont aussi mises à disposition, et s'appellent des "actions". Tous ces composants font partie du "store".
 
 Le premier avantage de ce système est qu'il n'y a qu'une seule instance des objets stockés dedans, une seule source de vérité accessible depuis tous les composants.
 Dans Vue, les composants s'échangent des données soit par props soit par évènements.
@@ -930,7 +925,7 @@ Cette configuration peut poser de gros problèmes, car les données transitent p
 \figi{vuex1.xml}{14cm}{Échange de données entre composants}
 
 Le problème principal est que plusieurs variables risquent de posséder plusieurs états différents (des valeurs différentes) alors qu'elles devraient partager le même.
-La compagnie Facebook à justement eu ce souci il y a quelques années.
+La compagnie Facebook a justement eu ce souci il y a quelques années, comme expliqué plus en détails sur \href{https://code-cartoons.com/a-cartoon-guide-to-flux-6157355ab207}{ce site}.
 Un bug s'est manifesté sous forme de notifications "fantômes", qui indiquaient de nouveaux messages alors que ce n'était en réalité pas le cas.
 Les développeurs ont alors décidé de se débarasser du problème en créant Flux, un nouveau design pattern de gestion d'état, qui a inspiré Vuex par la suite.
 
@@ -945,7 +940,7 @@ Les actions servent principalement à envoyer des requêtes au serveur pour y r�
 Sur le schéma ci-dessous, on voit le cycle qui se produit lorsqu'un composant a besoin de récupérer des données depuis le serveur.
 Il appelle une action qui va s'occuper de la requête et de la mutation de la ressource.
 
-\figi{vuex.xml}{14cm}{Récupération des données du serveur}
+\figi{vuex.xml}{14cm}{Fonctionnement des actions du store}
 
 Le second avantage est que toute la partie du code qui s'occupe des requêtes HTTP est située dans les actions, ce qui fait que le code est à portée de main dans un seul fichier.
 L'utilisation de Vuex a donc été très utile, surtout pour l'organisation du code et des données, et de l'application efficace du pattern MVC.
@@ -957,7 +952,8 @@ Le state de l'application contient quelques variables qui doivent être accessib
 \begin{figure}[h]
   \begin{minted}[breaklines]{javascript}
   state: {
-    user: JSON.parse(document.querySelector("meta[type='user']").getAttribute("value")), //infos de l'utilisateur, disponibles au démarrage dans le code HTML
+    user:
+    JSON.parse(document.querySelector("meta[type='user']").getAttribute("value")), //infos de l'utilisateur, disponibles au démarrage dans le code HTML
     jobs: [], //travaux déposés/assignés
     unassignedJobs: [], //travaux non-assignés
     formData: { //variable utilisée pour pouvoir ouvrir le formulaire depuis n'importe quelle page
@@ -969,8 +965,8 @@ Le state de l'application contient quelques variables qui doivent être accessib
   \caption{index.js, state du store}
 \end{figure}
 
-Lors du démarrage de la SPA, il faut que l'application se connecte au serveur Websocket, pour reçevoir les notifications du serveur.
-Les détails du serveur Websocket ne seront pas traités dans ce chapitre, donc cette partie ne parle que des canaux. Laravel Echo est la librairie JavaScript qui est utilisée dans ce projet.
+Lors du démarrage de la SPA, il faut que l'application se connecte au serveur websocket, pour reçevoir les notifications push du serveur.
+Les détails du serveur websocket ne seront pas traités dans ce chapitre. Laravel Echo est la librairie JavaScript qui est utilisée dans ce projet.
 
 La réception de données par notification se fait via des canaux. Quand un client (désormais dans le sens client-serveur) se connecte à un canal, il va reçevoir tout ce que le serveur va diffuser dessus. Du point de vue du client, de la SPA dans ce cas, il faut s'abonner à un canal et associer une fonction callback à un évènement. Sur un canal, il peut y avoir plusieurs types d'évènements, qui peuvent être capturés par la fonction appellée à chaque fois que l'évènement a lieu, donc quand le serveur diffuse. Les données transmises du serveur au client circulent au format JSON.
 
@@ -1007,21 +1003,57 @@ La réception de données par notification se fait via des canaux. Quand un clie
 \end{figure}
 
 \newpage
-La portion du code frontend à la figure \ref{figure:pusherConnect} illustre comment procéder pour utiliser les notifications du serveur Websocket. L'objet "Echo" est initialisé avec les informations requises pour se connecter au serveur. Chaque client s'abonne aux canaux "message.channel.{id}" et "job.channel.{id}", avec l'identifiant de l'utilisateur pour "{id}". Ainsi, les clients ne partagent pas les mêmes canaux. Il faut ensuite écouter quand les évènements "MessagePusherEvent" et "JobPusherEvent" se produisent, et leur attribuer du code exécutable.
+La portion du code frontend à la figure \ref{figure:pusherConnect} illustre comment procéder pour utiliser les notifications du serveur websocket. L'objet "Echo" est initialisé avec les informations requises pour se connecter au serveur. Chaque client s'abonne aux canaux "message.channel.{id}" et "job.channel.{id}", avec l'identifiant de l'utilisateur pour "{id}". Ainsi, les clients ne partagent pas les mêmes canaux. Il faut ensuite écouter quand les évènements "MessagePusherEvent" et "JobPusherEvent" se produisent, et leur attribuer du code exécutable.
 Si l'utilisateur est un technicien, le canal "job.channel.0" est accessible. Tous les techniciens sont connectés dessus, car il sert à reçevoir les nouvelles demandes.
 
 L'évènement "MessagePusherEvent" sert à transmettre un message de chat à l'interlocuteur. Le message est ajouté au tableau de l'objet "job" concerné.
 
-L'évènement "JobPusherEvent" sert à alerter les utilisateur qu'une demande à changé. Si elle est effacée par un client, elle est effacée du tableau "jobs". Sinon, la demande en question déjà dans le tableau est mise à jour : nouveaux fichiers, statut, timeline-events, etc.
+L'évènement "JobPusherEvent" sert à alerter les utilisateur qu'une demande a changé. Si elle est effacée par un client, elle est effacée du tableau "jobs". Sinon, la demande en question déjà présente dans le tableau est mise à jour : nouveaux fichiers, statuts, timeline-events, etc.
 
-Une autre opération importante survient au chargement de la page : la récupération des données. Le tableau des demandes est rapatrié du serveur au démarrage. Par la suite, les nouveaux travaux seront ajoutés un par un soit en réponse à une requête HTTP, soit par notitification serveur.
+Une autre opération importante survient au chargement de la page : la récupération des données. Le tableau des demandes est rempli à partir du serveur lors du démarrage. Par la suite, les nouveaux travaux sont ajoutés un par un soit en réponse à une requête HTTP, soit par notification push.
 Si l'utilisateur est un technicien, le tableau des demandes non-assignées est récupéré quand il ouvre la page "Commandes clients".
 
 Au final, la situation peut être illustrée avec la figure suivante, reprise du second chapitre.
-Les notifications push correspondent aux notifications du serveur Websocket.
+Les notifications push correspondent aux notifications du serveur websocket.
 \figi{figure3.xml}{14cm}{Requêtes et notifications push}
 
 Le fichier complet "index.js" qui contient tout le store est disponible dans l'annexe.
+
+Certaines données sont en revanche statiques, car elles se trouvent dans un fichier. C'est notamment le cas du fichier "src/data/JobsConfig.js", qui contient les types de travaux réalisables. Ces travaux sont décrits par un objet qui contient toutes les propriétés nécessaires.
+
+\newpage
+Pour ajouter un nouveau type de travail, il suffit d'ajouter un objet de ce type dans le tableau "JobTypes". Ils apparaitront automatiquement dans la liste des travaux disponibles, et il n'y a pas besoin d'ajouter du code ailleurs dans le frontend. Il suffit juste d'ajouter une entrée dans le tableau "jobTypeTextFormatter" du fichier "app/Mail/NotifyEmail.php" du backend, pour que le mail de notification affiche le bon texte.
+
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+  {
+    value: "3Dprinting", //valeur, identifiant
+    text: "Impression 3D", //texte en français
+    requirements: ["step", "stl"], //types de fichiers requis. Laisser vide si aucun fichier n'est requis
+    machine: "Formlabs Form 3", //nom de la machine
+    link: "https://formlabs.com/3d-printers/form-3/", //lien vers le fabriquant/machine
+    description: "Avec cette imprimante industrielle, réalisez vos pièces en résine allant jusqu'à une dimension de 14.5 x 14.5 x 18.5 cm, avec une précision inégalée de 25 μm.",
+    thumb: "/assets/img/machines/formlabs3.png", //image de la machine
+  },
+  \end{minted}
+  \caption{Aperçu du fichier "JobsConfig.js"}
+\end{figure}
+
+Un autre fichier statique contient les options pour la page des paramètres. Le fichier "src/data/settings.js" contient des objets de ce type. Au besoin, il est possible d'en ajouter, mais il faut dans ce cas ajouter du code dans la page des paramètres, et au niveau des modèles dans le backend.
+
+\begin{figure}[h]
+  \begin{minted}[breaklines]{javascript}
+  const data = [
+    //name: nom de la colonne dans la DB & dans le modèle "User". Les propriétés "loading: false, submitted: false" sont nécessaires
+    { label: "Nouveau statut", name: "notify_email_status", loading: false, submitted: false },
+    { label: "Nouveaux messages", name: "notify_email_messages", loading: false, submitted: false },
+    { label: "Nouveaux fichiers", name: "notify_email_files", loading: false, submitted: false },
+  ]
+  export default data
+  \end{minted}
+  \caption{settings.js}
+\end{figure}
+
 
 \newpage
 \chapter{Conception du backend}
@@ -1031,19 +1063,19 @@ Quand des requêtes sont reçues, le backend va effectuer des actions qui auront
 Une "view" dans Laravel est une page HTML qui peut contenir des directives spéciales, en Blade. Le Blade est une syntaxe qui permet d'injecter du contenu dans le rendu de la page HTML, comme les composants Vue. Puisque la SPA est contenue dans une "view", le backend peut la servir comme n'importe quelle autre page.
 
 \section{Modèles, migrations et contrôleurs}
-Un rôle important du backend est la gestion de la base de données. Pour répondre aux requêtes, le backend doit souvent interagir avec la base de données pour y retirer, insérer, modifier ou supprimer des données. Pour travailler avec une représentation objet de ces tables, une ORM, pour \emph{object-relational mapper}, est utilisée. Le but de l'ORM est de représenter les modèles relationnels de la base de données (tables) en modèles objet, utilisés en programmation. Ces modèles objet ne sont autres que des classes.
+Un rôle important du backend est la gestion de la base de données. Pour répondre aux requêtes, le backend doit souvent interagir avec la base de données pour y retirer, insérer, modifier ou supprimer des ressources. Pour travailler avec une représentation objet de ces tables, une ORM, pour \emph{Object-Relational Mapper}, est utilisée. Le but de l'ORM est de représenter les modèles relationnels de la base de données (tables) en modèles objet, utilisés en programmation. Ces modèles objet ne sont autres que des classes.
 
 L'ORM de Laravel s'appelle Eloquent. \href{https://laravel.com/docs/8.x/eloquent}{Cette page} contient toutes la documentation de l'interface Eloquent.
 
 Pour ajouter un nouveau modèle ORM dans Laravel, il faut d'abord créer quelques fichiers. Prenons l'exemple du modèle "message" :
 \begin{enumerate}
-  \item migration : create\_messages\_table.php
-  \item modèle : Message.php
-  \item contrôleur (optionnel) : MessageController.php
+  \item Migration : create\_messages\_table.php
+  \item Modèle : Message.php
+  \item Contrôleur : MessageController.php
 \end{enumerate}
 \bigskip
 
-Le fichier de migration décrit quelles colonnes doivent être créées dans la base de données. Il faut au moins indiquer le nom et le type des données. D'autres attributs peuvent êtres indiqués, comme une valeur initiale, une clé étrangère, etc. Il faut ensuite utiliser une commande pour créer la table dans la base de données à partir de son fichier de migration..
+Le fichier de migration décrit quelles colonnes doivent être créées dans la base de données. Il faut au moins indiquer le nom et le type des données. D'autres attributs peuvent être indiqués, comme une valeur initiale, une clé étrangère, etc. Il faut ensuite utiliser une commande pour créer la table dans la base de données à partir de son fichier de migration..
 Le chapitre \ref{chapter:database} décrit les tables utilisés dans ce projet.
 
 \newpage
@@ -1066,7 +1098,7 @@ Le fichier du modèle décrit la classe associée au modèle relationnel. Comme 
   \caption{Aperçu du fichier "Message.php"}
 \end{figure}
 
-Ce modèle peut maintenant être utilisé dans les autres fichiers du backend. Puisque c'est un modèle objet, il n'y a pas besoin d'écrire des requêtes SQL pour interagir avec la base de données : ce sont les méthodes de la classe de base "Model" qui doivent êtres utilisées. Par exemple, pour réaliser quelques opérations de base, on peut procéder comme dans l'exemple ci-dessous :
+Ce modèle peut maintenant être utilisé dans les autres fichiers du backend. Puisque c'est un modèle objet, il n'y a pas besoin d'écrire des requêtes SQL pour interagir avec la base de données : ce sont les méthodes de la classe de base "Model" qui doivent être utilisées. Par exemple, pour réaliser quelques opérations de base, on peut procéder comme dans l'exemple ci-dessous :
 
 \begin{figure}[h]
   \begin{minted}[breaklines]{javascript}
@@ -1081,7 +1113,7 @@ Ce modèle peut maintenant être utilisé dans les autres fichiers du backend. P
   \caption{Exemple de manipulation de la classe "Message"}
 \end{figure}
 
-Le contrôleur contient un ensemble de fonctions destinées à être appelées par les routes. Dans l'exemple, la fonction "store()" prend comme argument les informations de la requête, et crée une nouvelle instance de "Message" dans la base de données. Elle retourne ensuite l'objet créé. Il faut noter que les fonctions des contrôleurs peuvent aussi être appelées depuis d'autres contrôleurs.
+Le contrôleur contient un ensemble de fonctions destinées à être appelées par les routes. Dans le prochain exemple, la fonction "store()" prend comme argument les informations de la requête, et crée une nouvelle instance de "Message" dans la base de données. Elle retourne ensuite l'objet créé. Il faut noter que les fonctions des contrôleurs peuvent aussi être appelées depuis d'autres contrôleurs.
 
 \newpage
 
@@ -1105,7 +1137,17 @@ Le contrôleur contient un ensemble de fonctions destinées à être appelées p
   \caption{Exemple de route et de sa fonction associée}
 \end{figure}
 
-Pour ce projet, j'ai créé les modèles Eloquent "File", "Job", "Message", "TimelineEvent" et "User". Ces modèles portent le même nom à la convention près que les modèles relationnels de la base de données.
+Pour ce projet, les modèles Eloquent suivants sont utilisés :
+\begin{itemize}
+  \item File
+  \item Job
+  \item Message
+  \item TimelineEvent
+  \item User
+\end{itemize}
+\bigskip
+
+Ces modèles portent le même nom à la convention près que les modèles relationnels de la base de données.
 
 \newpage
 \section{Routes Web et API}
@@ -1136,9 +1178,9 @@ Les routes web sont définies à partir de l'URL de la route et de la fonction a
   \caption{web.php}
 \end{figure}
 
-La route "/admin" sert uniquement à réaliser des essais. Lorsque la base de données subit une migration, il est possible de générer des utilisateurs lors du procédé grâce à un seeder. Ces faux utilisateurs servent à faire des essais sur le système. L'avantage est qu'il n'y a pas besoin de passer par le login AAI pour bénéficier de techniciens et de clients. Un middleware basique permet �� l'utilisateur de se connecter depuis son navigateur à l'un de ces comptes seedés.
+La route "/admin" sert uniquement à réaliser des essais. Lorsque la base de données subit une migration, il est possible de générer des utilisateurs lors du procédé grâce à un seeder. Ces faux utilisateurs servent à faire des essais sur le système. L'avantage est qu'il n'y a pas besoin de passer par le login AAI pour bénéficier de techniciens et de clients. Un middleware basique permet à l'utilisateur de se connecter depuis son navigateur à l'un de ces comptes seedés.
 
-La route "/welcome" est la page d'accueil du site. C'est celle de la figure \ref{img:welcome}, qui permet à l'utilisateur d'accéder au service d'authentification Switch AAI. Elle ne doit pas être protégée car elle doit être accesible aux utilisateurs non-authentifiés.
+La route "/welcome" est la page d'accueil du site. C'est celle de la figure \ref{img:welcome}, qui permet à l'utilisateur d'accéder au service d'authentification Switch AAI. Elle ne doit pas être protégée car elle doit justement être accesible aux utilisateurs non-authentifiés.
 
 La dernière route, "/app", est celle qui retourne la SPA. Elle est évidemment protégée par un middleware et elle utilise une expression régulière (REGEX) pour capturer toutes les autres routes qui ne commencent pas par "api". Il faut imposer cette condition pour que les routes internes de la SPA puissent être accessibles depuis l'URL du navigateur.
 
@@ -1152,8 +1194,8 @@ Au tour maintenant des routes API. L'API désigne l'interface de communication e
 \end{itemize}
 \bigskip
 
-Pour réaliser une API, il faut d'abord définir une route et y associer une fonction. Dans l'exemple, la route de type POST "/api/job/store" est créee dans le fichier "routes/api.php" du backend.
-Ensuite, il faut coder la fonction du frontend qui va appeller cette route. La fonction "storeJob()" du fichier "store/index.js" du frontend utilise axios pour envoyer des requêtes POST à l'adresse "/api/job/store" avec comme argument l'objet "arg".
+Pour réaliser une API, il faut d'abord définir une route et y associer une fonction. Dans l'exemple, la route de type POST "/api/job/store" est créée dans le fichier "routes/api.php" du backend.
+Ensuite, il faut coder la fonction du frontend qui va appeler cette route. La fonction "storeJob()" du fichier "store/index.js" du frontend utilise axios pour envoyer des requêtes POST à l'adresse "/api/job/store" avec comme argument l'objet "arg".
 
 Quand une requête POST est envoyée à cette adresse, la fonction "JobController::store()" est appelée, et reçoit en argument l'objet "arg". Cette fonction va alors effectuer ce qu'elle a à faire, puis retourner une réponse. Cette réponse est récupérée par le frontend, et les données qu'elle contient se trouvent dans "response.data". La réponse d'une route API contient des données au format JSON.
 
@@ -1177,9 +1219,11 @@ Quand une requête POST est envoyée à cette adresse, la fonction "JobControlle
   \caption{Exemple d'une route API et de la fonction frontend qui l'appelle}
 \end{figure}
 
-Les réponses retournées par le backend utilisent les modèles de la base de données, transformés en JSON. Souvent, des propriétés supplémentaires y sont attachées, comme avec le modèle "job" qui doit souvent posséder les attributs "timeline", "messages" et "files".
+Les réponses retournées par le backend utilisent donc les modèles Eloquent, sérialisés en JSON. Souvent, des propriétés supplémentaires y sont attachées, comme avec le modèle "job" qui doit souvent posséder les attributs "timeline", "messages" et "files".
 
-Les détails des arguments et des réponses se trouvent dans les commentaires du code source. Le code source commenté se trouve dans l'annexe du rapport. Le code commenté ci-dessous est issu du fichier "api.php" du backend et fait la correspondance entre les routes et les fonctions frontend et backend.
+Les détails des arguments et des réponses se trouvent dans les commentaires du code source. Le code source commenté se trouve dans l'annexe du rapport.
+
+Le code à la page suivante est issu du fichier "api.php" du backend et fait la correspondance entre les routes et les fonctions frontend et backend associées.
 
 \newpage
 \begin{figure}[h!]
@@ -1233,11 +1277,11 @@ Les détails des arguments et des réponses se trouvent dans les commentaires du
     });
   });
   \end{minted}
-  \caption{API : correspondance entre toutes les routes et toutes les actions}
+  \caption{API : correspondance entre les routes et les actions}
 \end{figure}
 
 \newpage
-Les fichiers déposés pour les demandes ne sont pas stockés dans une base de données mais dans un dossier nommé "FileStorage" et rangé sous storage/app/FileStorage. Laravel permet de stocker des fichiers extrêmement facilement. L'exemple suivant illustre comment sauver un fichier dans un dossier et de retourner le fichier sous forme de téléchargement.
+Les fichiers déposés pour les demandes ne sont pas stockés dans une base de données mais dans un dossier nommé "FileStorage" et rangé sous "storage/app/FileStorage". Laravel permet de stocker des fichiers extrêmement facilement. L'exemple suivant illustre comment sauver un fichier dans un dossier et de retourner le fichier pour qu'il soit téléchargé.
 
 \begin{figure}[h]
   \begin{minted}[breaklines]{javascript}
@@ -1245,17 +1289,17 @@ Les fichiers déposés pour les demandes ne sont pas stockés dans une base de d
 
   return Storage::download("FileStorage/$file->hashed_name", $file->name); //retourne le fichier en lui donnant un autre nom visible par l'utilisateur
   \end{minted}
-  \caption{Exemple pour le stockage de fichiers}
+  \caption{Exemple pour le stockage des fichiers}
 \end{figure}
 
-Dans ce projet, le nom des fichiers stockés est obtenu en hâchant leur contenu. Ainsi, si un fichier identique à un autre est déposé, il sera écrasé, donc il n'y aura pas deux fichiers identiques mais bien un seul. Lorsqu'une demande est "soft-deleted", les fichiers physiques sont supprimés, si ils ne sont pas utilisés pour d'autres demandes.
+Dans ce projet, le nom des fichiers stockés est obtenu en hâchant leur contenu. Ainsi, si un fichier identique à un autre est déposé, il sera écrasé, donc il n'y aura pas deux fichiers identiques mais bien un seul. Lorsqu'une demande est "soft-deleted", les fichiers physiques sont supprimés, s'ils ne sont pas utilisés pour d'autres demandes.
 
 \section{Websocket et notifications push}
-Le serveur Websocket et les notifications push sont des éléments indispensables au bon fonctionnement du système. Pour utiliser mon propre serveur Websocket et ne pas passer par Pusher.com, Laravel Websockets est utilisé. C'est un paquet qui permet très simplement de se substituer à une installation qui utilisait Pusher.com. Comme c'était mon cas avant d'avoir découvert ce paquet, la mise en service a été simple et rapide.
+Le serveur websocket et les notifications push sont des éléments indispensables au bon fonctionnement du système. Pour utiliser mon propre serveur et ne pas passer par \href{https://pusher.com/}{Pusher.com}, Laravel Websockets est utilisé. C'est un paquet qui permet très simplement de se substituer à une installation qui utilisait les services de Pusher. Comme c'était mon cas avant d'avoir découvert ce paquet, la mise en service a été simple et rapide.
 
 J'ai suivi ce \href{https://beyondco.de/docs/laravel-websockets/getting-started/installation}{guide d'installation} pour y parvenir.
 
-Pour créer un canal, il faut se rendre dans le fichier "routes/channels.php". Un canal doit porter un nom et il faut y attacher un fonction qui détermine si ou ou non l'utilisateur à le droit de s'y connecter. Si la fonction retourne vrai, alors l'utilisateur a accès à ce canal.
+Pour créer un canal, il faut se rendre dans le fichier "routes/channels.php". Un canal doit porter un nom et il faut y attacher un fonction qui détermine si oui ou non l'utilisateur a le droit de s'y connecter. Si la fonction retourne vrai, alors l'utilisateur a accès à ce canal.
 
 \begin{figure}[h]
   \begin{minted}[breaklines]{javascript}
@@ -1273,7 +1317,7 @@ Pour créer un canal, il faut se rendre dans le fichier "routes/channels.php". U
 Une fois que les canaux sont définis, il faut créer les fichiers pour les "Events". Un "Event" est un objet qui va être envoyé sur un canal. Pour cet exemple, le fichier "app/Events/MessagePusherEvent.php" est utilisé. Il s'agit de l'évènement qui est créé quand un nouveau message doit être diffusé.
 
 \newpage
-Cet objet peut posséder des attributs, qui seront accessibles par les récepteurs. La méthode "broadcastOn()" est appelée dès que la diffusion à lieu. Elle doit retourner le canal sur lequel l'objet va être expédié.
+Cet objet peut posséder des attributs, qui seront accessibles par les récepteurs. La méthode "broadcastOn()" est appelée dès que la diffusion a lieu. Elle doit retourner le canal sur lequel l'objet va être expédié.
 
 \begin{figure}[h]
   \begin{minted}[breaklines]{javascript}
@@ -1308,12 +1352,12 @@ Si l'objet implémente l'interface "ShouldBroadcastNow", comme c'est le cas dans
 
 Dans ce projet, il existe deux types d'évènements : "JobPusherEvent" et "MessagePusherEvent".
 
-Le "JobPusherEvent" contient les informations de la demande qui à été modifiée. Il est diffusé quand :
+Le "JobPusherEvent" contient les informations de la demande qui a été modifiée. Il est diffusé quand :
 \begin{itemize}
   \item Un fichier est ajouté
   \item Une nouvelle demande est postée
   \item Le statut d'une demande est modifié
-  \item Une ou des demandes sont assignées
+  \item Une ou plusieurs demandes sont assignées
   \item Une demande est supprimée par un client
 \end{itemize}
 \bigskip
@@ -1322,7 +1366,7 @@ Le "MessagePusherEvent" contient le nouveau message de chat. Il est diffusé qua
 
 \newpage
 \section{Notifications par mail}
-Le système de notifications par email est géré par le backend. Des emails peuvent êtres envoyés aux utilisateurs en fonction de leurs paramètres de notification.
+Le système de notification par email est géré par le backend. Des emails peuvent être envoyés aux utilisateurs en fonction de leurs paramètres de notification.
 Pour rappel, il existe trois types d'évènements qui peuvent déclencher l'envoi :
 \begin{itemize}
   \item Changement de statut
@@ -1331,14 +1375,14 @@ Pour rappel, il existe trois types d'évènements qui peuvent déclencher l'envo
 \end{itemize}
 \bigskip
 
-Le système comporte tout de même une petite subtilité : il faut pouvoir envoyer le email 10 minutes après qu'un de ces évènements ait eu lieu. Pour ce faire, il a fallu utiliser le système de "Queue", qui est un système de file. Dans cette file sont insérés des "Jobs". \textbf{Attention}! Ces "Jobs" sont des objets qui ressemblent aux "Events" de diffusion, mais qui se comportent différement. \textbf{Il n'y a aucun lien avec le modèle "Job"} qui correspond à une demande. La classe "Job" possède une méthode "handle()", qui est automatiquement exécutée en temps voulu par le système de file.
+Le système comporte une petite subtilité : il faut pouvoir envoyer le mail 10 minutes après qu'un de ces évènements ait eu lieu. Pour ce faire, il a fallu utiliser le système de "Queue", qui est un système de file dans Laravel. Dans cette file sont insérés des "Jobs". \textbf{Attention}! Ces "Jobs" sont des objets qui ressemblent aux "Events" de diffusion, mais qui se comportent différement. \textbf{Il n'y a aucun lien avec le modèle "Job"} qui correspond à une demande. Cette classe "Job" possède une méthode "handle()", qui est automatiquement exécutée en temps voulu par le système de file.
 
 Il faut donc créer un fichier pour le "Job", ainsi qu'un contrôleur associé. Ces fichiers se trouvent respectivement sous "app/Jobs/NotifyEmailJob.php" et sous "app/Http/Controllers/NotifyEmailController.php".
 
-Les travaux différés sont stockés dans la base de données, donc il faut un fichier de migration pour créer la nouvelle table.
+Les travaux différés sont stockés dans la base de données, donc il faut aussi un fichier de migration pour créer la nouvelle table.
 Une commande permet de créer cette migration ainsi que celle pour contenir les travaux qui n'ont pas pu être accomplis. Les tables s'appellent respectivement "JobsQueue" et "failed\_jobs"
 
-La création d'un travail différé est très simple : il faut juste appeller la méthode statique "NotifyEmailJob::dispatch()" et y chainer une fonction pour ajouter un délai.
+La création d'un travail différé est très simple : il faut juste appeler la méthode statique "NotifyEmailJob::dispatch()" et y chainer une fonction pour ajouter un délai.
 
 \begin{figure}[h]
   \begin{minted}[breaklines]{javascript}
@@ -1353,12 +1397,13 @@ La création d'un travail différé est très simple : il faut juste appeller la
   \caption{NotifyEmailController.php}
 \end{figure}
 
-À l'appel de cette fonction, le travail va être placé dans la base de données. Il sera automatiquement exécuté après le délai spécifié. Une fois que le travail est exécuté, il est supprimé de la table. Si une erreur se produit et qu'il ne peut pas s'exécuter correctement, une nouvelle entrée de la table "failed\_jobs" est crée, contenant un message d'erreur utile pour débugger.
+À l'appel de cette fonction, le travail va être placé dans la base de données. Il sera automatiquement exécuté après le délai spécifié. Une fois que le travail est exécuté, il est supprimé de la table. Si une erreur se produit et qu'il ne peut pas avoir lieu, une nouvelle entrée de la table "failed\_jobs" est ajoutée, contenant le message d'erreur.
 
-La classe "NotifyEmailJob" doit implémenter l'interface "ShouldBeUnique" et posséder un attribut "uniqueId". Cette interface garantit que l'instance de "NotifyEmailJob" restera unique tant qu'il se trouve dans la file. Cette fonctionnalité est importante car la méthode "dispatchMailJob()" est toujours appelée quand un évènement pouvant enclencher l'envoi d'un mail survient.
+La classe "NotifyEmailJob" doit implémenter l'interface "ShouldBeUnique" et posséder un attribut "uniqueId". Cette interface garantit qu'une instance de "NotifyEmailJob" identifiée par son attribut unique ne peut pas exister en plusieurs exemplaires à la fois.
+Cette fonctionnalité est importante car la méthode "dispatchMailJob()" est toujours appelée quand un évènement pouvant enclencher l'envoi d'un mail survient, et il est préférable de ne pas bombarder un utilisateur de notifications au moindre changement.
 
 \newpage
-Une instance de "NotifyEmailJob" associée à l'utilisateur concerné est donc créée et ajouté à la file quand un des trois évènements survient, si aucun autre exemplaire pour le même utilisateur se trouve déjà dans la file. Au bout du délai, la méthode "handle()" est appelée. Dedans, le code vérifie si le mail peut être envoyé.
+Une instance de "NotifyEmailJob" associée à l'utilisateur concerné est donc potentiellement créée et ajoutée à la file quand un des trois évènements survient. Au bout du délai, la méthode "handle()" est appelée. Dedans, le code vérifie si le mail peut être envoyé.
 
 \begin{figure}[h]
   \begin{minted}[breaklines]{javascript}
@@ -1396,11 +1441,11 @@ Une instance de "NotifyEmailJob" associée à l'utilisateur concerné est donc c
   \caption{NotifyEmailJob.php}
 \end{figure}
 
-Le système vérifie d'abord si des travaux doivent notifier l'utilisateur (attribut "notify\_client" ou "notify\_technician"). Si c'est le cas, il va ensuite regarder dans toutes les timelines, tous les messages et tous les fichiers de toutes les demandes notifiées. Il ne doit regarder que dans les objets qui ont été créés après que le dernier paramètre de notification ait été changé.
+Le système vérifie d'abord si des demandes doivent notifier l'utilisateur (attribut "notify\_client" ou "notify\_technician"). Si c'est le cas, il va ensuite regarder dans toutes les timelines, tous les messages et tous les fichiers de toutes les demandes notifiées. Il ne doit regarder que dans les objets qui ont été créés après que le dernier paramètre de notification ait été changé.
 Ce mécanisme sert à éviter que des emails soient envoyés à cause du mauvais évènement.
 
 \newpage
-Finalement, si une des conditions est remplie, le email peut être immédiatement envoyé. Pour envoyer un mail, il faut déjà créer un fichier pour déclarer une classe de type "mailable". Le fichier se trouve sous "app/Mail/NotifyEmail.php" et déclare la classe "NotifyEmail". Cette classe possède un constructeur et une méthode "build()", qui sert à créer le code HTML à partir d'une "View". La vue associée se trouve sous "resources/views/mails/email.blade.php".
+Finalement, si une des conditions est remplie, le mail peut être immédiatement envoyé. Pour envoyer un mail, il faut déjà créer un fichier pour déclarer une classe de type "Mailable". Le fichier se trouve sous "app/Mail/NotifyEmail.php" et déclare la classe "NotifyEmail". Cette classe possède un constructeur et une méthode "build()", qui sert à créer le code HTML à partir d'une "view" template. La vue associée se trouve sous "resources/views/mails/email.blade.php".
 
 \begin{figure}[h]
   \begin{minted}[breaklines]{javascript}
@@ -1442,7 +1487,7 @@ Finalement, si une des conditions est remplie, le email peut être immédiatemen
   \caption{NotifyEmail.php}
 \end{figure}
 
-La classe "NotifyEmail" possède des attributs accessibles depuis "email.blade.php". Ce dernier contient tout le code HTML et Blade pour construire le email à partir des demandes notifiées.
+La classe "NotifyEmail" possède des attributs accessibles depuis "email.blade.php". Ce fichier contient tout le code HTML et Blade pour construire le mail à partir des demandes notifiées.
 
 \newpage
 Un email de notification affiche pour chaque demande contenant des nouveautés les éléments notifiés. Par example, dans la capture d'écran ci-dessous, la demande de gravure a reçu un nouveau message, tandis que la demande de fraisage CNC a un nouveau fichier et un nouveau statut.
@@ -1453,11 +1498,11 @@ Un email de notification affiche pour chaque demande contenant des nouveautés l
 \end{figure}
 
 Pour que le mail soit envoyé, il doit passer par un serveur SMTP, pour \emph{Simple Mail Transfer Protocol}. C'est un serveur qui s'occupe simplement de l'expédition des emails.
-Pour cette procédure, le serveur SMTP de l'école est utilisé. Il se trouve à l'addresse "smtp.heig-vd.ch" sur le port 25. Il ne possède pas de sécurité et par conséquent il n'y a pas besoin d'avoir un compte pour l'authentification. Il faut indiquer ces valeurs dans le fichier d'environnement.
+Pour cette procédure, le serveur SMTP de l'école est utilisé. Il se trouve à l'adresse "smtp.heig-vd.ch" sur le port 25. Il ne possède pas de sécurité et par conséquent il n'y a pas besoin d'avoir un compte pour l'authentification.
 
 \newpage
 \section{Authentification par Switch AAI}
-Une des fonctionnalités importante du projet est la connection au service à travers le login Switch AAI. Le gros avantage est que les nouveaux utilisateurs n'ont pas besoin de se créer un nouveau compte. Il y a deux termes importants à connaitre à partir de maintenant : IP et SP. Les \emph{Identity Provider} sont les organismes qui possèdent l'identité des utilisateurs. Les \emph{Service Providers} sont les organismes qui utilisent ces identités pour leur service. Ce projet en est un.
+Une des fonctionnalités importante du projet est la connexion au service depuis le login Switch AAI. Le gros avantage est que les nouveaux utilisateurs n'ont pas besoin de se créer un nouveau compte. Il y a deux termes importants à connaitre à partir de maintenant : IP et SP. Les \emph{Identity Providers} sont les organismes qui possèdent l'identité des utilisateurs. Les \emph{Service Providers} sont les organismes qui utilisent ces identités pour leur service. Ce projet en est un.
 
 Lorsqu'un utilisateur souhaite accéder à une ressource protégée, en l'occurence la SPA, située à l'adresse "/app", le serveur doit vérifier si l'accès lui est autorisé : une session valide est nécessaire. Une session est représentée par un cookie, stocké par le navigateur. Ce cookie contient des informations qui permettent au serveur de savoir si la session est valide ou non, et si elle est active ou non.
 
@@ -1468,13 +1513,12 @@ Si la session est invalide ou inexistante, l'utilisateur doit être redirigé ve
 
 Pour implémenter ce mécanisme, il faut d'abord installer Shibboleth. \href{https://www.switch.ch/aai/guides/sp/installation/}{Cette page} contient les détails de l'installation.
 Il faut utiliser un serveur NTP pour synchroniser l'heure de la machine, car sans ça, il risque d'y avoir des problèmes de timeout. Il faut aussi s'assurer que le module SSL d'Apache soit enclenché.
-Une fois ces conditions remplies, il faut installer Shibboleth.
 
 Quand il est installé, il faut passer par une étape de configuration, expliquée en détails sur \href{https://www.switch.ch/aai/guides/sp/configuration/}{cette page}.
 Shibboleth utilise un fichier de configuration nommé "shibboleth2.xml", qui se trouve dans le répertoire "/etc/shibboleth". En suivant la procédure décrite sur la page mentionnée juste avant, ce fichier est automatiquement généré. Il indique entre autre l'identifiant du service, l'adresse du service de découverte et l'adresse du IP.
 
 \newpage
-Il faut ensuite créer une nouvelle ressource pour le service. Cette étape consiste à indiquer quel IP il faut utiliser et à quels attributs il faut accéder.
+Il faut ensuite créer une nouvelle ressource pour le service. Cette étape consiste à indiquer quel IP il faut utiliser et à quels attributs des utilisateurs il faut accéder.
 
 \begin{figure}[h]
   \includegraphics[width=14cm]{registry1.PNG}
@@ -1487,7 +1531,7 @@ Il faut ensuite créer une nouvelle ressource pour le service. Cette étape cons
   \caption{Attributs à disposition}
 \end{figure}
 
-Pour ce projet, l'organisation est la HES-SO (c'est eux qui possèdent l'identité des utilisateurs) et que le service peut avoir accès à l'adresse email, au nom complet et à l'identifiant unique des utilisateurs. La fiche complète est disponible à \href{https://rr.aai.switch.ch/view_resource.php?resource=11600}{cette adresse}.
+Pour ce projet, l'organisation est la HES-SO (c'est eux qui possèdent l'identité des utilisateurs) et le service peut avoir accès à l'adresse email, au nom complet et à un identifiant unique des utilisateurs. La fiche complète est disponible à \href{https://rr.aai.switch.ch/view_resource.php?resource=11600}{cette adresse}.
 
 Après ça, il faut ajouter des lignes dans le fichier de configuration "/etc/apache2/sites-enabled/000-default-le-ssl.conf" du serveur Apache. Ce fichier de configuration est expliqué au prochain chapitre, mais pour l'instant, il faut se contenter du code suivant :
 
@@ -1508,7 +1552,7 @@ Après ça, il faut ajouter des lignes dans le fichier de configuration "/etc/ap
 
 \newpage
 La directive sous "<Location /Shibboleth.sso>" indique que les routes qui commencent par "/Shibboleth.sso" sont gérées par Shibboleth.
-Celles sous "<Location />" indiquent que pour toutes les autres routes, c'est le service Shibboleth est utilisé pour l'authentification. Si "requireSession" vaut "true", ces routes sont verrouillées et si un utilisateur sans session valide tente d'y accéder, il est directement redirigé vers le service de découverte.
+Celles sous "<Location />" indiquent que pour toutes les autres routes, c'est le service Shibboleth qui est utilisé pour l'authentification. Si "requireSession" vaut "true", ces routes sont verrouillées et si un utilisateur sans session valide tente d'y accéder, il est directement redirigé vers le service de découverte.
 
 Il faut le laisser à "false" car ce n'est pas à ce niveau qu'on veut protéger l'accès au site : c'est à un étage plus bas, au niveau du code backend que celà doit avoir lieu.
 Le schéma suivant illustre la situation :
@@ -1517,8 +1561,8 @@ Le schéma suivant illustre la situation :
 
 On y voit le cheminement des routes web. La route protégée est celle qui permet d'accéder à la SPA. Les routes qui commencent par "/Shibboleth.sso" sont automatiquement interceptées par Apache et gérées par Shibboleth. Pour qu'elles soient interceptées, il faut ajouter une directive dans le fichier ".htaccess" du dossier backend.
 
-Ce fichier sert à imposer des directives dynamiques au serveur Apache, dynamiques dans le sens qu'il n'y a pas besoin de modifier les fichiers ".conf" et de redémarrer le serveur pour appliquer les changements. Les directives supplémentaires sont généralement propres projet backend, et peuvent simplement êtres modifiées sans nécessiter de redémarrage.
-Laravel possède déjà ce fichier rempli par défaut, et il faut tout simplement ajouter la ligne suivante juste en dessous de la ligne "RewriteCond \%{REQUEST\_FILENAME} !-f".
+Ce fichier sert à imposer des directives dynamiques au serveur Apache, dynamiques dans le sens qu'il n'y a pas besoin de modifier les fichiers ".conf" et de redémarrer le serveur pour appliquer les changements. Les directives supplémentaires sont généralement propres projet backend, et peuvent simplement être modifiées sans nécessiter de redémarrage.
+Laravel possède déjà ce fichier rempli par défaut, et il faut tout simplement ajouter une ligne juste en dessous de la ligne "RewriteCond \%{REQUEST\_FILENAME} !-f".
 
 Les "RewriteCond" sont les conditions à respecter pour qu'un "RewriteRule" soit effectué. La réécriture des routes est très importante dans notre cas car elle permet de toujours passer par "index.php". Ce fichier est le point d'entrée de tout le site, et il est nécessaire de passer par cet endroit pour que les bonnes pages soient servies.
 
@@ -1536,7 +1580,7 @@ Avec la nouvelle condition ajoutée, le premier noeud du schéma \ref{protected_
   \caption{aperçu du fichier ".htaccess"}
 \end{figure}
 
-Les autres routes sont donc gérées par le backend Laravel. A ce niveau, la route "/welcome" retourne la page d'accueil et toutes les autres sont gérées par la SPA. Au niveau de la SPA, c'est le routeur Vue qui s'occupe d'afficher les pages et de gérer les pages inexistantes.
+Les autres routes sont donc gérées par le backend Laravel. À ce niveau, la route "/welcome" retourne la page d'accueil et toutes les autres sont gérées par la SPA. Au niveau de la SPA, c'est le routeur Vue qui s'occupe d'afficher les pages et de gérer les pages inexistantes.
 Pour gérer le second noeud, celui de la couche backend, c'est simplement le code dans le fichier "web.php" qui s'en occupe.
 
 Il reste encore une dernière étape pour que Laravel puisse gérer l'authentification avec Shibboleth. Pour cela, il faut installer le paquet "laravel-shibboleth" et suivre la procédure indiquée sur la \href{https://github.com/uabookstores/laravel-shibboleth}{page Github} du paquet.
@@ -1562,7 +1606,7 @@ Un nouveau fichier de configuration est créé sous "config/shibboleth.php". Il 
   \caption{aperçu du fichier "shibboleth.php"}
 \end{figure}
 
-Quand un nouvel utilisateur est créé, son champ "password" dans la base de données est fixé à "shibboleth", pour indiquer qu'il dépend du "Identity provider". Le mot de passe n'est en aucun cas utilisé pour authentifié un utilisateur. Les champs "email", "name" et "surname" sont automatiquement remplis avec les attributs fournis par le fournisseur d'identités.
+Quand un nouvel utilisateur est créé, son champ "password" dans la base de données est rempli avec la valeur "shibboleth", pour indiquer qu'il dépend du "Identity provider". Le mot de passe n'est en aucun cas utilisé pour authentifier un utilisateur. Les champs "email", "name" et "surname" sont automatiquement remplis avec les attributs fournis par le fournisseur d'identités.
 
 \newpage
 Il faut encore apporter un petit changement dans le fichier "config/auth.php" :
@@ -1590,15 +1634,16 @@ Au final, le site principal est accessible uniquement aux utilisateurs authentif
 
 \newpage
 \chapter{Déploiement}
-Le déploiement du site nécessite d'utiliser un serveur HTTP qui tourne en permanance, afin de servir les pages et de répondre aux requêtes entrantes. Mais dans le cadre de ce projet, il faut aussi faire tourner un serveur Websocket et un "Queue worker", qui sert à effectuer les travaux différés de manière asynchrone (emails).
+Le déploiement du site nécessite d'utiliser un serveur HTTP qui tourne en permanance, afin de servir les pages et de répondre aux requêtes entrantes. Mais dans le cadre de ce projet, il faut aussi faire tourner un serveur websocket et un "Queue worker", qui sert à effectuer les travaux différés de manière asynchrone (emails).
 
 Une machine virtuelle de l'école est utilisée à cet effet, avec comme système d'exploitation la version 20.04 d'Ubuntu. Il est possible de s'y connecter à distance via le protocole SSH. Le site est disponible à l'adresse \href{https://tb21-lieberherr.heig-vd.ch}{https://tb21-lieberherr.heig-vd.ch}.
 
 \section{Code source}
 Le code source se trouve sur Github. Il existe deux repos pour l'ensemble du projet : un pour le frontend et l'autre pour le backend.
 Le repo du frontend se trouve à \href{https://github.com/TristanLieberherr/piaf}{cette page}, dans le repo "piaf". Puisqu'il s'agit du fork du site de base, il n'est pas publiquement visible.
+La version du dernier commit est la 5ecb65d.
 
-Le repo du backend se trouve à \href{https://github.com/TristanLieberherr/fablab-website}{cette page}, dans le repo "fablab-website". Ce repo est accessible et visible de tous. Il contient déjà la version compliée du frontend.
+Le repo du backend se trouve à \href{https://github.com/TristanLieberherr/fablab-website}{cette page}, dans le repo "fablab-website". Ce repo est accessible et visible de tous. Il contient déjà la version compliée du frontend. La version du dernier commit est la 2280990.
 
 Pour intégrer la SPA du frontend dans le code du backend, il faut d'abord compiler le projet. Lors de la compilation, les pages et composants Vue sont traduits en HTML, CSS et JavaScript.
 Une fois terminé, le dossier "dist" est rempli avec deux fichiers et un dossier :
@@ -1613,14 +1658,14 @@ Ces trois éléments du dossier "dist" doivent ensuite être déposés dans le d
 
 \newpage
 \section{Serveur Apache et certifical SSL}
-Les détails concernant la configuration du serveur Apache se trouvent dans cette section. Le serveur Apache est un serveur HTTP. Son but est de répondre aux requêtes HTTP qui lui sont envoyées. C'est don un processus qui tourne nuit et jour, et qui fait appel au code du backend pour répondre à ces requêtes. Apache s'occupe plus spécifiquement des requêtes web et API. Le serveur Websocket est une autre entité qui sera abordé dans une autre section.
+Les détails concernant la configuration du serveur Apache se trouvent dans cette section. Le serveur Apache est un serveur HTTP. Son but est de répondre aux requêtes HTTP qui lui sont envoyées. C'est donc un processus qui tourne nuit et jour, et qui fait appel au code du backend pour répondre à ces requêtes. Apache s'occupe plus spécifiquement des requêtes web et API. Le serveur websocket est une autre entité qui sera abordé dans une autre section.
 
 J'ai suivi \href{https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-ubuntu-20-04}{ce tutoriel} pour l'obtention du certificat et de la sécurisation du serveur, ainsi que \href{https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-18-04}{ce tutoriel} pour l'installation basique du serveur.
 Il faut tout d'abord cloner le repo "fablab-website" qui contient le code du backend.
 
 Ensuite, il faut installer Apache 2 et Certbot. Certbot est un exécutable qui automatise l'obtention d'un certifical SSL auprès de l'autorité de certification "Let's Encrypt". L'avantage est qu'en passant par eux, le certificat est gratuit. Ce certificat est nécessaire pour pouvoir utiliser le protocole sécurisé HTTPS.
 
-Avant de lancer Certbot, il faut déjà ajouter quelques lignes dans le fichier de configuration de l'hôte virtuel sous "/etc/apache2/sites-available/000-default-le-ssl.conf". Un hôte virtuel permet à la machine de pouvoir gérer plusieurs serveurs virtuels en même temps, par exemple si plusieurs sites sont hébergés sur la même machine. Dans le cas de ce projet, il n'en a qu'un seul.
+Avant de lancer Certbot, il faut déjà ajouter quelques lignes dans le fichier de configuration de l'hôte virtuel sous "/etc/apache2/sites-available/000-default-le-ssl.conf". Un hôte virtuel permet à la machine de pouvoir gérer plusieurs serveurs virtuels en même temps, par exemple si plusieurs sites sont hébergés sur la même machine. Dans le cas de ce projet, il n'y en a qu'un seul.
 Il faut ajouter les lignes ServerAdmin, DocumentRoot et ServerName, ainsi que configurer ce qui se trouve dans la balise "<Directory /var/www/fablab-website>". Par la suite, il faudra y ajouter quelques lignes pour tenir compte du certificat SSL.
 
 \begin{figure}[h]
@@ -1673,9 +1718,9 @@ Il est à présent nécessaire de l'inclure dans le fichier de configuration.
   \caption{Ajout du certificat au fichier de configuration}
 \end{figure}
 
-Les certificats délivrés par Let's Encrypt ne durent que 90 jours, il faut donc un système pour les renouveler automatiquement. Heureusement, Certbot s'en occupe déjà. Il faut juste s'assurer qu'il fonctionne en faisant un essai à blanc. Il n'y a donc pas besoin de se soucier de la validité du certificat, qui est vérifiée deux fois par jour par le programme.
+Les certificats délivrés par Let's Encrypt ne durent que 90 jours, il faut donc un système pour les renouveler automatiquement. Heureusement, Certbot s'en occupe déjà. Il n'y a donc pas besoin de se soucier de la validité du certificat, qui est vérifiée deux fois par jour par le programme. Il faut juste s'assurer qu'il fonctionne en faisant un essai à blanc.
 
-Pour finir, il faut reprendre le fichier ".htaccess" et y ajouter une dernière directive pour limiter la taille des reqûetes à 5 MB, limite fixée pour l'envoi des fichiers. Il suffit simplement d'ajouter une ligne vers la fin du fichier :
+Pour finir, il faut reprendre le fichier ".htaccess" et y ajouter une dernière directive pour limiter la taille des requêtes à 5 MB, limite fixée pour l'envoi des fichiers. Il suffit simplement d'ajouter une ligne vers la fin du fichier :
 
 \begin{figure}[h]
   \begin{minted}[breaklines]{python}
@@ -1688,14 +1733,14 @@ Pour finir, il faut reprendre le fichier ".htaccess" et y ajouter une dernière 
   \caption{Ajout de la limite d'upload}
 \end{figure}
 
-Désormais, les requêtes HTTP passent en HTTPS, et si le navigateur Chrome est utilisé, un icone de verrou indique que la navigation est sécurisée.
+Désormais, les requêtes HTTP passent en HTTPS, et si le navigateur Chrome est utilisé, un icône de verrou indique que la navigation est sécurisée.
 
 \newpage
 \section{Processus supervisés}
-Pour que le système soit totalement fonctionnel, il a besoin de deux autres services : le serveur Websocket et le "Queue worker", qui est le precessus qui s'occupe d'effectuer les travaux différés de manière asynchrone, pour les emails. Pour qu'ils puissent tourner en permanence et qu'ils soient capables de se relancer en cas d'erreur, il faut faire appel à un logiciel de contrôle de processus.
+Pour que le système soit totalement fonctionnel, il a besoin de deux autres services : le serveur websocket et le "Queue worker", qui est le precessus qui s'occupe d'effectuer les travaux différés de manière asynchrone, pour les emails. Pour qu'ils puissent tourner en permanence et qu'ils soient capables de se relancer en cas d'erreur, il faut faire appel à un logiciel de contrôle de processus.
 Ce logiciel s'appelle Supervisor.
 
-Une fois installer, il faut créer deux nouveaux fichiers qui correspondent aux deux services qu'il faut gérer. Les fichiers s'appellent "laravel-queue.conf" et "laravel-websocket.conf", situés sous "/etc/supervisor/conf.d". Ces fichiers contiennent la configuration de chaque service.
+Une fois l'installation terminée, il faut créer deux nouveaux fichiers qui correspondent aux deux services qu'il faut gérer. Les fichiers s'appellent "laravel-queue.conf" et "laravel-websocket.conf", situés sous "/etc/supervisor/conf.d". Ces fichiers contiennent la configuration de chaque service.
 
 \begin{figure}[h]
   \begin{minted}[breaklines]{python}
@@ -1720,14 +1765,18 @@ Une fois installer, il faut créer deux nouveaux fichiers qui correspondent aux 
   autorestart=true
   numprocs=1
   \end{minted}
-  \caption{laravel-websocket.queue}
+  \caption{laravel-websocket.conf}
 \end{figure}
 
 Tant que Supervisor est en service, il va s'occuper de ces processus. En cas de souci, ils sont redémarrés automatiquement. Si nécessaire, il est possible de créer plusieurs processus par service, mais ce n'est pas le cas pour ce projet.
 
-
 \newpage
 \chapter{Conclusion}
+
+
+
+
+
 \chapter{Introduction}
 L'introduction est une section requise dans un rapport technique. Introduisez votre travail, l'idée de départ et les objectifs attendus. Un lecteur qui découvrirait votre projet au travers de cette introduction devrait ainsi être capable d'en comprendre le cadre, l'idée générale et les aboutissants du projet.
 
@@ -1899,12 +1948,81 @@ Il est de coutume de signer la conclusion...
 
 %%if
 \chapter{Première annexe}
-\section{code.php}
+Cette annexe contient quelques fichiers sources détaillants l'utilisation de l'API.
 
-\begin{listing}[h]
-  \inputminted[breaklines]{php}{assets/figures/php.php}
-  \caption{Génération}
-\end{listing}
+\section{Code source backend}
+
+\begin{figure}[h]
+  \inputminted[breaklines]{javascript}{assets/code/2014_10_12_000000_create_users_table.php}
+  \caption{2014\_10\_12\_000000\_create\_users\_table.php}
+\end{figure}
+
+\begin{figure}[h]
+  \inputminted[breaklines]{javascript}{assets/code/2019_08_19_000000_create_failed_jobs_table.php}
+  \caption{2019\_08\_19\_000000\_create\_failed\_jobs\_table.php}
+\end{figure}
+
+\begin{figure}[h]
+  \inputminted[breaklines]{javascript}{assets/code/2021_04_01_075350_create_jobs_table.php}
+  \caption{2021\_04\_01\_075350\_create\_jobs\_table.php}
+\end{figure}
+
+\begin{figure}[h]
+  \inputminted[breaklines]{javascript}{assets/code/2021_04_23_123136_create_files_table.php}
+  \caption{2021\_04\_23\_123136\_create\_files\_table.php}
+\end{figure}
+
+\begin{figure}[h]
+  \inputminted[breaklines]{javascript}{assets/code/2021_04_28_140349_create_timeline_events_table.php}
+  \caption{2021\_04\_28\_140349\_create\_timeline\_events\_table.php}
+\end{figure}
+
+\begin{figure}[h]
+  \inputminted[breaklines]{javascript}{assets/code/2021_05_26_122557_create_jobsQueue_table.php}
+  \caption{2021\_05\_26\_122557\_create\_jobsQueue_table.php}
+\end{figure}
+
+\begin{figure}[h]
+  \inputminted[breaklines]{javascript}{assets/code/2021_05_30_144810_create_messages_table.php}
+  \caption{2021\_05\_30\_144810\_create\_messages\_table.php}
+\end{figure}
+
+\begin{figure}[h]
+  \inputminted[breaklines]{javascript}{assets/code/api.php}
+  \caption{api.php}
+\end{figure}
+
+\begin{figure}[h]
+  \inputminted[breaklines]{javascript}{assets/code/web.php}
+  \caption{web.php}
+\end{figure}
+
+\begin{figure}[h]
+  \inputminted[breaklines]{javascript}{assets/code/FileController.php}
+  \caption{FileController.php}
+\end{figure}
+
+\begin{figure}[h]
+  \inputminted[breaklines]{javascript}{assets/code/JobController.php}
+  \caption{JobController.php}
+\end{figure}
+
+\begin{figure}[h]
+  \inputminted[breaklines]{javascript}{assets/code/MessageController.php}
+  \caption{MessageController.php}
+\end{figure}
+
+\begin{figure}[h]
+  \inputminted[breaklines]{javascript}{assets/code/UserController.php}
+  \caption{UserController.php}
+\end{figure}
+
+\section{Code source frontend}
+
+\begin{figure}[h]
+  \inputminted[breaklines]{javascript}{assets/code/index.js}
+  \caption{index.js}
+\end{figure}
 
 Les annexes n'ont pas un contenu \underline{normatif} mais \underline{descriptif}. Tout contenu annexé ne doit pas être nécessaire à la bonne compréhension du travail.
 
